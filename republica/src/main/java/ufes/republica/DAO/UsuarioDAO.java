@@ -33,8 +33,8 @@ public class UsuarioDAO {
         ResultSet rs = null;
         try {            
             ps = conn.prepareStatement("select * from usuarios where id = ? and senha = ?");
-            ps.setString(1, usuario.getIdentificacao());
-            ps.setString(2, usuario.getSenha());
+            //ps.setString(1, usuario.getIdentificacao());
+            //ps.setString(2, usuario.getSenha());
             rs = ps.executeQuery();
             if (!rs.next()) {                                
                 return false;                
@@ -61,10 +61,10 @@ public class UsuarioDAO {
             String SQL = "INSERT INTO usuarios (id, nome, tipo, senha) values (?, ?, ?, ?);";
                                
             ps = conn.prepareStatement(SQL);
-            ps.setString(1, usuario.getIdentificacao());
-            ps.setString(2, usuario.getNome());
-            ps.setString(3, usuario.getTipo());
-            ps.setString(4, usuario.getSenha());            
+            //ps.setString(1, usuario.getIdentificacao());
+            //ps.setString(2, usuario.getNome());
+            //ps.setString(3, usuario.getTipo());
+            //ps.setString(4, usuario.getSenha());            
             ps.executeUpdate();
                                   
         } catch (SQLException sqle) {
@@ -86,9 +86,9 @@ public class UsuarioDAO {
             
             ps = conn.prepareStatement(SQL);
             ps.setString(1, usuario.getNome());
-            ps.setString(2, usuario.getTipo());
-            ps.setString(3, usuario.getSenha());
-            ps.setString(4, usuario.getIdentificacao());
+            //ps.setString(2, usuario.getTipo());
+            //ps.setString(3, usuario.getSenha());
+            //ps.setString(4, usuario.getIdentificacao());
             ps.executeUpdate();
             
         } catch (SQLException sqle) {
@@ -106,7 +106,7 @@ public class UsuarioDAO {
         }
         try {            
             ps = conn.prepareStatement("delete from usuarios where id = ?");
-            ps.setString(1, usuario.getIdentificacao());
+            //ps.setString(1, usuario.getIdentificacao());
             ps.executeUpdate();
                         
         } catch (SQLException sqle) {
