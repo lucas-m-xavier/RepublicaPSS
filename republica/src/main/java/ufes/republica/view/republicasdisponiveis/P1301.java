@@ -5,7 +5,6 @@
  */
 package ufes.republica.view.republicasdisponiveis;
 
-
 /**
  *
  * @author bruno
