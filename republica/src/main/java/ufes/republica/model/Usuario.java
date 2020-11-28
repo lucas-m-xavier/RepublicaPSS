@@ -5,44 +5,47 @@
  */
 package ufes.republica.model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Lucas
  */
 public class Usuario {
-    private String nome;
+    private final String nome;
     
     private String apelido;
     
     private String telefone;
     
-    private String cpf;
+    private final String cpf;
     
     private String sociais;
+    
+    private String email;
+    
+    private String senha;
     
     private String responsavel1;
     
     private String responsavel2;
+    
+    private ArrayList<Historico> historico = new ArrayList<>();
 
-    public Usuario() {
-    }
-
-    public Usuario(String nome, String apelido, String telefone, String cpf, String sociais, String responsavel1, String responsavel2) {
+    public Usuario(String nome, String apelido, String telefone, String cpf, String sociais, String email, String senha, String responsavel1, String responsavel2) {
         this.nome = nome;
         this.apelido = apelido;
         this.telefone = telefone;
         this.cpf = cpf;
         this.sociais = sociais;
+        this.email = email;
+        this.senha = senha;
         this.responsavel1 = responsavel1;
         this.responsavel2 = responsavel2;
     }
     
     public String getNome() {
         return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     public String getApelido() {
@@ -63,10 +66,6 @@ public class Usuario {
 
     public String getCpf() {
         return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
     }
 
     public String getSociais() {
@@ -91,5 +90,29 @@ public class Usuario {
 
     public void setResponsavel2(String responsavel2) {
         this.responsavel2 = responsavel2;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public ArrayList<Historico> getHistorico() {
+        return historico;
+    }
+
+    public void setHistorico(ArrayList<Historico> historico) {
+        this.historico = historico;
     }
 }
