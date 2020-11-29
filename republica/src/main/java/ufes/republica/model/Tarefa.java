@@ -6,6 +6,7 @@
 package ufes.republica.model;
 
 import java.time.LocalDate;
+import ufes.republica.business.state.tarefa_state.TarefaState;
 
 /**
  *
@@ -19,6 +20,8 @@ public class Tarefa {
     private LocalDate dataTermino;
     
     private Usuario usuario;
+    
+    private TarefaState estado;
 
     public Tarefa(LocalDate dataAgendamento, String descricao, LocalDate dataTermino, Usuario usuario) {
         this.dataAgendamento = dataAgendamento;
@@ -55,6 +58,12 @@ public class Tarefa {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-    
-    
+
+    public TarefaState getEstado() {
+        return estado;
+    }
+
+    public void setEstado(TarefaState estado) {
+        this.estado = estado;
+    }
 }

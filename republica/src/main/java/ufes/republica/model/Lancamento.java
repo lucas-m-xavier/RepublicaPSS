@@ -6,6 +6,8 @@
 package ufes.republica.model;
 
 import java.time.LocalDate;
+import ufes.republica.business.state.lancamento_state.EstadoIndeferido;
+import ufes.republica.business.state.lancamento_state.LancamentoState;
 
 /**
  *
@@ -25,6 +27,8 @@ public class Lancamento {
     private String tipo;
     
     private Rateio rateio;
+    
+    private LancamentoState estado;
 
     public Lancamento(String descricao, LocalDate dataVencimento, double valor, String periodicidade, double valorParcela, String tipo, Rateio rateio) {
         this.descricao = descricao;
@@ -34,6 +38,7 @@ public class Lancamento {
         this.valorParcela = valorParcela;
         this.tipo = tipo;
         this.rateio = rateio;
+        this.estado = new EstadoIndeferido(this);
     }
     
     public String getDescricao() {
@@ -90,5 +95,13 @@ public class Lancamento {
 
     public void setRateio(Rateio rateio) {
         this.rateio = rateio;
+    }
+
+    public LancamentoState getEstado() {
+        return estado;
+    }
+
+    public void setEstado(LancamentoState estado) {
+        this.estado = estado;
     }
 }

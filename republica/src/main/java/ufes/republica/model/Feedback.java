@@ -7,6 +7,8 @@ package ufes.republica.model;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import ufes.republica.business.state.feedback_state.EstadoEmAberto;
+import ufes.republica.business.state.feedback_state.FeedbackState;
 
 /**
  *
@@ -22,12 +24,15 @@ public class Feedback {
     private long idade;
     //LIST DE USUARIOS????
     private final Usuario usuario;
+    
+    private FeedbackState estado;
 
     public Feedback(String descricao, Usuario usuario) {
         this.descricao = descricao;
         this.usuario = usuario;
         this.dataCriacao = LocalDate.now();
         this.dataSolucao = null;
+        this.estado = new EstadoEmAberto(this);
     }
     
     public final void concluirFeedback() {
@@ -54,5 +59,13 @@ public class Feedback {
 
     public Usuario getUsuario() {
         return usuario;
+    }
+
+    public FeedbackState getEstado() {
+        return estado;
+    }
+
+    public void setEstado(FeedbackState estado) {
+        this.estado = estado;
     }
 }

@@ -8,6 +8,8 @@ package ufes.republica.model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
+import ufes.republica.business.state.republica_state.EstadoAberta;
+import ufes.republica.business.state.republica_state.RepublicaState;
 
 /**
  *
@@ -25,6 +27,7 @@ public class Republica {
     private int vagasDisponiveis;
     private double saldoTotal;
     private String codEtica;
+    private RepublicaState estado;
     private ArrayList<Usuario> moradores = new ArrayList<>();
     private ArrayList<Historico> historico = new ArrayList<>();
 
@@ -40,6 +43,7 @@ public class Republica {
         this.fundacao = LocalDate.now();
         this.extincao = null;
         this.vagasDisponiveis = vagasTotais - vagasOcupadas;
+        this.estado = new EstadoAberta(this);
     }
     
     public void addMorador(Usuario morador) {
@@ -70,10 +74,10 @@ public class Republica {
         return moradorEncontrado;
     }
     
-    public void removerMorador(String nomeMorador) {
-        Optional<Usuario> moradorEncontrado = getMoradorPorNome(nomeMorador);
+    public void removerMorador(Usuario usuario) {
+        Optional<Usuario> moradorEncontrado = getMoradorPorNome(usuario.getNome());
         if(!moradorEncontrado.isPresent()) {
-            throw new RuntimeException("Morador " + nomeMorador + " não encontrado!");
+            throw new RuntimeException("Morador " + /*nomeMorador +*/ " não encontrado!");
         }
         //HistoricoMorador historico = new HistoricoMorador(this);
         //moradorEncontrado.get().getHistorico().add(historico);
@@ -179,5 +183,13 @@ public class Republica {
 
     public void setHistorico(ArrayList<Historico> historico) {
         this.historico = historico;
+    }
+
+    public RepublicaState getEstado() {
+        return estado;
+    }
+
+    public void setEstado(RepublicaState estado) {
+        this.estado = estado;
     }
 }

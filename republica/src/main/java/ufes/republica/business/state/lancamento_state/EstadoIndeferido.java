@@ -11,18 +11,13 @@ import ufes.republica.model.Lancamento;
  *
  * @author Lucas
  */
-public abstract class LancamentoState {
-    private Lancamento lancamento;
-    
-    public LancamentoState(Lancamento lancamento) {
-        this.lancamento = lancamento;
+public class EstadoIndeferido extends LancamentoState {
+    public EstadoIndeferido(Lancamento lancamento) {
+        super(lancamento);
     }
     
+    @Override
     public void aprovar() {
-        throw new RuntimeException("Um lançamento só pode ser aprovado se estiver indeferido!");
-    }
-
-    public Lancamento getLancamento() {
-        return lancamento;
+        this.getLancamento().setEstado(new EstadoAprovado(this.getLancamento()));
     }
 }
