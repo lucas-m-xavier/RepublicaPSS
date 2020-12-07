@@ -16,7 +16,6 @@ public class EstadoAprovado extends LancamentoState {
     private Lancamento lancamento;
 
     public EstadoAprovado(Lancamento lancamento) {
-        this.lancamento = lancamento;
+        super(lancamento);
     }
-
 }
