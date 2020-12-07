@@ -5,9 +5,9 @@
  */
 package ufes.republica.view.manterrepublica;
 
+import static ufes.republica.view.TelaInicial.Desktop;
 import ufes.republica.view.mantermoradores.P0202;
 import ufes.republica.view.mantermoradores.P0201;
-import static view.TelaInicial.Desktop;
 
 /**
  *

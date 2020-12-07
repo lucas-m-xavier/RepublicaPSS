@@ -22,7 +22,7 @@ public class Feedback {
     private LocalDate dataSolucao;
     
     private long idade;
-    //LIST DE USUARIOS????
+    
     private final Usuario usuario;
 
     private boolean EXCLUIDA;
@@ -36,31 +36,29 @@ public class Feedback {
         this.dataSolucao = null;
         this.estado = new EstadoEmAberto(this);
     }
-    
-    public final void concluirFeedback() {
-        //MUDAR ESTADO
-        this.dataSolucao = LocalDate.now();
-        this.idade = ChronoUnit.DAYS.between(dataSolucao, dataCriacao);
-    }
-
-    public LocalDate getDataCriacao() {
-        return dataCriacao;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
 
     public LocalDate getDataSolucao() {
         return dataSolucao;
+    }
+
+    public void setDataSolucao(LocalDate dataSolucao) {
+        this.dataSolucao = dataSolucao;
     }
 
     public long getIdade() {
         return idade;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public void setIdade(long idade) {
+        this.idade = idade;
+    }
+
+    public boolean isEXCLUIDA() {
+        return EXCLUIDA;
+    }
+
+    public void setEXCLUIDA(boolean EXCLUIDA) {
+        this.EXCLUIDA = EXCLUIDA;
     }
 
     public FeedbackState getEstado() {
@@ -71,11 +69,15 @@ public class Feedback {
         this.estado = estado;
     }
 
-    public boolean isEXCLUIDA() {
-        return EXCLUIDA;
+    public LocalDate getDataCriacao() {
+        return dataCriacao;
     }
 
-    public void setEXCLUIDA(boolean EXCLUIDA) {
-        this.EXCLUIDA = EXCLUIDA;
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
     }
 }

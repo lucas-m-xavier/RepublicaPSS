@@ -13,7 +13,7 @@ import ufes.republica.enums.EnumUF;
  */
 public class Endereco {
     private final String cep;
-    //VAI SER POSSIVEL ALTERAR UM ENDEREÇO?
+    
     private final String bairro;
     
     private final String referencia;

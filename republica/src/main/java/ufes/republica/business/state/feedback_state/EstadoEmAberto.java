@@ -5,6 +5,8 @@
  */
 package ufes.republica.business.state.feedback_state;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import ufes.republica.model.Feedback;
 
 /**
@@ -20,5 +22,7 @@ public class EstadoEmAberto extends FeedbackState{
     @Override
     public void concluirFeedback() {
         this.getFeedback().setEstado(new EstadoConcluido(this.getFeedback()));
+        this.getFeedback().setDataSolucao(LocalDate.now());
+        this.getFeedback().setIdade(ChronoUnit.DAYS.between(this.getFeedback().getDataSolucao(), this.getFeedback().getDataCriacao()));
     }
 }

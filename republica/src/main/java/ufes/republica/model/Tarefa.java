@@ -29,11 +29,6 @@ public class Tarefa {
         this.dataTermino = dataTermino;
         this.usuario = usuario;
     }
-    
-    public final void finalizarTarefa() {
-        //Alterar estado
-        this.dataTermino = LocalDate.now();
-    }
 
     public LocalDate getDataAgendamento() {
         return dataAgendamento;
