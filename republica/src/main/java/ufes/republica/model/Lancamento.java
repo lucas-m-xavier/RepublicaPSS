@@ -6,6 +6,7 @@
 package ufes.republica.model;
 
 import java.time.LocalDate;
+import ufes.republica.business.memento.lancamento_memento.MementoLancamento;
 import ufes.republica.business.state.lancamento_state.EstadoIndeferido;
 import ufes.republica.business.state.lancamento_state.LancamentoState;
 
@@ -14,20 +15,21 @@ import ufes.republica.business.state.lancamento_state.LancamentoState;
  * @author Lucas
  */
 public class Lancamento {
+
     private String descricao;
-    
+
     private LocalDate dataVencimento;
-    
+
     private double valor;
-    
+
     private String periodicidade;
-    
+
     private double valorParcela;
-    
+
     private String tipo;
-    
+
     private Rateio rateio;
-    
+
     private LancamentoState estado;
 
     public Lancamento(String descricao, LocalDate dataVencimento, double valor, String periodicidade, double valorParcela, String tipo, Rateio rateio) {
@@ -40,7 +42,22 @@ public class Lancamento {
         this.rateio = rateio;
         this.estado = new EstadoIndeferido(this);
     }
-    
+
+    public MementoLancamento criar() {
+        return new MementoLancamento(this.descricao, this.dataVencimento, this.valor, this.periodicidade, this.valorParcela, this.tipo, this.rateio, this.estado);
+    }
+
+    public void restaurar(MementoLancamento mementoLancamento) {
+        this.descricao = mementoLancamento.getDescricao();
+        this.dataVencimento = mementoLancamento.getDataVencimento();
+        this.valor = mementoLancamento.getValor();
+        this.periodicidade = mementoLancamento.getPeriodicidade();
+        this.valorParcela = mementoLancamento.getValorParcela();
+        this.tipo = mementoLancamento.getTipo();
+        this.rateio = mementoLancamento.getRateio();
+        this.estado = mementoLancamento.getEstado();
+    }
+
     public String getDescricao() {
         return descricao;
     }
