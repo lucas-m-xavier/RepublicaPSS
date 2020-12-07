@@ -30,6 +30,8 @@ public class Usuario {
     
     private String responsavel2;
     
+    
+    
     private ArrayList<Historico> historico = new ArrayList<>();
 
     public Usuario(String nome, String apelido, String telefone, String cpf, String sociais, String email, String senha, String responsavel1, String responsavel2) {
