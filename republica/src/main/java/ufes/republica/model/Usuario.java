@@ -6,32 +6,32 @@
 package ufes.republica.model;
 
 import java.util.ArrayList;
+import ufes.republica.business.memento.usuario_memento.MementoUsuario;
 
 /**
  *
  * @author Lucas
  */
 public class Usuario {
-    private final String nome;
-    
+
+    private String nome;
+
     private String apelido;
-    
+
     private String telefone;
-    
+
     private final String cpf;
-    
+
     private String sociais;
-    
+
     private String email;
-    
+
     private String senha;
-    
+
     private String responsavel1;
-    
+
     private String responsavel2;
-    
-    
-    
+
     private ArrayList<Historico> historico = new ArrayList<>();
 
     public Usuario(String nome, String apelido, String telefone, String cpf, String sociais, String email, String senha, String responsavel1, String responsavel2) {
@@ -45,7 +45,22 @@ public class Usuario {
         this.responsavel1 = responsavel1;
         this.responsavel2 = responsavel2;
     }
-    
+
+    public MementoUsuario criar() {
+        return new MementoUsuario(this.nome, this.apelido, this.telefone, this.cpf, this.sociais, this.email, this.senha, this.responsavel1, this.responsavel2);
+    }
+
+    public void restaurar(MementoUsuario mementoUsuario) {
+        this.nome = mementoUsuario.getNome();
+        this.apelido = mementoUsuario.getApelido();
+        this.telefone = mementoUsuario.getTelefone();
+        this.sociais = mementoUsuario.getSociais();
+        this.email = mementoUsuario.getEmail();
+        this.senha = mementoUsuario.getSenha();
+        this.responsavel1 = mementoUsuario.getResponsavel1();
+        this.responsavel2 = mementoUsuario.getResponsavel2();
+    }
+
     public String getNome() {
         return nome;
     }

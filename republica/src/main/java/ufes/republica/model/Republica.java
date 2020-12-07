@@ -8,6 +8,7 @@ package ufes.republica.model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
+import ufes.republica.business.memento.republica_memento.MementoRepublica;
 import ufes.republica.business.state.republica_state.EstadoAberta;
 import ufes.republica.business.state.republica_state.RepublicaState;
 
@@ -16,6 +17,7 @@ import ufes.republica.business.state.republica_state.RepublicaState;
  * @author Lucas
  */
 public class Republica {
+
     private String nome;
     private final LocalDate fundacao;
     private LocalDate extincao;
@@ -45,44 +47,64 @@ public class Republica {
         this.vagasDisponiveis = vagasTotais - vagasOcupadas;
         this.estado = new EstadoAberta(this);
     }
-    
+
+    public MementoRepublica criar() {
+        return new MementoRepublica(this.nome, this.fundacao, this.extincao, this.endereco, this.vantagens, this.despesasMedias, this.vagasTotais, this.vagasOcupadas, this.vagasDisponiveis, this.saldoTotal, this.codEtica, this.estado);
+    }
+
+    public void restaurar(MementoRepublica mementoRepublica) {
+        this.nome = mementoRepublica.getNome();
+        this.endereco = mementoRepublica.getEndereco();
+        this.vantagens = mementoRepublica.getVantagens();
+        this.despesasMedias = mementoRepublica.getDespesasMedias();
+        this.vagasTotais = mementoRepublica.getVagasTotais();
+        this.vagasOcupadas = mementoRepublica.getVagasOcupadas();
+        this.saldoTotal = mementoRepublica.getSaldoTotal();
+        this.codEtica = mementoRepublica.getCodEtica();
+        this.extincao = mementoRepublica.getExtincao();
+        this.vagasDisponiveis = mementoRepublica.getVagasDisponiveis();
+        this.estado = mementoRepublica.getEstado();
+    }
+
     public void addMorador(Usuario morador) {
         if (morador == null) {
             throw new RuntimeException("Morador não pode ser nulo!");
         }
-        
+
         if (this.vagasDisponiveis > 0) {
             Optional<Usuario> moradorEncontrado = getMoradorPorNome(morador.getNome());
-            if(!moradorEncontrado.isPresent()) {
+            if (!moradorEncontrado.isPresent()) {
                 moradores.add(morador);
-                this.vagasDisponiveis--;this.vagasOcupadas++;
-            }   else {
+                this.vagasDisponiveis--;
+                this.vagasOcupadas++;
+            } else {
                 throw new RuntimeException("Morador já está em uma república");
             }
-        }   else {
+        } else {
             throw new RuntimeException("Republica cheia");
         }
     }
-    
+
     public Optional<Usuario> getMoradorPorNome(String nome) {
         Optional<Usuario> moradorEncontrado = Optional.empty();
-        for(Usuario morador : this.getMoradores()) {
+        for (Usuario morador : this.getMoradores()) {
             if (morador.getNome().toUpperCase().equals(nome.toUpperCase())) {
                 moradorEncontrado = Optional.of(morador);
             }
         }
         return moradorEncontrado;
     }
-    
+
     public void removerMorador(Usuario usuario) {
         Optional<Usuario> moradorEncontrado = getMoradorPorNome(usuario.getNome());
-        if(!moradorEncontrado.isPresent()) {
+        if (!moradorEncontrado.isPresent()) {
             throw new RuntimeException("Morador " + /*nomeMorador +*/ " não encontrado!");
         }
         //HistoricoMorador historico = new HistoricoMorador(this);
         //moradorEncontrado.get().getHistorico().add(historico);
         this.getMoradores().remove(moradorEncontrado.get());
-        this.vagasDisponiveis++;this.vagasOcupadas--;
+        this.vagasDisponiveis++;
+        this.vagasOcupadas--;
     }
 
     public String getNome() {
