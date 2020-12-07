@@ -5,10 +5,15 @@
  */
 package ufes.republica.business.command;
 
+import ufes.republica.business.memento.usuario_memento.MementoUsuario;
+
 /**
  *
  * @author 55289
  */
-public interface CommandMemento {
-    
+public interface CommandMementoUsuario {
+
+    public MementoUsuario criar();
+
+    public void restaurar(MementoUsuario mementoUsuario);
 }

@@ -21,4 +21,6 @@ public class EstadoIndeferido extends LancamentoState {
     public void aprovarLancamento() {
         this.getLancamento().setEstado(new EstadoAprovado(this.getLancamento()));
     }
+
+    
 }

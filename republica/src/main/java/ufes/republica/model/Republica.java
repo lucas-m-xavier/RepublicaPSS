@@ -8,6 +8,7 @@ package ufes.republica.model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
+import ufes.republica.business.command.CommandMementoRepublica;
 import ufes.republica.business.memento.republica_memento.MementoRepublica;
 import ufes.republica.business.state.republica_state.EstadoAberta;
 import ufes.republica.business.state.republica_state.RepublicaState;
@@ -16,7 +17,7 @@ import ufes.republica.business.state.republica_state.RepublicaState;
  *
  * @author Lucas
  */
-public class Republica {
+public class Republica implements CommandMementoRepublica{
 
     private String nome;
     private final LocalDate fundacao;
@@ -48,10 +49,12 @@ public class Republica {
         this.estado = new EstadoAberta(this);
     }
 
+    @Override
     public MementoRepublica criar() {
         return new MementoRepublica(this.nome, this.fundacao, this.extincao, this.endereco, this.vantagens, this.despesasMedias, this.vagasTotais, this.vagasOcupadas, this.vagasDisponiveis, this.saldoTotal, this.codEtica, this.estado);
     }
 
+    @Override
     public void restaurar(MementoRepublica mementoRepublica) {
         this.nome = mementoRepublica.getNome();
         this.endereco = mementoRepublica.getEndereco();

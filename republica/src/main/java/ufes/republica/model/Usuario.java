@@ -6,6 +6,7 @@
 package ufes.republica.model;
 
 import java.util.ArrayList;
+import ufes.republica.business.command.CommandMementoUsuario;
 import ufes.republica.business.memento.usuario_memento.MementoUsuario;
 import ufes.republica.business.state.usuario_state.UsuarioState;
 
@@ -13,7 +14,7 @@ import ufes.republica.business.state.usuario_state.UsuarioState;
  *
  * @author Lucas
  */
-public class Usuario {
+public class Usuario implements CommandMementoUsuario{
 
     private String nome;
 
@@ -51,10 +52,12 @@ public class Usuario {
         this.responsavel2 = responsavel2;
     }
 
+    @Override
     public MementoUsuario criar() {
         return new MementoUsuario(this.nome, this.apelido, this.telefone, this.cpf, this.sociais, this.email, this.senha, this.responsavel1, this.responsavel2);
     }
 
+    @Override
     public void restaurar(MementoUsuario mementoUsuario) {
         this.nome = mementoUsuario.getNome();
         this.apelido = mementoUsuario.getApelido();

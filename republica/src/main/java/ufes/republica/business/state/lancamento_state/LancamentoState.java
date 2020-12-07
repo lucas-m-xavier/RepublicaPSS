@@ -11,7 +11,7 @@ import ufes.republica.model.Lancamento;
  *
  * @author Lucas
  */
-public abstract class LancamentoState {
+public abstract class LancamentoState{
     private Lancamento lancamento;
     
     public LancamentoState(Lancamento lancamento) {
