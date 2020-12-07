@@ -5,6 +5,7 @@
  */
 package ufes.republica.business.state.usuario_state;
 
+import ufes.republica.model.Republica;
 import ufes.republica.model.Usuario;
 
 /**
@@ -15,6 +16,12 @@ public class EstadoSemTeto extends UsuarioState {
 
     public EstadoSemTeto(Usuario usuario) {
         super(usuario);
+    }
+
+    @Override
+    public void criarRepublica(Republica republica) {
+        this.getUsuario().setUsuarioState(new EstadoRepresentante(this.getUsuario()));
+        this.getUsuario().setRepublica(republica);
     }
 
 }

@@ -17,9 +17,9 @@ public abstract class LancamentoState {
     public LancamentoState(Lancamento lancamento) {
         this.lancamento = lancamento;
     }
-    
-    public void aprovar() {
-        throw new RuntimeException("Um lançamento só pode ser aprovado se estiver indeferido!");
+
+    public void aprovarLancamento() {
+        throw new RuntimeException("Um lançamento só pode ser aprovado se ele estiver indeferido!");
     }
 
     public Lancamento getLancamento() {

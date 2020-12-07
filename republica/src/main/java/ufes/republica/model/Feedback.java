@@ -24,6 +24,8 @@ public class Feedback {
     private long idade;
     //LIST DE USUARIOS????
     private final Usuario usuario;
+
+    private boolean EXCLUIDA;
     
     private FeedbackState estado;
 
@@ -67,5 +69,13 @@ public class Feedback {
 
     public void setEstado(FeedbackState estado) {
         this.estado = estado;
+    }
+
+    public boolean isEXCLUIDA() {
+        return EXCLUIDA;
+    }
+
+    public void setEXCLUIDA(boolean EXCLUIDA) {
+        this.EXCLUIDA = EXCLUIDA;
     }
 }

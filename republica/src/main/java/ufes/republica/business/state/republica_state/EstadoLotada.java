@@ -5,6 +5,8 @@
  */
 package ufes.republica.business.state.republica_state;
 
+import ufes.republica.business.state.usuario_state.EstadoMorador;
+import ufes.republica.business.state.usuario_state.EstadoRepresentante;
 import ufes.republica.model.Republica;
 import ufes.republica.model.Usuario;
 
@@ -25,5 +27,15 @@ public class EstadoLotada extends RepublicaState {
     @Override
     public void removerMorador(Usuario usuario) {
         this.getRepublica().removerMorador(usuario);
+    }
+
+    @Override
+    public void sortearRepresentante() {
+        for (Usuario usuario : this.getRepublica().getMoradores()) {
+            if(usuario.getUsuarioState() instanceof EstadoMorador) {
+                usuario.setUsuarioState(new EstadoRepresentante(usuario));
+                break;
+            }
+        }
     }
 }

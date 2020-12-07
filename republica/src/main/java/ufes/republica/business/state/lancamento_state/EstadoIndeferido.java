@@ -12,12 +12,13 @@ import ufes.republica.model.Lancamento;
  * @author Lucas
  */
 public class EstadoIndeferido extends LancamentoState {
+
     public EstadoIndeferido(Lancamento lancamento) {
         super(lancamento);
     }
-    
+
     @Override
-    public void aprovar() {
+    public void aprovarLancamento() {
         this.getLancamento().setEstado(new EstadoAprovado(this.getLancamento()));
     }
 }

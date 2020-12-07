@@ -7,6 +7,7 @@ package ufes.republica.model;
 
 import java.util.ArrayList;
 import ufes.republica.business.memento.usuario_memento.MementoUsuario;
+import ufes.republica.business.state.usuario_state.UsuarioState;
 
 /**
  *
@@ -31,6 +32,10 @@ public class Usuario {
     private String responsavel1;
 
     private String responsavel2;
+
+    private UsuarioState usuarioState;
+
+    private Republica republica;
 
     private ArrayList<Historico> historico = new ArrayList<>();
 
@@ -131,5 +136,21 @@ public class Usuario {
 
     public void setHistorico(ArrayList<Historico> historico) {
         this.historico = historico;
+    }
+
+    public UsuarioState getUsuarioState() {
+        return usuarioState;
+    }
+
+    public void setUsuarioState(UsuarioState usuarioState) {
+        this.usuarioState = usuarioState;
+    }
+
+    public Republica getRepublica() {
+        return republica;
+    }
+
+    public void setRepublica(Republica republica) {
+        this.republica = republica;
     }
 }

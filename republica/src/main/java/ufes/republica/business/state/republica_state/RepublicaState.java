@@ -31,6 +31,10 @@ public abstract class RepublicaState {
         throw new RuntimeException("Uma república já extinta não pode remover moradores!");
     }
 
+    public void sortearRepresentante() {
+        throw new RuntimeException("Uma república já extinta não pode sortear um representante!");
+    }
+
     public Republica getRepublica() {
         return republica;
     }

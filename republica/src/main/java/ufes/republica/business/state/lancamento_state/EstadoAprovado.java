@@ -12,7 +12,9 @@ import ufes.republica.model.Lancamento;
  * @author Lucas
  */
 public class EstadoAprovado extends LancamentoState{
+
     public EstadoAprovado(Lancamento lancamento) {
         super(lancamento);
     }
+
 }
