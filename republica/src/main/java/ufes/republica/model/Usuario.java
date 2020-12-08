@@ -5,6 +5,7 @@
  */
 package ufes.republica.model;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import ufes.republica.business.command.CommandMementoUsuario;
 import ufes.republica.business.memento.usuario_memento.MementoUsuario;
@@ -37,6 +38,14 @@ public class Usuario implements CommandMementoUsuario{
     private UsuarioState usuarioState;
 
     private Republica republica;
+
+    private ArrayList<Reputacao> reputacao = new ArrayList<>();
+
+    private ArrayList<Feedback> feedbacks = new ArrayList<>();
+
+    private ArrayList<Tarefa> tarefas = new ArrayList<>();
+
+    private ArrayList<Lancamento> lancamentos = new ArrayList<>();
 
     private ArrayList<Historico> historico = new ArrayList<>();
 
@@ -155,5 +164,41 @@ public class Usuario implements CommandMementoUsuario{
 
     public void setRepublica(Republica republica) {
         this.republica = republica;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public ArrayList<Reputacao> getReputacao() {
+        return reputacao;
+    }
+
+    public void setReputacao(ArrayList<Reputacao> reputacao) {
+        this.reputacao = reputacao;
+    }
+
+    public ArrayList<Feedback> getFeedbacks() {
+        return feedbacks;
+    }
+
+    public void setFeedbacks(ArrayList<Feedback> feedbacks) {
+        this.feedbacks = feedbacks;
+    }
+
+    public ArrayList<Tarefa> getTarefas() {
+        return tarefas;
+    }
+
+    public void setTarefas(ArrayList<Tarefa> tarefas) {
+        this.tarefas = tarefas;
+    }
+
+    public ArrayList<Lancamento> getLancamentos() {
+        return lancamentos;
+    }
+
+    public void setLancamentos(ArrayList<Lancamento> lancamentos) {
+        this.lancamentos = lancamentos;
     }
 }

@@ -73,10 +73,6 @@ public class Feedback {
         return dataCriacao;
     }
 
-    public String getDescricao() {
-        return descricao;
-    }
-
     public Usuario getUsuario() {
         return usuario;
     }

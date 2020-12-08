@@ -12,6 +12,7 @@ import ufes.republica.business.command.CommandMementoRepublica;
 import ufes.republica.business.memento.republica_memento.MementoRepublica;
 import ufes.republica.business.state.republica_state.EstadoAberta;
 import ufes.republica.business.state.republica_state.RepublicaState;
+import ufes.republica.business.state.usuario_state.EstadoRepresentante;
 
 /**
  *
@@ -20,18 +21,31 @@ import ufes.republica.business.state.republica_state.RepublicaState;
 public class Republica implements CommandMementoRepublica{
 
     private String nome;
+
     private final LocalDate fundacao;
+
     private LocalDate extincao;
+
     private Endereco endereco;
+
     private String vantagens;
+
     private double despesasMedias;
+
     private int vagasTotais;
+
     private int vagasOcupadas;
+
     private int vagasDisponiveis;
+
     private double saldoTotal;
+
     private String codEtica;
+
     private RepublicaState estado;
+
     private ArrayList<Usuario> moradores = new ArrayList<>();
+
     private ArrayList<Historico> historico = new ArrayList<>();
 
     public Republica(String nome, Endereco endereco, String vantagens, double despesasMedias, int vagasTotais, int vagasOcupadas, double saldoTotal, String codEtica) {
@@ -76,6 +90,7 @@ public class Republica implements CommandMementoRepublica{
 
         if (this.vagasDisponiveis > 0) {
             Optional<Usuario> moradorEncontrado = getMoradorPorNome(morador.getNome());
+
             if (!moradorEncontrado.isPresent()) {
                 moradores.add(morador);
                 this.vagasDisponiveis--;
@@ -90,6 +105,7 @@ public class Republica implements CommandMementoRepublica{
 
     public Optional<Usuario> getMoradorPorNome(String nome) {
         Optional<Usuario> moradorEncontrado = Optional.empty();
+
         for (Usuario morador : this.getMoradores()) {
             if (morador.getNome().toUpperCase().equals(nome.toUpperCase())) {
                 moradorEncontrado = Optional.of(morador);
@@ -98,13 +114,24 @@ public class Republica implements CommandMementoRepublica{
         return moradorEncontrado;
     }
 
+    public Usuario getRepresentante() {
+        for(Usuario morador : this.getMoradores()) {
+            if(morador.getUsuarioState() instanceof EstadoRepresentante) {
+                return morador;
+            }
+        }
+        throw new RuntimeException("Representante não encontrado!");
+    }
+
     public void removerMorador(Usuario usuario) {
         Optional<Usuario> moradorEncontrado = getMoradorPorNome(usuario.getNome());
+
         if (!moradorEncontrado.isPresent()) {
-            throw new RuntimeException("Morador " + /*nomeMorador +*/ " não encontrado!");
+            throw new RuntimeException("Morador " + usuario.getNome() + " não encontrado!");
         }
-        //HistoricoMorador historico = new HistoricoMorador(this);
-        //moradorEncontrado.get().getHistorico().add(historico);
+        //LEMBRAR DE SETAR A MEDIA DA REPUTAÇÃO DO MORADOR
+        Historico historico = new Historico(this.getRepresentante().getNome(), 0, this.getNome(), usuario, this);
+        moradorEncontrado.get().getHistorico().add(historico);
         this.getMoradores().remove(moradorEncontrado.get());
         this.vagasDisponiveis++;
         this.vagasOcupadas--;

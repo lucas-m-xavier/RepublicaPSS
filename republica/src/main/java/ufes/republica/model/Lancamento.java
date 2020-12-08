@@ -26,6 +26,8 @@ public class Lancamento {
 
     private double valorParcela;
 
+    private LocalDate dataPagamento;
+
     private String tipo;
 
     private Rateio rateio;
@@ -120,5 +122,13 @@ public class Lancamento {
 
     public void setEstado(LancamentoState estado) {
         this.estado = estado;
+    }
+
+    public LocalDate getDataPagamento() {
+        return dataPagamento;
+    }
+
+    public void setDataPagamento(LocalDate dataPagamento) {
+        this.dataPagamento = dataPagamento;
     }
 }

@@ -26,8 +26,8 @@ public class Historico {
 
     public Historico(String nomeRepresentante, double mediaReputacao, String nomeRepublica, Usuario usuario, Republica republica) {
         this.dataSaida = LocalDate.now();
-        this.nomeRepresentante = nomeRepresentante;//republica.getRepresentante().getNome();
-        this.mediaReputacao = mediaReputacao;//media na republica ou media geral?
+        this.nomeRepresentante = nomeRepresentante;
+        this.mediaReputacao = mediaReputacao;//media na republica
         this.nomeRepublica = republica.getNome();
         this.usuario = usuario;
         this.republica = republica;
