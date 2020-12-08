@@ -7,6 +7,7 @@ package ufes.republica.business.state.usuario_state;
 
 import ufes.republica.business.state.feedback_state.EstadoEmAberto;
 import ufes.republica.business.state.lancamento_state.EstadoIndeferido;
+import ufes.republica.business.state.republica_state.EstadoAberta;
 import ufes.republica.business.state.tarefa_state.EstadoPendente;
 import ufes.republica.model.*;
 
@@ -58,8 +59,9 @@ public class EstadoRepresentante extends UsuarioState {
 
     @Override
     public void sairDaRepublica() {
-        this.getUsuario().setUsuarioState(new EstadoSemTeto(this.getUsuario()));
         this.getUsuario().getRepublica().getEstado().sortearRepresentante();
+        this.getUsuario().getRepublica().removerMorador(this.getUsuario());
+        this.getUsuario().setUsuarioState(new EstadoSemTeto(this.getUsuario()));
         this.getUsuario().setRepublica(null);
     }
 
@@ -68,15 +70,19 @@ public class EstadoRepresentante extends UsuarioState {
         this.sairDaRepublica();
         this.getUsuario().setUsuarioState(new EstadoRepresentante(this.getUsuario()));
         this.getUsuario().setRepublica(republica);
+        republica.setEstado(new EstadoAberta(republica));
+        republica.addMorador(this.getUsuario());
     }
 
     @Override
     public void addMorador(Usuario usuario) {
         this.getUsuario().getRepublica().getEstado().addMorador(usuario);
+        usuario.setUsuarioState(new EstadoMorador(usuario));
     }
 
     @Override
     public void removerMorador(Usuario usuario) {
-        this.getUsuario().getRepublica().getEstado().removerMorador(usuario);
+        usuario.getRepublica().getEstado().removerMorador(usuario);
+        usuario.setUsuarioState(new EstadoSemTeto(usuario));
     }
 }

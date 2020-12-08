@@ -61,4 +61,8 @@ public class Tarefa {
     public void setEstado(TarefaState estado) {
         this.estado = estado;
     }
+
+    public void setDataTermino(LocalDate dataTermino) {
+        this.dataTermino = dataTermino;
+    }
 }

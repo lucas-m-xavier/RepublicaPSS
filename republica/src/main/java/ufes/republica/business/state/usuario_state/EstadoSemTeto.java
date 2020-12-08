@@ -5,6 +5,7 @@
  */
 package ufes.republica.business.state.usuario_state;
 
+import ufes.republica.business.state.republica_state.EstadoAberta;
 import ufes.republica.model.Republica;
 import ufes.republica.model.Usuario;
 
@@ -22,6 +23,8 @@ public class EstadoSemTeto extends UsuarioState {
     public void criarRepublica(Republica republica) {
         this.getUsuario().setUsuarioState(new EstadoRepresentante(this.getUsuario()));
         this.getUsuario().setRepublica(republica);
+        republica.setEstado(new EstadoAberta(republica));
+        republica.addMorador(this.getUsuario());
     }
 
 }

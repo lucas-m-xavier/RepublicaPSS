@@ -6,6 +6,7 @@
 package ufes.republica.business.state.usuario_state;
 
 import ufes.republica.business.state.feedback_state.EstadoEmAberto;
+import ufes.republica.business.state.republica_state.EstadoAberta;
 import ufes.republica.business.state.tarefa_state.EstadoPendente;
 import ufes.republica.model.Feedback;
 import ufes.republica.model.Republica;
@@ -42,12 +43,16 @@ public class EstadoMorador extends UsuarioState {
 
     @Override
     public void criarRepublica(Republica republica) {
+        this.sairDaRepublica();
         this.getUsuario().setUsuarioState(new EstadoRepresentante(this.getUsuario()));
         this.getUsuario().setRepublica(republica);
+        republica.setEstado(new EstadoAberta(republica));
+        republica.addMorador(this.getUsuario());
     }
 
     @Override
     public void sairDaRepublica() {
+        this.getUsuario().getRepublica().removerMorador(this.getUsuario());
         this.getUsuario().setUsuarioState(new EstadoSemTeto(this.getUsuario()));
         this.getUsuario().setRepublica(null);
     }

@@ -5,10 +5,6 @@
  */
 package ufes.republica;
 
-import ufes.republica.enums.EnumUF;
-import ufes.republica.model.Endereco;
-import ufes.republica.model.GeoLocalizacao;
-
 /**
  *
  * @author Lucas

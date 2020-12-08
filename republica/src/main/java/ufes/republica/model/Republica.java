@@ -13,6 +13,7 @@ import ufes.republica.business.memento.republica_memento.MementoRepublica;
 import ufes.republica.business.state.republica_state.EstadoAberta;
 import ufes.republica.business.state.republica_state.RepublicaState;
 import ufes.republica.business.state.usuario_state.EstadoRepresentante;
+import ufes.republica.business.state.usuario_state.EstadoSemTeto;
 
 /**
  *

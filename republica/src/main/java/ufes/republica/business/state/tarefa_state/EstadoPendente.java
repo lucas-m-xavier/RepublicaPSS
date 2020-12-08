@@ -7,6 +7,8 @@ package ufes.republica.business.state.tarefa_state;
 
 import ufes.republica.model.Tarefa;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author Lucas
@@ -19,6 +21,7 @@ public class EstadoPendente extends TarefaState {
     
     @Override
     public void finalizarTarefa() {
+        this.getTarefa().setDataTermino(LocalDate.now());
         this.getTarefa().setEstado(new EstadoFinalizada(this.getTarefa()));
     }
 }
