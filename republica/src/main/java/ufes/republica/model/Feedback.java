@@ -18,19 +18,22 @@ public class Feedback {
 
     private int id;
 
-    private final LocalDate dataCriacao;
+    private LocalDate dataCriacao;
     
-    private final String descricao;
+    private String descricao;
     
     private LocalDate dataSolucao;
     
     private long idade;
     
-    private final Usuario usuario;
+    private Usuario usuario;
 
     private boolean EXCLUIDA;
     
     private FeedbackState estado;
+
+    public Feedback() {
+    }
 
     public Feedback(String descricao, Usuario usuario) {
         this.descricao = descricao;
@@ -38,6 +41,17 @@ public class Feedback {
         this.dataCriacao = LocalDate.now();
         this.dataSolucao = null;
         this.estado = new EstadoEmAberto(this);
+    }
+
+    public Feedback(int id, LocalDate dataCriacao, String descricao, LocalDate dataSolucao, Usuario usuario, boolean EXCLUIDA, FeedbackState estado) {
+        this.id = id;
+        this.dataCriacao = dataCriacao;
+        this.descricao = descricao;
+        this.dataSolucao = dataSolucao;
+        this.usuario = usuario;
+        this.EXCLUIDA = EXCLUIDA;
+        this.estado = estado;
+        this.idade = ChronoUnit.DAYS.between(dataSolucao, dataCriacao);
     }
 
     public LocalDate getDataSolucao() {

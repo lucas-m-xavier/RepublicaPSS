@@ -49,7 +49,7 @@ public class TarefaDAO {
             LocalDate dataAgendamento = LocalDate.parse(rs.getDate(4).toString());
             LocalDate dataTermino = LocalDate.parse(rs.getDate(5).toString());
 
-            ps = conn.prepareStatement("select idUsuario from usuario INNER JOIN usuarioTarefa where idTarefa = ?");
+            ps = conn.prepareStatement("select idUsuario from usuario INNER JOIN tarefaUsuario where idTarefa = ?");
             ps.setInt(1, id);
             rs = ps.executeQuery();
 

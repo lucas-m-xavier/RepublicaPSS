@@ -5,7 +5,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+
+import ufes.republica.business.state.feedback_state.EstadoConcluido;
+import ufes.republica.business.state.feedback_state.EstadoEmAberto;
+import ufes.republica.business.state.feedback_state.FeedbackState;
+import ufes.republica.business.state.tarefa_state.EstadoFinalizada;
+import ufes.republica.business.state.tarefa_state.EstadoPendente;
+import ufes.republica.business.state.tarefa_state.TarefaState;
 import ufes.republica.model.Feedback;
+import ufes.republica.model.Tarefa;
+import ufes.republica.model.Usuario;
 
 public class FeedbackDAO {
     private Connection conn;
@@ -90,33 +100,49 @@ public class FeedbackDAO {
             Conexao.fecharConexao(conn, ps);
         }
     }
-       /*
+
     public Feedback procurarFeedback(int id) throws Exception {
         PreparedStatement ps = null;
-        
+
         ResultSet rs = null;
-        try {            
+        try {
             ps = conn.prepareStatement("select * from Feedback where idFeedback = ?");
             ps.setInt(1, id);
             rs = ps.executeQuery();
             if (!rs.next()) {
                 throw new Exception("Não foi encontrado nenhum registro com o ID: " + id );
             }
-            
-            String dataCriacao = rs.getString(2);
-            String dataSolucao = rs.getString(3);
-            String descricao = rs.getString(4);
-            
-            
-            //return new Feedback(id, dataCriacao, descricao, dataSolucao);
-            
+
+            Feedback feedback = new Feedback();
+            FeedbackState estado = new EstadoEmAberto(feedback);
+            if(rs.getString(5) == "concluido")
+                estado = new EstadoConcluido(feedback);
+
+            LocalDate dataCriacao = LocalDate.parse(rs.getDate(2).toString());
+            String descricao = rs.getString(3);
+            LocalDate dataSolucao = LocalDate.parse(rs.getDate(4).toString());
+            boolean EXCLUIDO = rs.getBoolean(5);
+
+            ps = conn.prepareStatement("select idUsuario from usuario INNER JOIN feedbackUsuario where idFeedback = ?");
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+
+            if (!rs.next()) {
+                throw new Exception("Não foi encontrado nenhum registro com o ID: " + id );
+            }
+
+            UsuarioDAO usuarioDAO = new UsuarioDAO(conn);
+            Usuario usuario = usuarioDAO.procurarUsuario(rs.getInt(1));
+
+            return new Feedback(id, dataCriacao, descricao, dataSolucao, usuario, EXCLUIDO, estado);
+
         } catch (SQLException sqle) {
             throw new Exception(sqle);
         } finally {
             rs.close();
-            ps.close();            
+            ps.close();
         }
     }
-    */
+
 
 }
