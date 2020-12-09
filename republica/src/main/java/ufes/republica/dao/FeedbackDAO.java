@@ -24,7 +24,7 @@ public class FeedbackDAO {
             throw new Exception("O feedback não pode ser nulo!");
         }
         try {
-            String SQL = "INSERT INTO Feedback (dataCriacao, descricao, dataSolucao"
+            String SQL = "INSERT INTO Feedback (dataCriacao, descricao, dataSolucao)"
                     + "values (?, ?, ?);";
 
             ps = conn.prepareStatement(SQL);
@@ -35,7 +35,7 @@ public class FeedbackDAO {
             ps.setString(3, f.format(feedback.getDataSolucao()));
             ps.executeUpdate();
 
-            SQL = "INSERT INTO TarefaUsuario (idUsuario, idTarefa"
+            SQL = "INSERT INTO FeedbackUsuario (idUsuario, idTarefa)"
                     + "values (?, SELECT LAST_INSERT_ID FROM tarefa);";
             ps = conn.prepareStatement(SQL);
             ps.setInt(1, feedback.getUsuario().getId());

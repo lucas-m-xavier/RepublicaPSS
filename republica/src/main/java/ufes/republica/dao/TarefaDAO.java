@@ -27,7 +27,7 @@ public class TarefaDAO {
             throw new Exception("Tarefa não pode ser nulo!");
         }
         try {
-            String SQL = "INSERT INTO tarefa (dataAgendamento, descricao, dataTermino"
+            String SQL = "INSERT INTO tarefa (dataAgendamento, descricao, dataTermino)"
                     + "values (?, ?, ?);";
 
             ps = conn.prepareStatement(SQL);
@@ -38,7 +38,7 @@ public class TarefaDAO {
             ps.setString(3, f.format(tarefa.getDataTermino()));
             ps.executeUpdate();
 
-            SQL = "INSERT INTO TarefaUsuario (idUsuario, idTarefa"
+            SQL = "INSERT INTO TarefaUsuario (idUsuario, idTarefa)"
                     + "values (?, SELECT LAST_INSERT_ID FROM tarefa);";
             ps = conn.prepareStatement(SQL);
             ps.setInt(1, tarefa.getUsuario().getId());
