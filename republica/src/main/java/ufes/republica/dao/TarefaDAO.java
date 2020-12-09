@@ -65,7 +65,7 @@ public class TarefaDAO {
             SimpleDateFormat f = new SimpleDateFormat("yyyy/MM/dd");
             ps.setString(1, f.format(tarefa.getDataAgendamento()));
             ps.setString(2, tarefa.getDescricao());
-            ps.setString(2, f.format(tarefa.getDataTermino()));
+            ps.setString(3, f.format(tarefa.getDataTermino()));
             ps.executeUpdate();
 
         } catch (SQLException sqle) {

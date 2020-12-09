@@ -29,6 +29,17 @@ public class Endereco {
     
     private final GeoLocalizacao geoLocalizacao;
 
+    public Endereco(int id, String cep, String bairro, String referencia, int numero, String logradouro, EnumUF uf, GeoLocalizacao geoLocalizacao) {
+        this.id = id;
+        this.cep = cep;
+        this.bairro = bairro;
+        this.referencia = referencia;
+        this.numero = numero;
+        this.logradouro = logradouro;
+        this.uf = uf;
+        this.geoLocalizacao = geoLocalizacao;
+    }
+
     public Endereco(String cep, String bairro, String referencia, int numero, String logradouro, EnumUF uf, GeoLocalizacao geoLocalizacao) {
         this.cep = cep;
         this.bairro = bairro;

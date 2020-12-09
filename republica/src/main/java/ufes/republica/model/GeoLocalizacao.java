@@ -17,6 +17,12 @@ public class GeoLocalizacao {
     
     private final String longitude;
 
+    public GeoLocalizacao(int id, String latitude, String longitude) {
+        this.id = id;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
     public GeoLocalizacao(String latitude, String longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
