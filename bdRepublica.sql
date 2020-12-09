@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `bdrepublica`.`Republica` (
   `vagasOcupadas` INT NOT NULL,
   `saldoTotal` DOUBLE NOT NULL,
   `codEtica` VARCHAR(500) NOT NULL,
-  `situacao` VARCHAR(45) NOT NULL,
+  `estado` VARCHAR(45) NOT NULL DEFAULT 'Aberta',
   PRIMARY KEY (`idRepublica`, `idEndereco`),
   UNIQUE INDEX `idRepublica_UNIQUE` (`idRepublica` ASC) VISIBLE,
   UNIQUE INDEX `nome_UNIQUE` (`nome` ASC) VISIBLE,
@@ -60,10 +60,22 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
+-- Table `bdrepublica`.`rateio`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `bdrepublica`.`rateio` (
+  `idrateio` INT NOT NULL,
+  `valor` DOUBLE NOT NULL,
+  PRIMARY KEY (`idrateio`),
+  UNIQUE INDEX `idrateio_UNIQUE` (`idrateio` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `bdrepublica`.`Usuario`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bdrepublica`.`Usuario` (
   `idUsuario` INT NOT NULL,
+  `idrateio` INT NOT NULL,
   `cpf` VARCHAR(11) NOT NULL,
   `nome` VARCHAR(100) NOT NULL,
   `apelido` VARCHAR(45) NOT NULL,
@@ -71,9 +83,16 @@ CREATE TABLE IF NOT EXISTS `bdrepublica`.`Usuario` (
   `linkSociais` VARCHAR(100) NOT NULL,
   `reponsavelUm` VARCHAR(100) NOT NULL,
   `responsavelDois` VARCHAR(100) NOT NULL,
-  PRIMARY KEY (`idUsuario`),
+  `estado` VARCHAR(45) NOT NULL DEFAULT 'Sem Teto',
+  PRIMARY KEY (`idUsuario`, `idrateio`),
   UNIQUE INDEX `idUsuario_UNIQUE` (`idUsuario` ASC) VISIBLE,
-  UNIQUE INDEX `cpf_UNIQUE` (`cpf` ASC) VISIBLE)
+  UNIQUE INDEX `cpf_UNIQUE` (`cpf` ASC) VISIBLE,
+  INDEX `fk_Usuario_rateio1_idx` (`idrateio` ASC) VISIBLE,
+  CONSTRAINT `fk_Usuario_rateio1`
+    FOREIGN KEY (`idrateio`)
+    REFERENCES `bdrepublica`.`rateio` (`idrateio`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -111,7 +130,7 @@ CREATE TABLE IF NOT EXISTS `bdrepublica`.`Feedback` (
   `dataCriacao` DATE NOT NULL,
   `descricao` VARCHAR(45) NOT NULL,
   `dataSolucao` DATE NOT NULL,
-  `situacao` VARCHAR(45) NOT NULL,
+  `estado` VARCHAR(45) NOT NULL DEFAULT 'Em Aberto',
   PRIMARY KEY (`idFeedback`),
   UNIQUE INDEX `idFeedback_UNIQUE` (`idFeedback` ASC) VISIBLE)
 ENGINE = InnoDB;
@@ -147,7 +166,7 @@ CREATE TABLE IF NOT EXISTS `bdrepublica`.`Tarefa` (
   `dataAgendamento` DATE NOT NULL,
   `descricao` VARCHAR(200) NOT NULL,
   `dataTermino` DATE NOT NULL,
-  `situacao` VARCHAR(45) NOT NULL,
+  `estado` VARCHAR(45) NOT NULL DEFAULT 'pendente',
   PRIMARY KEY (`idTarefa`),
   UNIQUE INDEX `idTarefa_UNIQUE` (`idTarefa` ASC) VISIBLE)
 ENGINE = InnoDB;
@@ -180,6 +199,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bdrepublica`.`Lancamento` (
   `idLancamento` INT NOT NULL,
+  `idrateio` INT NOT NULL,
   `idUsuario` INT NOT NULL,
   `descricao` VARCHAR(200) NOT NULL,
   `dataVencimento` DATE NOT NULL,
@@ -187,13 +207,19 @@ CREATE TABLE IF NOT EXISTS `bdrepublica`.`Lancamento` (
   `periodicidade` VARCHAR(45) NOT NULL,
   `valorParcela` DOUBLE NOT NULL,
   `tipo` VARCHAR(45) NOT NULL,
-  `situacao` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`idLancamento`, `idUsuario`),
+  `estado` VARCHAR(45) NOT NULL DEFAULT 'Indeferido',
+  PRIMARY KEY (`idLancamento`, `idrateio`, `idUsuario`),
   UNIQUE INDEX `idLancamento_UNIQUE` (`idLancamento` ASC) VISIBLE,
   INDEX `fk_Lancamento_Usuario1_idx` (`idUsuario` ASC) VISIBLE,
+  INDEX `fk_Lancamento_rateio1_idx` (`idrateio` ASC) VISIBLE,
   CONSTRAINT `fk_Lancamento_Usuario1`
     FOREIGN KEY (`idUsuario`)
     REFERENCES `bdrepublica`.`Usuario` (`idUsuario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Lancamento_rateio1`
+    FOREIGN KEY (`idrateio`)
+    REFERENCES `bdrepublica`.`rateio` (`idrateio`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
