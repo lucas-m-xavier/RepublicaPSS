@@ -3,7 +3,6 @@ package ufes.republica.dao;
 import ufes.republica.business.state.tarefa_state.EstadoFinalizada;
 import ufes.republica.business.state.tarefa_state.EstadoPendente;
 import ufes.republica.business.state.tarefa_state.TarefaState;
-import ufes.republica.enums.EnumUF;
 import ufes.republica.model.GeoLocalizacao;
 import ufes.republica.model.Tarefa;
 import ufes.republica.model.Usuario;
@@ -46,8 +45,8 @@ public class TarefaDAO {
             if(rs.getString(2) == "finalizada")
                 estado = new EstadoFinalizada(tarefa);
 
-            LocalDate dataAgendamento = LocalDate.parse(rs.getDate(4).toString());
             String descricao = rs.getString(3);
+            LocalDate dataAgendamento = LocalDate.parse(rs.getDate(4).toString());
             LocalDate dataTermino = LocalDate.parse(rs.getDate(5).toString());
 
             ps = conn.prepareStatement("select idUsuario from usuario INNER JOIN usuarioTarefa where idTarefa = ?");
@@ -116,7 +115,7 @@ public class TarefaDAO {
             ps.executeUpdate();
 
             SQL = "INSERT INTO TarefaUsuario (idUsuario, idTarefa)"
-                    + "values (?, SELECT LAST_INSERT_ID FROM tarefa);";
+                    + "values (?, SELECT MAX(idTarefa) FROM tarefa);";
             ps = conn.prepareStatement(SQL);
             ps.setInt(1, tarefa.getUsuario().getId());
             ps.executeUpdate();

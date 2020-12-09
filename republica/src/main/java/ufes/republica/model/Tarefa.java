@@ -18,7 +18,7 @@ public class Tarefa {
 
     private int id;
 
-    private final LocalDate dataAgendamento;
+    private LocalDate dataAgendamento;
     
     private String descricao;
     
@@ -53,7 +53,6 @@ public class Tarefa {
     }
 
     public Tarefa() {
-        this.dataAgendamento = LocalDate.now();
     }
 
     public LocalDate getDataAgendamento() {

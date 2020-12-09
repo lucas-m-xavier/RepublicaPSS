@@ -36,7 +36,7 @@ public class FeedbackDAO {
             ps.executeUpdate();
 
             SQL = "INSERT INTO FeedbackUsuario (idUsuario, idFeedback)"
-                    + "values (?, SELECT LAST_INSERT_ID FROM Feedback);";
+                    + "values (?, SELECT MAX(idFeedback) FROM Feedback);";
             ps = conn.prepareStatement(SQL);
             ps.setInt(1, feedback.getUsuario().getId());
             
@@ -76,12 +76,12 @@ public class FeedbackDAO {
        public void excluir(Feedback feedback) throws Exception {
         PreparedStatement ps = null;
 
-        if (tarefa == null) {
+        if (feedback == null) {
             throw new Exception("Tarefa não pode ser nulo!");
         }
         try {
             ps = conn.prepareStatement("delete from tarefa where idTarefa = ?");
-            ps.setInt(1, tarefa.getId());
+            ps.setInt(1, feedback.getId());
             ps.executeUpdate();
         } catch (SQLException sqle) {
             throw new Exception("Erro ao excluir dados:" + sqle);
