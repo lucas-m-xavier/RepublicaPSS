@@ -6,6 +6,8 @@
 package ufes.republica.model;
 
 import java.time.LocalDate;
+
+import ufes.republica.business.state.tarefa_state.EstadoPendente;
 import ufes.republica.business.state.tarefa_state.TarefaState;
 
 /**
@@ -13,6 +15,9 @@ import ufes.republica.business.state.tarefa_state.TarefaState;
  * @author Lucas
  */
 public class Tarefa {
+
+    private int id;
+
     private final LocalDate dataAgendamento;
     
     private String descricao;
@@ -23,11 +28,19 @@ public class Tarefa {
     
     private TarefaState estado;
 
+    public Tarefa(String descricao, Usuario usuario) {
+        this.dataAgendamento = LocalDate.now();
+        this.descricao = descricao;
+        this.usuario = usuario;
+        this.estado = new EstadoPendente(this);
+    }
+
     public Tarefa(LocalDate dataAgendamento, String descricao, LocalDate dataTermino, Usuario usuario) {
         this.dataAgendamento = dataAgendamento;
         this.descricao = descricao;
         this.dataTermino = dataTermino;
         this.usuario = usuario;
+        this.estado = new EstadoPendente(this);
     }
 
     public LocalDate getDataAgendamento() {
@@ -64,5 +77,9 @@ public class Tarefa {
 
     public void setDataTermino(LocalDate dataTermino) {
         this.dataTermino = dataTermino;
+    }
+
+    public int getId() {
+        return id;
     }
 }

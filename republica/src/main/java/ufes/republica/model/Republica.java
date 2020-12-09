@@ -21,6 +21,8 @@ import ufes.republica.business.state.usuario_state.EstadoSemTeto;
  */
 public class Republica implements CommandMementoRepublica{
 
+    private int id;
+
     private String nome;
 
     private final LocalDate fundacao;
@@ -244,5 +246,9 @@ public class Republica implements CommandMementoRepublica{
 
     public void setEstado(RepublicaState estado) {
         this.estado = estado;
+    }
+
+    public int getId() {
+        return id;
     }
 }

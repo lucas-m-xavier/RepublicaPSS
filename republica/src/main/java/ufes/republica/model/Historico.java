@@ -12,6 +12,9 @@ import java.time.LocalDate;
  * @author Lucas
  */
 public class Historico {
+
+    private int id;
+
     private final LocalDate dataSaida;
     
     private final String nomeRepresentante;
@@ -55,5 +58,9 @@ public class Historico {
 
     public Republica getRepublica() {
         return republica;
+    }
+
+    public int getId() {
+        return id;
     }
 }

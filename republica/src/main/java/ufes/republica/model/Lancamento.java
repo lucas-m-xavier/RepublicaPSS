@@ -16,6 +16,8 @@ import ufes.republica.business.state.lancamento_state.LancamentoState;
  */
 public class Lancamento {
 
+    private int id;
+
     private String descricao;
 
     private LocalDate dataVencimento;
@@ -130,5 +132,9 @@ public class Lancamento {
 
     public void setDataPagamento(LocalDate dataPagamento) {
         this.dataPagamento = dataPagamento;
+    }
+
+    public int getId() {
+        return id;
     }
 }

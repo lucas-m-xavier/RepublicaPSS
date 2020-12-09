@@ -58,7 +58,7 @@ public class UsuarioDAO {
             throw new Exception("Usuario não pode ser nulo!");
         }
         try {
-            String SQL = "INSERT INTO usuarios (nome, apelido, telefone, cpf, sociais, email, senha, responsavel1,"
+            String SQL = "INSERT INTO usuario (nome, apelido, telefone, cpf, sociais, email, senha, responsavel1,"
                     + " responsavel2) values (?, ?, ?, ?, ?, ?, ?, ?, ?);";
                                
             ps = conn.prepareStatement(SQL);

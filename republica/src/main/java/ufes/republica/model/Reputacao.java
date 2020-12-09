@@ -15,6 +15,9 @@ import java.time.LocalDate;
  * @author Lucas
  */
 public class Reputacao {
+
+    private int id;
+
     private double indice;
     
     private final LocalDate data;
@@ -39,5 +42,9 @@ public class Reputacao {
 
     public Usuario getUsuario() {
         return usuario;
+    }
+
+    public int getId() {
+        return id;
     }
 }

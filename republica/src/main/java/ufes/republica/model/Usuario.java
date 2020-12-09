@@ -17,6 +17,8 @@ import ufes.republica.business.state.usuario_state.UsuarioState;
  */
 public class Usuario implements CommandMementoUsuario{
 
+    private int id;
+
     private String nome;
 
     private String apelido;
@@ -200,5 +202,9 @@ public class Usuario implements CommandMementoUsuario{
 
     public void setLancamentos(ArrayList<Lancamento> lancamentos) {
         this.lancamentos = lancamentos;
+    }
+
+    public int getId() {
+        return id;
     }
 }

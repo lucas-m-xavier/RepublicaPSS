@@ -12,6 +12,9 @@ import java.util.ArrayList;
  * @author Lucas
  */
 public class Rateio {
+
+    private int id;
+
     private final ArrayList<Double> valor;
     
     private final ArrayList<Usuario> moradores;
@@ -27,5 +30,9 @@ public class Rateio {
 
     public ArrayList<Usuario> getMoradores() {
         return moradores;
+    }
+
+    public int getId() {
+        return id;
     }
 }

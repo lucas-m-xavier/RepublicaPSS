@@ -15,6 +15,9 @@ import ufes.republica.business.state.feedback_state.FeedbackState;
  * @author Lucas
  */
 public class Feedback {
+
+    private int id;
+
     private final LocalDate dataCriacao;
     
     private final String descricao;
@@ -75,5 +78,9 @@ public class Feedback {
 
     public Usuario getUsuario() {
         return usuario;
+    }
+
+    public int getId() {
+        return id;
     }
 }

@@ -10,6 +10,9 @@ package ufes.republica.model;
  * @author Lucas
  */
 public class GeoLocalizacao {
+
+    private int id;
+
     private final String latitude;
     
     private final String longitude;
@@ -25,5 +28,9 @@ public class GeoLocalizacao {
 
     public String getLongitude() {
         return longitude;
+    }
+
+    public int getId() {
+        return id;
     }
 }

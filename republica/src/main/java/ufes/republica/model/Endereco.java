@@ -12,6 +12,9 @@ import ufes.republica.enums.EnumUF;
  * @author Lucas
  */
 public class Endereco {
+
+    private int id;
+
     private final String cep;
     
     private final String bairro;
@@ -62,5 +65,9 @@ public class Endereco {
 
     public GeoLocalizacao getGeoLocalizacao() {
         return geoLocalizacao;
+    }
+
+    public int getId() {
+        return id;
     }
 }
