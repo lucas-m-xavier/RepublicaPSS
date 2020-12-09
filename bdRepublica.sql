@@ -132,6 +132,7 @@ CREATE TABLE IF NOT EXISTS `bdrepublica`.`Feedback` (
   `descricao` VARCHAR(45) NOT NULL,
   `dataSolucao` DATE NOT NULL,
   `estado` VARCHAR(45) NOT NULL DEFAULT 'Em Aberto',
+  `excluida` TINYINT NOT NULL DEFAULT 0,
   PRIMARY KEY (`idFeedback`),
   UNIQUE INDEX `idFeedback_UNIQUE` (`idFeedback` ASC) VISIBLE)
 ENGINE = InnoDB;
