@@ -15,18 +15,37 @@ CREATE SCHEMA IF NOT EXISTS `bdrepublica` DEFAULT CHARACTER SET utf8 ;
 USE `bdrepublica` ;
 
 -- -----------------------------------------------------
+-- Table `bdrepublica`.`Geolocalizacao`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `bdrepublica`.`Geolocalizacao` (
+  `idGeolocalizacao` INT NOT NULL AUTO_INCREMENT,
+  `Latitude` VARCHAR(45) NULL,
+  `Longitude` VARCHAR(45) NULL,
+  PRIMARY KEY (`idGeolocalizacao`),
+  UNIQUE INDEX `idGeolocalizacao_UNIQUE` (`idGeolocalizacao` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `bdrepublica`.`Endereco`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bdrepublica`.`Endereco` (
   `idEndereco` INT NOT NULL,
+  `idGeolocalizacao` INT NOT NULL,
   `cEP` VARCHAR(45) NOT NULL,
   `bairro` VARCHAR(100) NOT NULL,
   `logradouro` VARCHAR(100) NOT NULL,
   `numero` INT NOT NULL,
   `referencia` VARCHAR(100) NULL,
   `uf` CHAR(2) NOT NULL,
-  PRIMARY KEY (`idEndereco`),
-  UNIQUE INDEX `idEndereco_UNIQUE` (`idEndereco` ASC) VISIBLE)
+  PRIMARY KEY (`idEndereco`, `idGeolocalizacao`),
+  UNIQUE INDEX `idEndereco_UNIQUE` (`idEndereco` ASC) VISIBLE,
+  INDEX `fk_Endereco_Geolocalizacao1_idx` (`idGeolocalizacao` ASC) VISIBLE,
+  CONSTRAINT `fk_Endereco_Geolocalizacao1`
+    FOREIGN KEY (`idGeolocalizacao`)
+    REFERENCES `bdrepublica`.`Geolocalizacao` (`idGeolocalizacao`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -162,35 +181,13 @@ ENGINE = InnoDB;
 -- Table `bdrepublica`.`Tarefa`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bdrepublica`.`Tarefa` (
-  `idTarefa` INT NOT NULL,
-  `dataAgendamento` DATE NOT NULL,
-  `descricao` VARCHAR(200) NOT NULL,
-  `dataTermino` DATE NOT NULL,
+  `idTarefa` INT NOT NULL AUTO_INCREMENT,
   `estado` VARCHAR(45) NOT NULL DEFAULT 'pendente',
+  `descricao` VARCHAR(200) NOT NULL,
+  `dataAgendamento` DATE NOT NULL,
+  `dataTernino` DATE NOT NULL,
   PRIMARY KEY (`idTarefa`),
   UNIQUE INDEX `idTarefa_UNIQUE` (`idTarefa` ASC) VISIBLE)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `bdrepublica`.`TarefaUsuario`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `bdrepublica`.`TarefaUsuario` (
-  `idUsuario` INT NOT NULL,
-  `idTarefa` INT NOT NULL,
-  PRIMARY KEY (`idUsuario`, `idTarefa`),
-  INDEX `fk_Usuario_has_Tarefa_Tarefa1_idx` (`idTarefa` ASC) VISIBLE,
-  INDEX `fk_Usuario_has_Tarefa_Usuario1_idx` (`idUsuario` ASC) VISIBLE,
-  CONSTRAINT `fk_Usuario_has_Tarefa_Usuario1`
-    FOREIGN KEY (`idUsuario`)
-    REFERENCES `bdrepublica`.`Usuario` (`idUsuario`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Usuario_has_Tarefa_Tarefa1`
-    FOREIGN KEY (`idTarefa`)
-    REFERENCES `bdrepublica`.`Tarefa` (`idTarefa`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -237,6 +234,28 @@ CREATE TABLE IF NOT EXISTS `bdrepublica`.`Reputacao` (
   UNIQUE INDEX `idReputacao_UNIQUE` (`idReputacao` ASC) VISIBLE,
   INDEX `fk_Reputacao_Usuario1_idx` (`idUsuario` ASC) VISIBLE,
   CONSTRAINT `fk_Reputacao_Usuario1`
+    FOREIGN KEY (`idUsuario`)
+    REFERENCES `bdrepublica`.`Usuario` (`idUsuario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `bdrepublica`.`TarefaUsuario`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `bdrepublica`.`TarefaUsuario` (
+  `idTarefa` INT NOT NULL,
+  `idUsuario` INT NOT NULL,
+  PRIMARY KEY (`idTarefa`, `idUsuario`),
+  INDEX `fk_Tarefa_has_Usuario_Usuario1_idx` (`idUsuario` ASC) VISIBLE,
+  INDEX `fk_Tarefa_has_Usuario_Tarefa1_idx` (`idTarefa` ASC) VISIBLE,
+  CONSTRAINT `fk_Tarefa_has_Usuario_Tarefa1`
+    FOREIGN KEY (`idTarefa`)
+    REFERENCES `bdrepublica`.`Tarefa` (`idTarefa`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Tarefa_has_Usuario_Usuario1`
     FOREIGN KEY (`idUsuario`)
     REFERENCES `bdrepublica`.`Usuario` (`idUsuario`)
     ON DELETE NO ACTION
