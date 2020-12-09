@@ -43,6 +43,19 @@ public class Tarefa {
         this.estado = new EstadoPendente(this);
     }
 
+    public Tarefa(int id, LocalDate dataAgendamento, String descricao, LocalDate dataTermino, Usuario usuario, TarefaState estado) {
+        this.id = id;
+        this.dataAgendamento = dataAgendamento;
+        this.descricao = descricao;
+        this.dataTermino = dataTermino;
+        this.usuario = usuario;
+        this.estado = estado;
+    }
+
+    public Tarefa() {
+        this.dataAgendamento = LocalDate.now();
+    }
+
     public LocalDate getDataAgendamento() {
         return dataAgendamento;
     }

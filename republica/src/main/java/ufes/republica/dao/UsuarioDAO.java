@@ -5,11 +5,14 @@
  */
 package ufes.republica.dao;
 
+import ufes.republica.model.GeoLocalizacao;
+import ufes.republica.model.Tarefa;
 import ufes.republica.model.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 /**
  *
@@ -26,7 +29,49 @@ public class UsuarioDAO {
             throw new Exception("Erro: \n" + e.getMessage());
         }
     }
-    
+
+    public UsuarioDAO(Connection conn) {
+        this.conn = conn;
+    }
+
+    //PRA FAZER
+    public Usuario procurarUsuario(int id) throws Exception {
+        PreparedStatement ps = null;
+
+        ResultSet rs = null;
+        try {
+            ps = conn.prepareStatement("select * from Tarefa where idTarefa = ?");
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            if (!rs.next()) {
+                throw new Exception("Não foi encontrado nenhum registro com o ID: " + id );
+            }
+
+            LocalDate dataAgendamento = LocalDate.parse(rs.getDate(4).toString());
+            String descricao = rs.getString(3);
+            LocalDate dataTermino = LocalDate.parse(rs.getDate(5).toString());
+
+            ps = conn.prepareStatement("select idUsuario from usuario INNER JOIN usuarioTarefa where idTarefa = ?");
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+
+            if (!rs.next()) {
+                throw new Exception("Não foi encontrado nenhum registro com o ID: " + id );
+            }
+
+            UsuarioDAO usuarioDAO = new UsuarioDAO(conn);
+            Usuario usuario = usuarioDAO.procurarUsuario(rs.getInt(2));
+
+            return new GeoLocalizacao(id,dataAgendamento, descricao, dataTermino, usuario, ESTADO);
+
+        } catch (SQLException sqle) {
+            throw new Exception(sqle);
+        } finally {
+            rs.close();
+            ps.close();
+        }
+    }
+
     public boolean procurarUsuario(Usuario usuario) throws Exception {
         PreparedStatement ps = null;
         

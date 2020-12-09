@@ -37,15 +37,17 @@ public class EnderecoDAO {
                 throw new Exception("Não foi encontrado nenhum registro com o ID: " + id );
             }
 
-            String cep = rs.getString(2);
-            String bairro = rs.getString(3);
-            String referencia = rs.getString(4);
-            int numero = rs.getInt(5);
-            String logradouro = rs.getString(6);
-            EnumUF uf = null;
-            uf.setValor(rs.getInt(7));
             GeoLocalizacaoDAO geoLocalizacaoDAO = new GeoLocalizacaoDAO(conn);
-            GeoLocalizacao geoLocalizacao = geoLocalizacaoDAO.procurarGeoLocalizacao(id);
+            GeoLocalizacao geoLocalizacao = geoLocalizacaoDAO.procurarGeoLocalizacao(rs.getInt(2));
+
+            String cep = rs.getString(3);
+            String bairro = rs.getString(4);
+            String referencia = rs.getString(5);
+            int numero = rs.getInt(6);
+            String logradouro = rs.getString(7);
+
+            EnumUF uf = null;
+            uf.setValor(rs.getInt(8));
 
             return new Endereco(id, cep, bairro, referencia, numero, logradouro, uf, geoLocalizacao);
 

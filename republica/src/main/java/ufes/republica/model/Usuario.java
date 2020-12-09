@@ -198,5 +198,7 @@ public class Usuario implements CommandMementoUsuario{
         this.historico = historico;
     }
 
-    
+    public String getCpf() {
+        return cpf;
+    }
 }
