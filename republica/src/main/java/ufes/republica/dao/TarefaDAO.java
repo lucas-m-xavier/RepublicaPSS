@@ -42,7 +42,6 @@ public class TarefaDAO {
                     + "values (?, SELECT LAST_INSERT_ID FROM tarefa);";
             ps = conn.prepareStatement(SQL);
             ps.setInt(1, tarefa.getUsuario().getId());
-            ps.setString(2, tarefa.getDescricao());
             ps.executeUpdate();
 
         } catch (SQLException sqle) {
