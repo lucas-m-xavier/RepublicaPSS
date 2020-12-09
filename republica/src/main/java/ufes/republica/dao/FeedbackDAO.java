@@ -35,8 +35,8 @@ public class FeedbackDAO {
             ps.setString(3, f.format(feedback.getDataSolucao()));
             ps.executeUpdate();
 
-            SQL = "INSERT INTO FeedbackUsuario (idUsuario, idTarefa)"
-                    + "values (?, SELECT LAST_INSERT_ID FROM tarefa);";
+            SQL = "INSERT INTO FeedbackUsuario (idUsuario, idFeedback)"
+                    + "values (?, SELECT LAST_INSERT_ID FROM Feedback);";
             ps = conn.prepareStatement(SQL);
             ps.setInt(1, feedback.getUsuario().getId());
             
