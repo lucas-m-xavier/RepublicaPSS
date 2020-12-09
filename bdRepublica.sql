@@ -15,12 +15,12 @@ CREATE SCHEMA IF NOT EXISTS `bdrepublica` DEFAULT CHARACTER SET utf8 ;
 USE `bdrepublica` ;
 
 -- -----------------------------------------------------
--- Table `bdrepublica`.`Geolocalizacao`
+-- Table `bdrepublica`.`GeoLocalizacao`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `bdrepublica`.`Geolocalizacao` (
+CREATE TABLE IF NOT EXISTS `bdrepublica`.`GeoLocalizacao` (
   `idGeolocalizacao` INT NOT NULL AUTO_INCREMENT,
-  `Latitude` VARCHAR(45) NULL,
-  `Longitude` VARCHAR(45) NULL,
+  `latitude` VARCHAR(45) NULL,
+  `longitude` VARCHAR(45) NULL,
   PRIMARY KEY (`idGeolocalizacao`),
   UNIQUE INDEX `idGeolocalizacao_UNIQUE` (`idGeolocalizacao` ASC) VISIBLE)
 ENGINE = InnoDB;
@@ -30,20 +30,20 @@ ENGINE = InnoDB;
 -- Table `bdrepublica`.`Endereco`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bdrepublica`.`Endereco` (
-  `idEndereco` INT NOT NULL,
+  `idEndereco` INT NOT NULL AUTO_INCREMENT,
   `idGeolocalizacao` INT NOT NULL,
   `cEP` VARCHAR(45) NOT NULL,
   `bairro` VARCHAR(100) NOT NULL,
   `logradouro` VARCHAR(100) NOT NULL,
   `numero` INT NOT NULL,
   `referencia` VARCHAR(100) NULL,
-  `uf` CHAR(2) NOT NULL,
+  `uf` INT NOT NULL,
   PRIMARY KEY (`idEndereco`, `idGeolocalizacao`),
   UNIQUE INDEX `idEndereco_UNIQUE` (`idEndereco` ASC) VISIBLE,
   INDEX `fk_Endereco_Geolocalizacao1_idx` (`idGeolocalizacao` ASC) VISIBLE,
   CONSTRAINT `fk_Endereco_Geolocalizacao1`
     FOREIGN KEY (`idGeolocalizacao`)
-    REFERENCES `bdrepublica`.`Geolocalizacao` (`idGeolocalizacao`)
+    REFERENCES `bdrepublica`.`GeoLocalizacao` (`idGeolocalizacao`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -53,7 +53,7 @@ ENGINE = InnoDB;
 -- Table `bdrepublica`.`Republica`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bdrepublica`.`Republica` (
-  `idRepublica` INT NOT NULL,
+  `idRepublica` INT NOT NULL AUTO_INCREMENT,
   `idEndereco` INT NOT NULL,
   `nome` VARCHAR(100) NOT NULL,
   `dataFundacao` DATE NOT NULL,
@@ -79,39 +79,21 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `bdrepublica`.`rateio`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `bdrepublica`.`rateio` (
-  `idrateio` INT NOT NULL,
-  `valor` DOUBLE NOT NULL,
-  PRIMARY KEY (`idrateio`),
-  UNIQUE INDEX `idrateio_UNIQUE` (`idrateio` ASC) VISIBLE)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `bdrepublica`.`Usuario`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bdrepublica`.`Usuario` (
-  `idUsuario` INT NOT NULL,
-  `idrateio` INT NOT NULL,
+  `idUsuario` INT NOT NULL AUTO_INCREMENT,
   `cpf` VARCHAR(11) NOT NULL,
   `nome` VARCHAR(100) NOT NULL,
   `apelido` VARCHAR(45) NOT NULL,
   `telefone` VARCHAR(45) NOT NULL,
   `linkSociais` VARCHAR(100) NOT NULL,
-  `reponsavelUm` VARCHAR(100) NOT NULL,
+  `responsavelUm` VARCHAR(100) NOT NULL,
   `responsavelDois` VARCHAR(100) NOT NULL,
   `estado` VARCHAR(45) NOT NULL DEFAULT 'Sem Teto',
-  PRIMARY KEY (`idUsuario`, `idrateio`),
+  PRIMARY KEY (`idUsuario`),
   UNIQUE INDEX `idUsuario_UNIQUE` (`idUsuario` ASC) VISIBLE,
-  UNIQUE INDEX `cpf_UNIQUE` (`cpf` ASC) VISIBLE,
-  INDEX `fk_Usuario_rateio1_idx` (`idrateio` ASC) VISIBLE,
-  CONSTRAINT `fk_Usuario_rateio1`
-    FOREIGN KEY (`idrateio`)
-    REFERENCES `bdrepublica`.`rateio` (`idrateio`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  UNIQUE INDEX `cpf_UNIQUE` (`cpf` ASC) VISIBLE)
 ENGINE = InnoDB;
 
 
@@ -145,7 +127,7 @@ ENGINE = InnoDB;
 -- Table `bdrepublica`.`Feedback`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bdrepublica`.`Feedback` (
-  `idFeedback` INT NOT NULL,
+  `idFeedback` INT NOT NULL AUTO_INCREMENT,
   `dataCriacao` DATE NOT NULL,
   `descricao` VARCHAR(45) NOT NULL,
   `dataSolucao` DATE NOT NULL,
@@ -185,9 +167,27 @@ CREATE TABLE IF NOT EXISTS `bdrepublica`.`Tarefa` (
   `estado` VARCHAR(45) NOT NULL DEFAULT 'pendente',
   `descricao` VARCHAR(200) NOT NULL,
   `dataAgendamento` DATE NOT NULL,
-  `dataTernino` DATE NOT NULL,
+  `dataTermino` DATE NOT NULL,
   PRIMARY KEY (`idTarefa`),
   UNIQUE INDEX `idTarefa_UNIQUE` (`idTarefa` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `bdrepublica`.`rateio`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `bdrepublica`.`rateio` (
+  `idrateio` INT NOT NULL AUTO_INCREMENT,
+  `idUsuario` INT NOT NULL,
+  `valor` DOUBLE NOT NULL,
+  PRIMARY KEY (`idrateio`, `idUsuario`),
+  UNIQUE INDEX `idrateio_UNIQUE` (`idrateio` ASC) VISIBLE,
+  INDEX `fk_rateio_Usuario1_idx` (`idUsuario` ASC) VISIBLE,
+  CONSTRAINT `fk_rateio_Usuario1`
+    FOREIGN KEY (`idUsuario`)
+    REFERENCES `bdrepublica`.`Usuario` (`idUsuario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -195,7 +195,7 @@ ENGINE = InnoDB;
 -- Table `bdrepublica`.`Lancamento`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bdrepublica`.`Lancamento` (
-  `idLancamento` INT NOT NULL,
+  `idLancamento` INT NOT NULL AUTO_INCREMENT,
   `idrateio` INT NOT NULL,
   `idUsuario` INT NOT NULL,
   `descricao` VARCHAR(200) NOT NULL,
@@ -226,7 +226,7 @@ ENGINE = InnoDB;
 -- Table `bdrepublica`.`Reputacao`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bdrepublica`.`Reputacao` (
-  `idReputacao` INT NOT NULL,
+  `idReputacao` INT NOT NULL AUTO_INCREMENT,
   `idUsuario` INT NOT NULL,
   `indice` DOUBLE NOT NULL,
   `data` DATE NOT NULL,
