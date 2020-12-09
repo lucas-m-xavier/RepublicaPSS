@@ -2,6 +2,7 @@ package ufes.republica.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import ufes.republica.model.Feedback;
@@ -80,7 +81,7 @@ public class FeedbackDAO {
             throw new Exception("Tarefa não pode ser nulo!");
         }
         try {
-            ps = conn.prepareStatement("delete from tarefa where idTarefa = ?");
+            ps = conn.prepareStatement("delete from feedback where idFeedback = ?");
             ps.setInt(1, feedback.getId());
             ps.executeUpdate();
         } catch (SQLException sqle) {
@@ -89,5 +90,33 @@ public class FeedbackDAO {
             Conexao.fecharConexao(conn, ps);
         }
     }
+       /*
+    public Feedback procurarFeedback(int id) throws Exception {
+        PreparedStatement ps = null;
+        
+        ResultSet rs = null;
+        try {            
+            ps = conn.prepareStatement("select * from Feedback where idFeedback = ?");
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            if (!rs.next()) {
+                throw new Exception("Não foi encontrado nenhum registro com o ID: " + id );
+            }
+            
+            String dataCriacao = rs.getString(2);
+            String dataSolucao = rs.getString(3);
+            String descricao = rs.getString(4);
+            
+            
+            //return new Feedback(id, dataCriacao, descricao, dataSolucao);
+            
+        } catch (SQLException sqle) {
+            throw new Exception(sqle);
+        } finally {
+            rs.close();
+            ps.close();            
+        }
+    }
+    */
 
 }
