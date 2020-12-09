@@ -5,8 +5,6 @@
  */
 package ufes.republica.model;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import ufes.republica.business.command.CommandMementoUsuario;
 import ufes.republica.business.memento.usuario_memento.MementoUsuario;
 import ufes.republica.business.state.usuario_state.UsuarioState;
@@ -41,15 +39,15 @@ public class Usuario implements CommandMementoUsuario{
 
     private Republica republica;
 
-    private ArrayList<Reputacao> reputacao = new ArrayList<>();
+    private Reputacao reputacao;
 
-    private ArrayList<Feedback> feedbacks = new ArrayList<>();
+    private Feedback feedbacks;
 
-    private ArrayList<Tarefa> tarefas = new ArrayList<>();
+    private Tarefa tarefas;
 
-    private ArrayList<Lancamento> lancamentos = new ArrayList<>();
+    private Lancamento lancamento;
 
-    private ArrayList<Historico> historico = new ArrayList<>();
+    private Historico historico;
 
     public Usuario(String nome, String apelido, String telefone, String cpf, String sociais, String email, String senha, String responsavel1, String responsavel2) {
         this.nome = nome;
@@ -80,8 +78,20 @@ public class Usuario implements CommandMementoUsuario{
         this.responsavel2 = mementoUsuario.getResponsavel2();
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getNome() {
         return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getApelido() {
@@ -100,32 +110,12 @@ public class Usuario implements CommandMementoUsuario{
         this.telefone = telefone;
     }
 
-    public String getCpf() {
-        return cpf;
-    }
-
     public String getSociais() {
         return sociais;
     }
 
     public void setSociais(String sociais) {
         this.sociais = sociais;
-    }
-
-    public String getResponsavel1() {
-        return responsavel1;
-    }
-
-    public void setResponsavel1(String responsavel1) {
-        this.responsavel1 = responsavel1;
-    }
-
-    public String getResponsavel2() {
-        return responsavel2;
-    }
-
-    public void setResponsavel2(String responsavel2) {
-        this.responsavel2 = responsavel2;
     }
 
     public String getEmail() {
@@ -144,12 +134,20 @@ public class Usuario implements CommandMementoUsuario{
         this.senha = senha;
     }
 
-    public ArrayList<Historico> getHistorico() {
-        return historico;
+    public String getResponsavel1() {
+        return responsavel1;
     }
 
-    public void setHistorico(ArrayList<Historico> historico) {
-        this.historico = historico;
+    public void setResponsavel1(String responsavel1) {
+        this.responsavel1 = responsavel1;
+    }
+
+    public String getResponsavel2() {
+        return responsavel2;
+    }
+
+    public void setResponsavel2(String responsavel2) {
+        this.responsavel2 = responsavel2;
     }
 
     public UsuarioState getUsuarioState() {
@@ -168,43 +166,37 @@ public class Usuario implements CommandMementoUsuario{
         this.republica = republica;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public ArrayList<Reputacao> getReputacao() {
+    public Reputacao getReputacao() {
         return reputacao;
     }
 
-    public void setReputacao(ArrayList<Reputacao> reputacao) {
+    public void setReputacao(Reputacao reputacao) {
         this.reputacao = reputacao;
     }
 
-    public ArrayList<Feedback> getFeedbacks() {
+    public Feedback getFeedbacks() {
         return feedbacks;
     }
 
-    public void setFeedbacks(ArrayList<Feedback> feedbacks) {
+    public void setFeedbacks(Feedback feedbacks) {
         this.feedbacks = feedbacks;
     }
 
-    public ArrayList<Tarefa> getTarefas() {
+    public Tarefa getTarefas() {
         return tarefas;
     }
 
-    public void setTarefas(ArrayList<Tarefa> tarefas) {
+    public void setTarefas(Tarefa tarefas) {
         this.tarefas = tarefas;
     }
 
-    public ArrayList<Lancamento> getLancamentos() {
-        return lancamentos;
+    public Historico getHistorico() {
+        return historico;
     }
 
-    public void setLancamentos(ArrayList<Lancamento> lancamentos) {
-        this.lancamentos = lancamentos;
+    public void setHistorico(Historico historico) {
+        this.historico = historico;
     }
 
-    public int getId() {
-        return id;
-    }
+    
 }

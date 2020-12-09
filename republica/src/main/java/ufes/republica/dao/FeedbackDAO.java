@@ -24,7 +24,7 @@ public class FeedbackDAO {
             throw new Exception("O feedback não pode ser nulo!");
         }
         try {
-            String SQL = "INSERT INTO Feedback (dataCriacao, descricao, dataSolucao"
+            String SQL = "INSERT INTO Feedback (dataCriacao, descricao, dataSolucao)"
                     + "values (?, ?, ?);";
 
             ps = conn.prepareStatement(SQL);
@@ -35,8 +35,8 @@ public class FeedbackDAO {
             ps.setString(3, f.format(feedback.getDataSolucao()));
             ps.executeUpdate();
 
-            SQL = "INSERT INTO TarefaUsuario (idUsuario, idTarefa"
-                    + "values (?, SELECT LAST_INSERT_ID FROM tarefa);";
+            SQL = "INSERT INTO FeedbackUsuario (idUsuario, idFeedback)"
+                    + "values (?, SELECT LAST_INSERT_ID FROM Feedback);";
             ps = conn.prepareStatement(SQL);
             ps.setInt(1, feedback.getUsuario().getId());
             
@@ -49,5 +49,45 @@ public class FeedbackDAO {
         }
     }
     
+    public void atualizar(Feedback feedback) throws Exception {
+        PreparedStatement ps = null;
+
+        if (feedback == null) {
+            throw new Exception("O feedback não pode ser nulo!");
+        }
+        try {
+            String SQL = "UPDATE feedback SET dataCriacao=?, descricao=?, dataSolucao=?"
+                    + "where id = ?";
+
+            ps = conn.prepareStatement(SQL);
+            SimpleDateFormat f = new SimpleDateFormat("yyyy/MM/dd");
+            ps.setString(1, f.format(feedback.getDataCriacao()));
+            ps.setString(2, feedback.getDescricao());
+            ps.setString(3, f.format(feedback.getDataSolucao()));
+            ps.executeUpdate();
+
+        } catch (SQLException sqle) {
+            throw new Exception("Erro ao atualizar dados: " + sqle);
+        } finally {
+            Conexao.fecharConexao(conn, ps);
+        }
+    }
     
+       public void excluir(Feedback feedback) throws Exception {
+        PreparedStatement ps = null;
+
+        if (tarefa == null) {
+            throw new Exception("Tarefa não pode ser nulo!");
+        }
+        try {
+            ps = conn.prepareStatement("delete from tarefa where idTarefa = ?");
+            ps.setInt(1, tarefa.getId());
+            ps.executeUpdate();
+        } catch (SQLException sqle) {
+            throw new Exception("Erro ao excluir dados:" + sqle);
+        } finally {
+            Conexao.fecharConexao(conn, ps);
+        }
+    }
+
 }

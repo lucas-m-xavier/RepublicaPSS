@@ -31,6 +31,14 @@ public class Reputacao {
         this.usuario = usuario;
         this.calculaIndice();
     }
+
+    public Reputacao(int id, double indice, LocalDate data, Usuario usuario) {
+        this.id = id;
+        this.indice = indice;
+        this.data = data;
+        this.usuario = usuario;
+    }
+    
     
     public final void calculaIndice() {
         this.indice = first.calcula(this.usuario);
@@ -46,5 +54,8 @@ public class Reputacao {
 
     public int getId() {
         return id;
+    }
+    public double getIndice(){
+        return this.indice;
     }
 }
