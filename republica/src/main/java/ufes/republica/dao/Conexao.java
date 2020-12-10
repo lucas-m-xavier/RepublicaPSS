@@ -17,10 +17,10 @@ public class Conexao {
 
         Connection c = null;
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            c = DriverManager.getConnection("jdbc:mysql://localhost/republicadb", "root", "");
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            c = DriverManager.getConnection("jdbc:mysql://localhost/bdrepublica?useTimezone=true&serverTimezone=UTC", "root","1234");
         } catch (Exception e) {
-            System.out.println("falha na conexão");
+            System.out.println(e.toString());
         }
         return c;
     }

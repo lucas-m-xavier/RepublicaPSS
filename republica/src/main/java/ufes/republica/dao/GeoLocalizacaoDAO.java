@@ -83,12 +83,12 @@ public class GeoLocalizacaoDAO {
             throw new Exception("A geolocalizacao não pode ser nula!");
         }
         try {
-            String SQL = "INSERT INTO Geolocalizacao (latitude, longitude"
-                    + "values (?, ?);";
-
+            String SQL = "INSERT INTO Geolocalizacao (latitude, longitude)"
+                    + " values (?, ?);";
             ps = conn.prepareStatement(SQL);
             ps.setString(1, geolocalizacao.getLatitude());
             ps.setString(2, geolocalizacao.getLongitude());
+            System.out.println(SQL);
             ps.executeUpdate();
 
         } catch (SQLException sqle) {

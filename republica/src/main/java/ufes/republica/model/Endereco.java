@@ -74,4 +74,34 @@ public class Endereco {
     public GeoLocalizacao getGeoLocalizacao() {
         return geoLocalizacao;
     }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+
+    public void setReferencia(String referencia) {
+        this.referencia = referencia;
+    }
+
+    public void setUf(EnumUF uf) {
+        this.uf = uf;
+    }
+
+    public void setGeoLocalizacao(GeoLocalizacao geoLocalizacao) {
+        this.geoLocalizacao = geoLocalizacao;
+    }
+    
+    
 }
