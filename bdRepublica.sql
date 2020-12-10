@@ -133,6 +133,7 @@ CREATE TABLE IF NOT EXISTS `bdrepublica`.`Feedback` (
   `descricao` VARCHAR(45) NOT NULL,
   `dataSolucao` DATE NOT NULL,
   `excluida` TINYINT NOT NULL DEFAULT 0,
+  `concluida` TINYINT NOT NULL DEFAULT 0,
   PRIMARY KEY (`idFeedback`, `idUsuario`),
   UNIQUE INDEX `idFeedback_UNIQUE` (`idFeedback` ASC) VISIBLE,
   INDEX `fk_Feedback_Usuario1_idx` (`idUsuario` ASC) VISIBLE,
@@ -152,6 +153,7 @@ CREATE TABLE IF NOT EXISTS `bdrepublica`.`Tarefa` (
   `descricao` VARCHAR(200) NOT NULL,
   `dataAgendamento` DATE NOT NULL,
   `dataTermino` DATE NOT NULL,
+  `finalizada` TINYINT NOT NULL DEFAULT 0,
   PRIMARY KEY (`idTarefa`),
   UNIQUE INDEX `idTarefa_UNIQUE` (`idTarefa` ASC) VISIBLE)
 ENGINE = InnoDB;
