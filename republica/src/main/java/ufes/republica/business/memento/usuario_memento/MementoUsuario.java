@@ -21,22 +21,16 @@ public class MementoUsuario {
 
     private String sociais;
 
-    private String email;
-
-    private String senha;
-
     private String responsavel1;
 
     private String responsavel2;
 
-    public MementoUsuario(String nome, String apelido, String telefone, String cpf, String sociais, String email, String senha, String responsavel1, String responsavel2) {
+    public MementoUsuario(String nome, String apelido, String telefone, String cpf, String sociais,String responsavel1, String responsavel2) {
         this.nome = nome;
         this.apelido = apelido;
         this.telefone = telefone;
         this.cpf = cpf;
         this.sociais = sociais;
-        this.email = email;
-        this.senha = senha;
         this.responsavel1 = responsavel1;
         this.responsavel2 = responsavel2;
     }
@@ -59,14 +53,6 @@ public class MementoUsuario {
 
     public String getSociais() {
         return sociais;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getSenha() {
-        return senha;
     }
 
     public String getResponsavel1() {

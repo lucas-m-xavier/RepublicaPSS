@@ -6,13 +6,15 @@
 package ufes.republica.model;
 
 import java.time.LocalDate;
+
+import ufes.republica.business.command.CommandMementoLancamento;
 import ufes.republica.business.memento.lancamento_memento.MementoLancamento;
 
 /**
  *
  * @author Lucas
  */
-public class Lancamento implements MementoLancamento{
+public class Lancamento implements CommandMementoLancamento {
 
     private int id;
 
@@ -57,9 +59,9 @@ public class Lancamento implements MementoLancamento{
     public Lancamento() {
     }
 
-    //public MementoLancamento criar() {
-        //return new MementoLancamento(this.descricao, this.dataVencimento, this.valor, this.periodicidade, this.valorParcela, this.tipo, this.rateio);
-    //}
+    public MementoLancamento criar() {
+        return new MementoLancamento(this.descricao, this.dataVencimento, this.valor, this.periodicidade, this.valorParcela, this.tipo, this.rateio);
+    }
 
     public void restaurar(MementoLancamento mementoLancamento) {
         this.descricao = mementoLancamento.getDescricao();

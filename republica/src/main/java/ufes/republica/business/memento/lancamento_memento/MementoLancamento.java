@@ -6,7 +6,6 @@
 package ufes.republica.business.memento.lancamento_memento;
 
 import java.time.LocalDate;
-import ufes.republica.business.state.lancamento_state.LancamentoState;
 import ufes.republica.model.Rateio;
 
 /**
