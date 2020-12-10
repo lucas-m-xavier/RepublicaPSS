@@ -42,6 +42,8 @@ public class Usuario implements CommandMementoUsuario{
     private Historico historico;
 
     private Rateio rateio;
+    
+    private UsuarioLogin usuarioLogin;
 
     public Usuario() {
     }

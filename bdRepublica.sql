@@ -260,6 +260,24 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 
+-- -----------------------------------------------------
+-- Table `bdrepublica`.`UsuarioLogin`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `bdrepublica`.`UsuarioLogin` (
+  `idUsuarioLogin` INT NOT NULL,
+  `usuario_idUsuario` INT NOT NULL,
+  `email` VARCHAR(100) NOT NULL,
+  `senha` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`idUsuarioLogin`, `usuario_idUsuario`),
+  INDEX `fk_UsuarioLogin_usuario1_idx` (`usuario_idUsuario` ASC) VISIBLE,
+  CONSTRAINT `fk_UsuarioLogin_usuario1`
+    FOREIGN KEY (`usuario_idUsuario`)
+    REFERENCES `bdrepublica`.`usuario` (`idUsuario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
