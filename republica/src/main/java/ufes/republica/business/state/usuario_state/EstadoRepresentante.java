@@ -5,10 +5,7 @@
  */
 package ufes.republica.business.state.usuario_state;
 
-import ufes.republica.business.state.feedback_state.EstadoEmAberto;
-import ufes.republica.business.state.lancamento_state.EstadoIndeferido;
 import ufes.republica.business.state.republica_state.EstadoAberta;
-import ufes.republica.business.state.tarefa_state.EstadoPendente;
 import ufes.republica.model.*;
 
 /**
@@ -20,7 +17,7 @@ public class EstadoRepresentante extends UsuarioState {
     public EstadoRepresentante(Usuario usuario) {
         super(usuario);
     }
-
+    /*
     @Override
     public void aprovarLancamento(Lancamento lancamento) {
         if (lancamento.getEstado() instanceof EstadoIndeferido) {
@@ -85,4 +82,6 @@ public class EstadoRepresentante extends UsuarioState {
         usuario.getRepublica().getEstado().removerMorador(usuario);
         usuario.setUsuarioState(new EstadoSemTeto(usuario));
     }
+
+     */
 }

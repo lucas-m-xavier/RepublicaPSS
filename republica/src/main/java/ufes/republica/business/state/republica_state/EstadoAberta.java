@@ -16,10 +16,11 @@ import ufes.republica.model.Usuario;
  * @author Lucas
  */
 public class EstadoAberta extends RepublicaState {
+
     public EstadoAberta(Republica republica) {
         super(republica);
     }
-    
+    /*
     @Override
     public void extinguirRepublica() {
         this.getRepublica().setEstado(new EstadoExtinta(this.getRepublica()));
@@ -59,4 +60,6 @@ public class EstadoAberta extends RepublicaState {
             }
         }
     }
+
+     */
 }

@@ -18,7 +18,7 @@ public class EstadoSemTeto extends UsuarioState {
     public EstadoSemTeto(Usuario usuario) {
         super(usuario);
     }
-
+    /*
     @Override
     public void criarRepublica(Republica republica) {
         this.getUsuario().setUsuarioState(new EstadoRepresentante(this.getUsuario()));
@@ -26,5 +26,5 @@ public class EstadoSemTeto extends UsuarioState {
         republica.setEstado(new EstadoAberta(republica));
         republica.addMorador(this.getUsuario());
     }
-
+    */
 }

@@ -12,7 +12,9 @@ import ufes.republica.model.Republica;
  * @author Lucas
  */
 public class EstadoExtinta extends RepublicaState {
+
     public EstadoExtinta(Republica republica) {
         super(republica);
     }
+
 }

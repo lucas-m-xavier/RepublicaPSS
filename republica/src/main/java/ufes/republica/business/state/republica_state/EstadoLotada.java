@@ -16,10 +16,11 @@ import ufes.republica.model.Usuario;
  * @author Lucas
  */
 public class EstadoLotada extends RepublicaState {
+
     public EstadoLotada(Republica republica) {
         super(republica);
     }
-    
+    /*
     @Override
     public void extinguirRepublica() {
         for (Usuario usuario : this.getRepublica().getMoradores()) {
@@ -45,4 +46,6 @@ public class EstadoLotada extends RepublicaState {
             }
         }
     }
+
+     */
 }
