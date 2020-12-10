@@ -128,33 +128,17 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bdrepublica`.`Feedback` (
   `idFeedback` INT NOT NULL AUTO_INCREMENT,
+  `idUsuario` INT NOT NULL,
   `dataCriacao` DATE NOT NULL,
   `descricao` VARCHAR(45) NOT NULL,
   `dataSolucao` DATE NOT NULL,
-  `estado` VARCHAR(45) NOT NULL DEFAULT 'Em Aberto',
   `excluida` TINYINT NOT NULL DEFAULT 0,
-  PRIMARY KEY (`idFeedback`),
-  UNIQUE INDEX `idFeedback_UNIQUE` (`idFeedback` ASC) VISIBLE)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `bdrepublica`.`FeedbackUsuario`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `bdrepublica`.`FeedbackUsuario` (
-  `idUsuario` INT NOT NULL,
-  `idFeedback` INT NOT NULL,
-  PRIMARY KEY (`idUsuario`, `idFeedback`),
-  INDEX `fk_Usuario_has_Feedback_Feedback1_idx` (`idFeedback` ASC) VISIBLE,
-  INDEX `fk_Usuario_has_Feedback_Usuario1_idx` (`idUsuario` ASC) VISIBLE,
-  CONSTRAINT `fk_Usuario_has_Feedback_Usuario1`
+  PRIMARY KEY (`idFeedback`, `idUsuario`),
+  UNIQUE INDEX `idFeedback_UNIQUE` (`idFeedback` ASC) VISIBLE,
+  INDEX `fk_Feedback_Usuario1_idx` (`idUsuario` ASC) VISIBLE,
+  CONSTRAINT `fk_Feedback_Usuario1`
     FOREIGN KEY (`idUsuario`)
     REFERENCES `bdrepublica`.`Usuario` (`idUsuario`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Usuario_has_Feedback_Feedback1`
-    FOREIGN KEY (`idFeedback`)
-    REFERENCES `bdrepublica`.`Feedback` (`idFeedback`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -165,7 +149,6 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bdrepublica`.`Tarefa` (
   `idTarefa` INT NOT NULL AUTO_INCREMENT,
-  `estado` VARCHAR(45) NOT NULL DEFAULT 'pendente',
   `descricao` VARCHAR(200) NOT NULL,
   `dataAgendamento` DATE NOT NULL,
   `dataTermino` DATE NOT NULL,
@@ -175,49 +158,24 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `bdrepublica`.`rateio`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `bdrepublica`.`rateio` (
-  `idrateio` INT NOT NULL AUTO_INCREMENT,
-  `idUsuario` INT NOT NULL,
-  `valor` DOUBLE NOT NULL,
-  PRIMARY KEY (`idrateio`, `idUsuario`),
-  UNIQUE INDEX `idrateio_UNIQUE` (`idrateio` ASC) VISIBLE,
-  INDEX `fk_rateio_Usuario1_idx` (`idUsuario` ASC) VISIBLE,
-  CONSTRAINT `fk_rateio_Usuario1`
-    FOREIGN KEY (`idUsuario`)
-    REFERENCES `bdrepublica`.`Usuario` (`idUsuario`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `bdrepublica`.`Lancamento`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bdrepublica`.`Lancamento` (
   `idLancamento` INT NOT NULL AUTO_INCREMENT,
-  `idrateio` INT NOT NULL,
-  `idUsuario` INT NOT NULL,
+  `idEndereco` INT NOT NULL,
+  `idRepublica` INT NOT NULL,
   `descricao` VARCHAR(200) NOT NULL,
   `dataVencimento` DATE NOT NULL,
   `valor` DOUBLE NOT NULL,
   `periodicidade` VARCHAR(45) NOT NULL,
   `valorParcela` DOUBLE NOT NULL,
   `tipo` VARCHAR(45) NOT NULL,
-  `estado` VARCHAR(45) NOT NULL DEFAULT 'Indeferido',
-  PRIMARY KEY (`idLancamento`, `idrateio`, `idUsuario`),
+  PRIMARY KEY (`idLancamento`, `idEndereco`, `idRepublica`),
   UNIQUE INDEX `idLancamento_UNIQUE` (`idLancamento` ASC) VISIBLE,
-  INDEX `fk_Lancamento_Usuario1_idx` (`idUsuario` ASC) VISIBLE,
-  INDEX `fk_Lancamento_rateio1_idx` (`idrateio` ASC) VISIBLE,
-  CONSTRAINT `fk_Lancamento_Usuario1`
-    FOREIGN KEY (`idUsuario`)
-    REFERENCES `bdrepublica`.`Usuario` (`idUsuario`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Lancamento_rateio1`
-    FOREIGN KEY (`idrateio`)
-    REFERENCES `bdrepublica`.`rateio` (`idrateio`)
+  INDEX `fk_Lancamento_Republica1_idx` (`idRepublica` ASC, `idEndereco` ASC) VISIBLE,
+  CONSTRAINT `fk_Lancamento_Republica1`
+    FOREIGN KEY (`idRepublica` , `idEndereco`)
+    REFERENCES `bdrepublica`.`Republica` (`idRepublica` , `idEndereco`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -243,6 +201,31 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `bdrepublica`.`rateio`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `bdrepublica`.`rateio` (
+  `idrateio` INT NOT NULL AUTO_INCREMENT,
+  `idLancamento` INT NOT NULL,
+  `idUsuario` INT NOT NULL,
+  `valor` DOUBLE NOT NULL,
+  PRIMARY KEY (`idrateio`, `idLancamento`, `idUsuario`),
+  UNIQUE INDEX `idrateio_UNIQUE` (`idrateio` ASC) VISIBLE,
+  INDEX `fk_rateio_Usuario1_idx` (`idUsuario` ASC) VISIBLE,
+  INDEX `fk_rateio_Lancamento1_idx` (`idLancamento` ASC) VISIBLE,
+  CONSTRAINT `fk_rateio_Usuario1`
+    FOREIGN KEY (`idUsuario`)
+    REFERENCES `bdrepublica`.`Usuario` (`idUsuario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_rateio_Lancamento1`
+    FOREIGN KEY (`idLancamento`)
+    REFERENCES `bdrepublica`.`Lancamento` (`idLancamento`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `bdrepublica`.`TarefaUsuario`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bdrepublica`.`TarefaUsuario` (
@@ -257,6 +240,28 @@ CREATE TABLE IF NOT EXISTS `bdrepublica`.`TarefaUsuario` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Tarefa_has_Usuario_Usuario1`
+    FOREIGN KEY (`idUsuario`)
+    REFERENCES `bdrepublica`.`Usuario` (`idUsuario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `bdrepublica`.`Denuncia`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `bdrepublica`.`Denuncia` (
+  `idFeedback` INT NOT NULL,
+  `idUsuario` INT NOT NULL,
+  PRIMARY KEY (`idFeedback`, `idUsuario`),
+  INDEX `fk_Feedback_has_Usuario_Usuario1_idx` (`idUsuario` ASC) VISIBLE,
+  INDEX `fk_Feedback_has_Usuario_Feedback1_idx` (`idFeedback` ASC) VISIBLE,
+  CONSTRAINT `fk_Feedback_has_Usuario_Feedback1`
+    FOREIGN KEY (`idFeedback`)
+    REFERENCES `bdrepublica`.`Feedback` (`idFeedback`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Feedback_has_Usuario_Usuario1`
     FOREIGN KEY (`idUsuario`)
     REFERENCES `bdrepublica`.`Usuario` (`idUsuario`)
     ON DELETE NO ACTION

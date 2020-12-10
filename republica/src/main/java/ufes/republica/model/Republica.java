@@ -47,9 +47,7 @@ public class Republica implements CommandMementoRepublica{
 
     private RepublicaState estado;
 
-    private ArrayList<Usuario> moradores = new ArrayList<>();
 
-    private ArrayList<Historico> historico = new ArrayList<>();
 
     public Republica(String nome, Endereco endereco, String vantagens, double despesasMedias, int vagasTotais, int vagasOcupadas, double saldoTotal, String codEtica) {
         this.nome = nome;
@@ -84,60 +82,6 @@ public class Republica implements CommandMementoRepublica{
         this.extincao = mementoRepublica.getExtincao();
         this.vagasDisponiveis = mementoRepublica.getVagasDisponiveis();
         this.estado = mementoRepublica.getEstado();
-    }
-
-    public void addMorador(Usuario morador) {
-        if (morador == null) {
-            throw new RuntimeException("Morador não pode ser nulo!");
-        }
-
-        if (this.vagasDisponiveis > 0) {
-            Optional<Usuario> moradorEncontrado = getMoradorPorNome(morador.getNome());
-
-            if (!moradorEncontrado.isPresent()) {
-                moradores.add(morador);
-                this.vagasDisponiveis--;
-                this.vagasOcupadas++;
-            } else {
-                throw new RuntimeException("Morador já está em uma república");
-            }
-        } else {
-            throw new RuntimeException("Republica cheia");
-        }
-    }
-
-    public Optional<Usuario> getMoradorPorNome(String nome) {
-        Optional<Usuario> moradorEncontrado = Optional.empty();
-
-        for (Usuario morador : this.getMoradores()) {
-            if (morador.getNome().toUpperCase().equals(nome.toUpperCase())) {
-                moradorEncontrado = Optional.of(morador);
-            }
-        }
-        return moradorEncontrado;
-    }
-
-    public Usuario getRepresentante() {
-        for(Usuario morador : this.getMoradores()) {
-            if(morador.getUsuarioState() instanceof EstadoRepresentante) {
-                return morador;
-            }
-        }
-        throw new RuntimeException("Representante não encontrado!");
-    }
-
-    public void removerMorador(Usuario usuario) {
-        Optional<Usuario> moradorEncontrado = getMoradorPorNome(usuario.getNome());
-
-        if (!moradorEncontrado.isPresent()) {
-            throw new RuntimeException("Morador " + usuario.getNome() + " não encontrado!");
-        }
-        //LEMBRAR DE SETAR A MEDIA DA REPUTAÇÃO DO MORADOR
-        Historico historico = new Historico(this.getRepresentante().getNome(), 0, this.getNome(), usuario, this);
-        moradorEncontrado.get().getHistorico().add(historico);
-        this.getMoradores().remove(moradorEncontrado.get());
-        this.vagasDisponiveis++;
-        this.vagasOcupadas--;
     }
 
     public String getNome() {
@@ -223,23 +167,7 @@ public class Republica implements CommandMementoRepublica{
     public void setCodEtica(String codEtica) {
         this.codEtica = codEtica;
     }
-
-    public ArrayList<Usuario> getMoradores() {
-        return moradores;
-    }
-
-    public void setMoradores(ArrayList<Usuario> moradores) {
-        this.moradores = moradores;
-    }
-
-    public ArrayList<Historico> getHistorico() {
-        return historico;
-    }
-
-    public void setHistorico(ArrayList<Historico> historico) {
-        this.historico = historico;
-    }
-
+    
     public RepublicaState getEstado() {
         return estado;
     }
