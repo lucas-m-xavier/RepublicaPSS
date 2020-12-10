@@ -38,15 +38,17 @@ public class Feedback {
         this.usuario = usuario;
         this.dataCriacao = LocalDate.now();
         this.dataSolucao = null;
+        this.concluida = false;
     }
 
-    public Feedback(int id, LocalDate dataCriacao, String descricao, LocalDate dataSolucao, boolean EXCLUIDA, Usuario usuario) {
+    public Feedback(int id, LocalDate dataCriacao, String descricao, LocalDate dataSolucao, boolean EXCLUIDA, boolean concluida, Usuario usuario) {
         this.id = id;
         this.dataCriacao = dataCriacao;
         this.descricao = descricao;
         this.dataSolucao = dataSolucao;
         this.EXCLUIDA = EXCLUIDA;
         this.usuario = usuario;
+        this.concluida = concluida;
         this.idade = ChronoUnit.DAYS.between(dataSolucao, dataCriacao);
     }
 

@@ -39,11 +39,12 @@ public class Tarefa {
         this.usuario = usuario;
     }
 
-    public Tarefa(int id, LocalDate dataAgendamento, String descricao, LocalDate dataTermino, Usuario usuario) {
+    public Tarefa(int id, LocalDate dataAgendamento, String descricao, LocalDate dataTermino, boolean finalizada, Usuario usuario) {
         this.id = id;
         this.dataAgendamento = dataAgendamento;
         this.descricao = descricao;
         this.dataTermino = dataTermino;
+        this.finalizada = finalizada;
         this.usuario = usuario;
     }
 
