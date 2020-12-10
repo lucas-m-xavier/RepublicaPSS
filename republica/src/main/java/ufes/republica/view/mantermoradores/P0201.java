@@ -5,6 +5,8 @@
  */
 package ufes.republica.view.mantermoradores;
 
+import java.util.ArrayList;
+import ufes.republica.model.Usuario;
 import static ufes.republica.view.TelaInicial.Desktop;
 
 /**
@@ -18,6 +20,30 @@ public class P0201 extends javax.swing.JInternalFrame {
      */
     public P0201() {
         initComponents();
+
+        DefaultTableModel modelo
+                = jTable1.getModel();
+        ArrayList<Usuario> usuarios = new ArrayList<>();
+
+        for (Usuario usuario : usuarios) {
+            String nome = "";
+            double reputacao = 0;
+            double rateio = 0;
+            jTable1.add(new Object[]{nome, reputacao, rateio});
+        
+    
+
+    );
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
     }
 
     /**
@@ -48,12 +74,19 @@ public class P0201 extends javax.swing.JInternalFrame {
                 {null, null, null}
             },
             new String [] {
-                "Nome", "Data de Ingresso", "Rateio %"
+                "Nome", "Reputação", "Rateio %"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Double.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, false, false
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -62,7 +95,10 @@ public class P0201 extends javax.swing.JInternalFrame {
         jTable1.setRowHeight(25);
         jScrollPane1.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
             jTable1.getColumnModel().getColumn(0).setPreferredWidth(200);
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
+            jTable1.getColumnModel().getColumn(2).setResizable(false);
         }
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 461, 130));

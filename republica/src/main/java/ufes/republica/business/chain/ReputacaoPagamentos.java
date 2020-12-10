@@ -5,6 +5,7 @@ import ufes.republica.model.Lancamento;
 import ufes.republica.model.Tarefa;
 
 import java.util.ArrayList;
+import ufes.republica.model.Usuario;
 
 public class ReputacaoPagamentos extends Handler{
 
@@ -22,4 +23,6 @@ public class ReputacaoPagamentos extends Handler{
 
         return icp;
     }
+
+   
 }

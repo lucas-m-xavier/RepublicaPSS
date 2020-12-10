@@ -19,40 +19,39 @@ public class Reputacao {
 
     private int id;
 
+    private int idUsuario;
+
     private double indice;
-    
+
     private LocalDate data;
-    
-    private Usuario usuario;
 
     private Handler first = new ReputacaoSolucao();
 
-    public Reputacao(Usuario usuario, ArrayList<Feedback> feedbacks, ArrayList<Tarefa> tarefas, ArrayList<Lancamento> lancamentos) {
+    public Reputacao(int usuario, ArrayList<Feedback> feedbacks, ArrayList<Tarefa> tarefas, ArrayList<Lancamento> lancamentos) {
         this.data = LocalDate.now();
-        this.usuario = usuario;
+        this.idUsuario = usuario;
         this.indice = first.calcula(feedbacks, tarefas, lancamentos);
     }
 
-    public Reputacao(int id, double indice, LocalDate data, Usuario usuario) {
+    public Reputacao(int id, double indice, LocalDate data, int usuario) {
         this.id = id;
         this.indice = indice;
         this.data = data;
-        this.usuario = usuario;
+        this.idUsuario = usuario;
     }
 
     public LocalDate getData() {
         return data;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
     public int getId() {
         return id;
     }
 
-    public double getIndice(){
+    public double getIndice() {
         return this.indice;
+    }
+    public int getIdUsuario(){
+        return this.idUsuario;
     }
 }
