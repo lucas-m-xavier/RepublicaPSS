@@ -1,8 +1,5 @@
 package ufes.republica.dao;
 
-import ufes.republica.business.state.tarefa_state.EstadoFinalizada;
-import ufes.republica.business.state.tarefa_state.EstadoPendente;
-import ufes.republica.business.state.tarefa_state.TarefaState;
 import ufes.republica.model.GeoLocalizacao;
 import ufes.republica.model.Tarefa;
 import ufes.republica.model.Usuario;
@@ -40,11 +37,6 @@ public class TarefaDAO {
                 throw new Exception("Não foi encontrado nenhum registro com o ID: " + id );
             }
 
-            Tarefa tarefa = new Tarefa();
-            TarefaState estado = new EstadoPendente(tarefa);
-            if(rs.getString(2) == "finalizada")
-                estado = new EstadoFinalizada(tarefa);
-
             String descricao = rs.getString(3);
             LocalDate dataAgendamento = LocalDate.parse(rs.getDate(4).toString());
             LocalDate dataTermino = LocalDate.parse(rs.getDate(5).toString());
@@ -60,7 +52,7 @@ public class TarefaDAO {
             UsuarioDAO usuarioDAO = new UsuarioDAO(conn);
             Usuario usuario = usuarioDAO.procurarUsuario(rs.getInt(2));
 
-            return new Tarefa(id, dataAgendamento, descricao, dataTermino, usuario, estado);
+            return new Tarefa(id, dataAgendamento, descricao, dataTermino, usuario);
 
         } catch (SQLException sqle) {
             throw new Exception(sqle);

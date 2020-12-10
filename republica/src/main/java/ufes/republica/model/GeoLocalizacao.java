@@ -13,9 +13,9 @@ public class GeoLocalizacao {
 
     private int id;
 
-    private final String latitude;
+    private String latitude;
     
-    private final String longitude;
+    private String longitude;
 
     public GeoLocalizacao(int id, String latitude, String longitude) {
         this.id = id;
@@ -26,6 +26,9 @@ public class GeoLocalizacao {
     public GeoLocalizacao(String latitude, String longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
+    }
+
+    public GeoLocalizacao() {
     }
 
     public String getLatitude() {

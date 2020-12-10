@@ -29,9 +29,7 @@ public class MementoLancamento {
 
     private Rateio rateio;
 
-    private LancamentoState estado;
-
-    public MementoLancamento(String descricao, LocalDate dataVencimento, double valor, String periodicidade, double valorParcela, String tipo, Rateio rateio, LancamentoState estado) {
+    public MementoLancamento(String descricao, LocalDate dataVencimento, double valor, String periodicidade, double valorParcela, String tipo, Rateio rateio) {
         this.descricao = descricao;
         this.dataVencimento = dataVencimento;
         this.valor = valor;
@@ -39,7 +37,6 @@ public class MementoLancamento {
         this.valorParcela = valorParcela;
         this.tipo = tipo;
         this.rateio = rateio;
-        this.estado = estado;
     }
 
     public String getDescricao() {
@@ -68,10 +65,6 @@ public class MementoLancamento {
 
     public Rateio getRateio() {
         return rateio;
-    }
-
-    public LancamentoState getEstado() {
-        return estado;
     }
 
 }

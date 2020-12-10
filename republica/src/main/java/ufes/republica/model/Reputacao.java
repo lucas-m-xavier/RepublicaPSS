@@ -20,9 +20,9 @@ public class Reputacao {
 
     private double indice;
     
-    private final LocalDate data;
+    private LocalDate data;
     
-    private final Usuario usuario;
+    private Usuario usuario;
 
     private Handler first = new ReputacaoSolucao();
 
@@ -55,6 +55,7 @@ public class Reputacao {
     public int getId() {
         return id;
     }
+
     public double getIndice(){
         return this.indice;
     }

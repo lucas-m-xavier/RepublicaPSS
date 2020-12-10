@@ -7,8 +7,6 @@ package ufes.republica.model;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import ufes.republica.business.state.feedback_state.EstadoEmAberto;
-import ufes.republica.business.state.feedback_state.FeedbackState;
 
 /**
  *
@@ -23,14 +21,12 @@ public class Feedback {
     private String descricao;
     
     private LocalDate dataSolucao;
+
+    private boolean EXCLUIDA;
     
     private long idade;
     
     private Usuario usuario;
-
-    private boolean EXCLUIDA;
-    
-    private FeedbackState estado;
 
     public Feedback() {
     }
@@ -40,17 +36,15 @@ public class Feedback {
         this.usuario = usuario;
         this.dataCriacao = LocalDate.now();
         this.dataSolucao = null;
-        this.estado = new EstadoEmAberto(this);
     }
 
-    public Feedback(int id, LocalDate dataCriacao, String descricao, LocalDate dataSolucao, Usuario usuario, boolean EXCLUIDA, FeedbackState estado) {
+    public Feedback(int id, LocalDate dataCriacao, String descricao, LocalDate dataSolucao, boolean EXCLUIDA, Usuario usuario) {
         this.id = id;
         this.dataCriacao = dataCriacao;
         this.descricao = descricao;
         this.dataSolucao = dataSolucao;
-        this.usuario = usuario;
         this.EXCLUIDA = EXCLUIDA;
-        this.estado = estado;
+        this.usuario = usuario;
         this.idade = ChronoUnit.DAYS.between(dataSolucao, dataCriacao);
     }
 
@@ -58,16 +52,8 @@ public class Feedback {
         return dataSolucao;
     }
 
-    public void setDataSolucao(LocalDate dataSolucao) {
-        this.dataSolucao = dataSolucao;
-    }
-
     public long getIdade() {
         return idade;
-    }
-
-    public void setIdade(long idade) {
-        this.idade = idade;
     }
 
     public boolean isEXCLUIDA() {
@@ -76,14 +62,6 @@ public class Feedback {
 
     public void setEXCLUIDA(boolean EXCLUIDA) {
         this.EXCLUIDA = EXCLUIDA;
-    }
-
-    public FeedbackState getEstado() {
-        return estado;
-    }
-
-    public void setEstado(FeedbackState estado) {
-        this.estado = estado;
     }
 
     public LocalDate getDataCriacao() {

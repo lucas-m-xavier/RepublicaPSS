@@ -62,7 +62,7 @@ public class UsuarioDAO {
             UsuarioDAO usuarioDAO = new UsuarioDAO(conn);
             Usuario usuario = usuarioDAO.procurarUsuario(rs.getInt(2));
 
-            return new GeoLocalizacao(id,dataAgendamento, descricao, dataTermino, usuario, ESTADO);
+            return new Usuario();
 
         } catch (SQLException sqle) {
             throw new Exception(sqle);

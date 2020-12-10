@@ -25,7 +25,7 @@ public class Republica implements CommandMementoRepublica{
 
     private String nome;
 
-    private final LocalDate fundacao;
+    private LocalDate fundacao;
 
     private LocalDate extincao;
 
@@ -45,9 +45,12 @@ public class Republica implements CommandMementoRepublica{
 
     private String codEtica;
 
+    private Lancamento lancamento;
+
     private RepublicaState estado;
 
-
+    public Republica() {
+    }
 
     public Republica(String nome, Endereco endereco, String vantagens, double despesasMedias, int vagasTotais, int vagasOcupadas, double saldoTotal, String codEtica) {
         this.nome = nome;
@@ -62,6 +65,23 @@ public class Republica implements CommandMementoRepublica{
         this.extincao = null;
         this.vagasDisponiveis = vagasTotais - vagasOcupadas;
         this.estado = new EstadoAberta(this);
+    }
+
+    public Republica(int id, String nome, LocalDate fundacao, LocalDate extincao, Endereco endereco, String vantagens, double despesasMedias, int vagasTotais, int vagasOcupadas, int vagasDisponiveis, double saldoTotal, String codEtica, Lancamento lancamento, RepublicaState estado) {
+        this.id = id;
+        this.nome = nome;
+        this.fundacao = fundacao;
+        this.extincao = extincao;
+        this.endereco = endereco;
+        this.vantagens = vantagens;
+        this.despesasMedias = despesasMedias;
+        this.vagasTotais = vagasTotais;
+        this.vagasOcupadas = vagasOcupadas;
+        this.vagasDisponiveis = vagasDisponiveis;
+        this.saldoTotal = saldoTotal;
+        this.codEtica = codEtica;
+        this.lancamento = lancamento;
+        this.estado = estado;
     }
 
     @Override
@@ -178,5 +198,9 @@ public class Republica implements CommandMementoRepublica{
 
     public int getId() {
         return id;
+    }
+
+    public Lancamento getLancamento() {
+        return lancamento;
     }
 }

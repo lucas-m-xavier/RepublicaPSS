@@ -15,39 +15,36 @@ public class Endereco {
 
     private int id;
 
-    private final String cep;
+    private String cep;
     
-    private final String bairro;
-    
-    private final String referencia;
-    
-    private final int numero;
-    
-    private final String logradouro;
-    
-    private final EnumUF uf;
-    
-    private final GeoLocalizacao geoLocalizacao;
+    private String bairro;
 
-    public Endereco(int id, String cep, String bairro, String referencia, int numero, String logradouro, EnumUF uf, GeoLocalizacao geoLocalizacao) {
+    private String logradouro;
+
+    private int numero;
+    
+    private String referencia;
+    
+    private EnumUF uf;
+    
+    private GeoLocalizacao geoLocalizacao;
+
+    public Endereco(int id, String cep, String bairro, String logradouro, int numero, String referencia, EnumUF uf, GeoLocalizacao geoLocalizacao) {
         this.id = id;
         this.cep = cep;
         this.bairro = bairro;
-        this.referencia = referencia;
-        this.numero = numero;
         this.logradouro = logradouro;
+        this.numero = numero;
+        this.referencia = referencia;
         this.uf = uf;
         this.geoLocalizacao = geoLocalizacao;
     }
 
-    public Endereco(String cep, String bairro, String referencia, int numero, String logradouro, EnumUF uf, GeoLocalizacao geoLocalizacao) {
-        this.cep = cep;
-        this.bairro = bairro;
-        this.referencia = referencia;
-        this.numero = numero;
-        this.logradouro = logradouro;
-        this.uf = uf;
-        this.geoLocalizacao = geoLocalizacao;
+    public Endereco() {
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getCep() {
@@ -58,16 +55,16 @@ public class Endereco {
         return bairro;
     }
 
-    public String getReferencia() {
-        return referencia;
+    public String getLogradouro() {
+        return logradouro;
     }
 
     public int getNumero() {
         return numero;
     }
 
-    public String getLogradouro() {
-        return logradouro;
+    public String getReferencia() {
+        return referencia;
     }
 
     public EnumUF getUf() {
@@ -76,9 +73,5 @@ public class Endereco {
 
     public GeoLocalizacao getGeoLocalizacao() {
         return geoLocalizacao;
-    }
-
-    public int getId() {
-        return id;
     }
 }

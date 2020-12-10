@@ -5,7 +5,6 @@
  */
 package ufes.republica.model;
 
-import java.util.ArrayList;
 
 /**
  *
@@ -15,24 +14,33 @@ public class Rateio {
 
     private int id;
 
-    private final ArrayList<Double> valor;
+    private double valor;
     
-    private final ArrayList<Usuario> moradores;
+    private Usuario morador;
 
-    public Rateio(ArrayList<Double> valor, ArrayList<Usuario> moradores) {
+    public Rateio() {
+    }
+
+    public Rateio(double valor, Usuario morador) {
         this.valor = valor;
-        this.moradores = moradores;
+        this.morador = morador;
     }
 
-    public ArrayList<Double> getValor() {
-        return valor;
-    }
-
-    public ArrayList<Usuario> getMoradores() {
-        return moradores;
+    public Rateio(int id, double valor, Usuario morador) {
+        this.id = id;
+        this.valor = valor;
+        this.morador = morador;
     }
 
     public int getId() {
         return id;
+    }
+
+    public double getValor() {
+        return valor;
+    }
+
+    public Usuario getMorador() {
+        return morador;
     }
 }

@@ -7,14 +7,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
-import ufes.republica.business.state.feedback_state.EstadoConcluido;
-import ufes.republica.business.state.feedback_state.EstadoEmAberto;
-import ufes.republica.business.state.feedback_state.FeedbackState;
-import ufes.republica.business.state.tarefa_state.EstadoFinalizada;
-import ufes.republica.business.state.tarefa_state.EstadoPendente;
-import ufes.republica.business.state.tarefa_state.TarefaState;
 import ufes.republica.model.Feedback;
-import ufes.republica.model.Tarefa;
 import ufes.republica.model.Usuario;
 
 public class FeedbackDAO {
@@ -113,11 +106,6 @@ public class FeedbackDAO {
                 throw new Exception("Não foi encontrado nenhum registro com o ID: " + id );
             }
 
-            Feedback feedback = new Feedback();
-            FeedbackState estado = new EstadoEmAberto(feedback);
-            if(rs.getString(5) == "concluido")
-                estado = new EstadoConcluido(feedback);
-
             LocalDate dataCriacao = LocalDate.parse(rs.getDate(2).toString());
             String descricao = rs.getString(3);
             LocalDate dataSolucao = LocalDate.parse(rs.getDate(4).toString());
@@ -134,7 +122,7 @@ public class FeedbackDAO {
             UsuarioDAO usuarioDAO = new UsuarioDAO(conn);
             Usuario usuario = usuarioDAO.procurarUsuario(rs.getInt(1));
 
-            return new Feedback(id, dataCriacao, descricao, dataSolucao, usuario, EXCLUIDO, estado);
+            return new Feedback(id, dataCriacao, descricao, dataSolucao, EXCLUIDO, usuario);
 
         } catch (SQLException sqle) {
             throw new Exception(sqle);

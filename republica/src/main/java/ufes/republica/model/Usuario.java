@@ -17,19 +17,15 @@ public class Usuario implements CommandMementoUsuario{
 
     private int id;
 
+    private String cpf;
+
     private String nome;
 
     private String apelido;
 
     private String telefone;
 
-    private final String cpf;
-
     private String sociais;
-
-    private String email;
-
-    private String senha;
 
     private String responsavel1;
 
@@ -37,33 +33,58 @@ public class Usuario implements CommandMementoUsuario{
 
     private UsuarioState usuarioState;
 
-    private Republica republica;
-
     private Reputacao reputacao;
 
     private Feedback feedbacks;
 
     private Tarefa tarefas;
 
-    private Lancamento lancamento;
-
     private Historico historico;
 
-    public Usuario(String nome, String apelido, String telefone, String cpf, String sociais, String email, String senha, String responsavel1, String responsavel2) {
+    private Rateio rateio;
+
+    public Usuario() {
+    }
+
+    public Usuario(int id, String cpf, String nome, String apelido, String telefone, String sociais, String responsavel1,
+                   String responsavel2, UsuarioState usuarioState, Reputacao reputacao,
+                   Feedback feedbacks, Tarefa tarefas, Historico historico, Rateio rateio) {
+        this.id = id;
+        this.cpf = cpf;
         this.nome = nome;
         this.apelido = apelido;
         this.telefone = telefone;
-        this.cpf = cpf;
         this.sociais = sociais;
-        this.email = email;
-        this.senha = senha;
         this.responsavel1 = responsavel1;
         this.responsavel2 = responsavel2;
+        this.usuarioState = usuarioState;
+        this.reputacao = reputacao;
+        this.feedbacks = feedbacks;
+        this.tarefas = tarefas;
+        this.historico = historico;
+        this.rateio = rateio;
+    }
+
+    public Usuario(String cpf, String nome, String apelido, String telefone, String sociais, String responsavel1, String responsavel2,
+                   UsuarioState usuarioState, Reputacao reputacao, Feedback feedbacks, Tarefa tarefas, Historico historico, Rateio rateio) {
+        this.cpf = cpf;
+        this.nome = nome;
+        this.apelido = apelido;
+        this.telefone = telefone;
+        this.sociais = sociais;
+        this.responsavel1 = responsavel1;
+        this.responsavel2 = responsavel2;
+        this.usuarioState = usuarioState;
+        this.reputacao = reputacao;
+        this.feedbacks = feedbacks;
+        this.tarefas = tarefas;
+        this.historico = historico;
+        this.rateio = rateio;
     }
 
     @Override
     public MementoUsuario criar() {
-        return new MementoUsuario(this.nome, this.apelido, this.telefone, this.cpf, this.sociais, this.email, this.senha, this.responsavel1, this.responsavel2);
+        return new MementoUsuario(this.nome, this.apelido, this.telefone, this.cpf, this.sociais, this.responsavel1, this.responsavel2);
     }
 
     @Override
@@ -72,8 +93,6 @@ public class Usuario implements CommandMementoUsuario{
         this.apelido = mementoUsuario.getApelido();
         this.telefone = mementoUsuario.getTelefone();
         this.sociais = mementoUsuario.getSociais();
-        this.email = mementoUsuario.getEmail();
-        this.senha = mementoUsuario.getSenha();
         this.responsavel1 = mementoUsuario.getResponsavel1();
         this.responsavel2 = mementoUsuario.getResponsavel2();
     }
@@ -118,22 +137,6 @@ public class Usuario implements CommandMementoUsuario{
         this.sociais = sociais;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
     public String getResponsavel1() {
         return responsavel1;
     }
@@ -156,14 +159,6 @@ public class Usuario implements CommandMementoUsuario{
 
     public void setUsuarioState(UsuarioState usuarioState) {
         this.usuarioState = usuarioState;
-    }
-
-    public Republica getRepublica() {
-        return republica;
-    }
-
-    public void setRepublica(Republica republica) {
-        this.republica = republica;
     }
 
     public Reputacao getReputacao() {

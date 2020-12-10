@@ -7,14 +7,12 @@ package ufes.republica.model;
 
 import java.time.LocalDate;
 import ufes.republica.business.memento.lancamento_memento.MementoLancamento;
-import ufes.republica.business.state.lancamento_state.EstadoIndeferido;
-import ufes.republica.business.state.lancamento_state.LancamentoState;
 
 /**
  *
  * @author Lucas
  */
-public class Lancamento {
+public class Lancamento implements MementoLancamento{
 
     private int id;
 
@@ -28,13 +26,11 @@ public class Lancamento {
 
     private double valorParcela;
 
-    private LocalDate dataPagamento;
-
     private String tipo;
 
-    private Rateio rateio;
+    private LocalDate dataPagamento;
 
-    private LancamentoState estado;
+    private Rateio rateio;
 
     public Lancamento(String descricao, LocalDate dataVencimento, double valor, String periodicidade, double valorParcela, String tipo, Rateio rateio) {
         this.descricao = descricao;
@@ -44,12 +40,26 @@ public class Lancamento {
         this.valorParcela = valorParcela;
         this.tipo = tipo;
         this.rateio = rateio;
-        this.estado = new EstadoIndeferido(this);
     }
 
-    public MementoLancamento criar() {
-        return new MementoLancamento(this.descricao, this.dataVencimento, this.valor, this.periodicidade, this.valorParcela, this.tipo, this.rateio, this.estado);
+    public Lancamento(int id, String descricao, LocalDate dataVencimento, double valor, String periodicidade, double valorParcela, String tipo, LocalDate dataPagamento, Rateio rateio) {
+        this.id = id;
+        this.descricao = descricao;
+        this.dataVencimento = dataVencimento;
+        this.valor = valor;
+        this.periodicidade = periodicidade;
+        this.valorParcela = valorParcela;
+        this.tipo = tipo;
+        this.dataPagamento = dataPagamento;
+        this.rateio = rateio;
     }
+
+    public Lancamento() {
+    }
+
+    //public MementoLancamento criar() {
+        //return new MementoLancamento(this.descricao, this.dataVencimento, this.valor, this.periodicidade, this.valorParcela, this.tipo, this.rateio);
+    //}
 
     public void restaurar(MementoLancamento mementoLancamento) {
         this.descricao = mementoLancamento.getDescricao();
@@ -59,7 +69,6 @@ public class Lancamento {
         this.valorParcela = mementoLancamento.getValorParcela();
         this.tipo = mementoLancamento.getTipo();
         this.rateio = mementoLancamento.getRateio();
-        this.estado = mementoLancamento.getEstado();
     }
 
     public String getDescricao() {
@@ -116,14 +125,6 @@ public class Lancamento {
 
     public void setRateio(Rateio rateio) {
         this.rateio = rateio;
-    }
-
-    public LancamentoState getEstado() {
-        return estado;
-    }
-
-    public void setEstado(LancamentoState estado) {
-        this.estado = estado;
     }
 
     public LocalDate getDataPagamento() {

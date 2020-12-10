@@ -15,22 +15,35 @@ public class Historico {
 
     private int id;
 
-    private final LocalDate dataSaida;
+    private LocalDate dataSaida;
     
-    private final String nomeRepresentante;
+    private String nomeRepresentante;
     
-    private final double mediaReputacao;
+    private double mediaReputacao;
     
-    private final String nomeRepublica;
+    private String nomeRepublica;
     
-    private final Usuario usuario;
+    private Usuario usuario;
     
-    private final Republica republica;
+    private Republica republica;
+
+    public Historico() {
+    }
+
+    public Historico(int id, LocalDate dataSaida, String nomeRepresentante, double mediaReputacao, String nomeRepublica, Usuario usuario, Republica republica) {
+        this.id = id;
+        this.dataSaida = dataSaida;
+        this.nomeRepresentante = nomeRepresentante;
+        this.mediaReputacao = mediaReputacao;
+        this.nomeRepublica = nomeRepublica;
+        this.usuario = usuario;
+        this.republica = republica;
+    }
 
     public Historico(String nomeRepresentante, double mediaReputacao, String nomeRepublica, Usuario usuario, Republica republica) {
         this.dataSaida = LocalDate.now();
         this.nomeRepresentante = nomeRepresentante;
-        this.mediaReputacao = mediaReputacao;//media na republica
+        this.mediaReputacao = mediaReputacao;
         this.nomeRepublica = republica.getNome();
         this.usuario = usuario;
         this.republica = republica;
