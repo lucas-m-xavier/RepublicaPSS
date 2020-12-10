@@ -170,6 +170,7 @@ CREATE TABLE IF NOT EXISTS `bdrepublica`.`Lancamento` (
   `periodicidade` VARCHAR(45) NOT NULL,
   `valorParcela` DOUBLE NOT NULL,
   `tipo` VARCHAR(45) NOT NULL,
+  `dataPagamento` DATE NULL,
   PRIMARY KEY (`idLancamento`, `idEndereco`, `idRepublica`),
   UNIQUE INDEX `idLancamento_UNIQUE` (`idLancamento` ASC) VISIBLE,
   INDEX `fk_Lancamento_Republica1_idx` (`idRepublica` ASC, `idEndereco` ASC) VISIBLE,
