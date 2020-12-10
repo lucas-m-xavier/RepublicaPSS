@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import ufes.republica.model.Endereco;
 
 public class GeoLocalizacaoDAO {
 
@@ -76,18 +77,18 @@ public class GeoLocalizacaoDAO {
         }
     }
 
-    public void salvar(GeoLocalizacao geolocalizacao) throws Exception {
+    public void salvar(GeoLocalizacao geoLocalizacao) throws Exception {
         PreparedStatement ps = null;
 
-        if (geolocalizacao == null) {
-            throw new Exception("A geolocalizacao não pode ser nula!");
+        if (geoLocalizacao == null) {
+            throw new Exception("A GeoLocalizacao não pode ser nula!");
         }
         try {
             String SQL = "INSERT INTO Geolocalizacao (latitude, longitude)"
                     + " values (?, ?);";
             ps = conn.prepareStatement(SQL);
-            ps.setString(1, geolocalizacao.getLatitude());
-            ps.setString(2, geolocalizacao.getLongitude());
+            ps.setString(1, geoLocalizacao.getLatitude());
+            ps.setString(2, geoLocalizacao.getLongitude());
             System.out.println(SQL);
             ps.executeUpdate();
 

@@ -6,10 +6,14 @@
 package ufes.republica.view.manterrepublica;
 
 import javax.swing.JOptionPane;
+import ufes.republica.business.state.republica_state.EstadoAberta;
+import ufes.republica.dao.EnderecoDAO;
 import ufes.republica.dao.GeoLocalizacaoDAO;
+import ufes.republica.dao.RepublicaDAO;
 import ufes.republica.enums.EnumUF;
 import ufes.republica.model.Endereco;
 import ufes.republica.model.GeoLocalizacao;
+import ufes.republica.model.Republica;
 
 /**
  *
@@ -52,7 +56,6 @@ public class P0101 extends javax.swing.JInternalFrame {
         jLabel17 = new javax.swing.JLabel();
         jComboBoxUF = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
         jTextFieldNomeRepublica = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -66,7 +69,6 @@ public class P0101 extends javax.swing.JInternalFrame {
         jTextFieldVagasOcupadas = new javax.swing.JTextField();
         jTextFieldVagasDisponiveis = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        jTextFieldDataFundacao = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextAreaCodigoEtica = new javax.swing.JTextArea();
         jLabel13 = new javax.swing.JLabel();
@@ -179,9 +181,8 @@ public class P0101 extends javax.swing.JInternalFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
                             .addComponent(jLabel16)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jTextFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(50, 50, 50))))
-                .addContainerGap(93, Short.MAX_VALUE))
+                            .addComponent(jTextFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(147, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -220,7 +221,7 @@ public class P0101 extends javax.swing.JInternalFrame {
                             .addComponent(jTextFieldLongitude, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel17)
                             .addComponent(jComboBoxUF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -230,8 +231,6 @@ public class P0101 extends javax.swing.JInternalFrame {
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 750, 300));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados da República"));
-
-        jLabel2.setText("Data de Fundação:");
 
         jTextFieldNomeRepublica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -280,12 +279,6 @@ public class P0101 extends javax.swing.JInternalFrame {
 
         jLabel12.setText("Vagas Disponíveis:");
 
-        jTextFieldDataFundacao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldDataFundacaoActionPerformed(evt);
-            }
-        });
-
         jTextAreaCodigoEtica.setColumns(20);
         jTextAreaCodigoEtica.setRows(5);
         jScrollPane2.setViewportView(jTextAreaCodigoEtica);
@@ -303,10 +296,7 @@ public class P0101 extends javax.swing.JInternalFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jTextFieldNomeRepublica, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jTextFieldDataFundacao)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -334,20 +324,15 @@ public class P0101 extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel13)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jScrollPane2))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(3, 3, 3)
-                        .addComponent(jTextFieldNomeRepublica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldDataFundacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(3, 3, 3)
+                .addComponent(jLabel1)
+                .addGap(3, 3, 3)
+                .addComponent(jTextFieldNomeRepublica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -375,7 +360,7 @@ public class P0101 extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
                     .addComponent(jScrollPane2))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 750, 340));
@@ -431,13 +416,8 @@ public class P0101 extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldVagasDisponiveisActionPerformed
 
-    private void jTextFieldDataFundacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDataFundacaoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldDataFundacaoActionPerformed
-
     private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
-        savegeoLocalizacao();
-        saveEndereco();
+        saveRepublica();
 
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
 
@@ -459,7 +439,6 @@ public class P0101 extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -475,7 +454,6 @@ public class P0101 extends javax.swing.JInternalFrame {
     private javax.swing.JTextArea jTextAreaVantagens;
     private javax.swing.JTextField jTextFieldBairro;
     private javax.swing.JTextField jTextFieldCep;
-    private javax.swing.JTextField jTextFieldDataFundacao;
     private javax.swing.JTextField jTextFieldDesepesasMedias;
     private javax.swing.JTextField jTextFieldLatitude;
     private javax.swing.JTextField jTextFieldLogradouro;
@@ -488,39 +466,40 @@ public class P0101 extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextFieldVagasOcupadas;
     // End of variables declaration//GEN-END:variables
 
-    private void savegeoLocalizacao() {
+    private void saveRepublica() {
         try {
             GeoLocalizacao geolocalizacao;
             geolocalizacao = new GeoLocalizacao(jTextFieldLatitude.getText(), jTextFieldLongitude.getText());
-            GeoLocalizacaoDAO gldao = new GeoLocalizacaoDAO();
-            gldao.salvar(geolocalizacao);
-            JOptionPane.showMessageDialog(null, "cheguei");
+
+            Endereco endereco = new Endereco();
+            endereco.setGeoLocalizacao(geolocalizacao);
+            endereco.setBairro(jTextFieldBairro.getText());
+            endereco.setCep(jTextFieldCep.getText());
+            endereco.setLogradouro(jTextFieldLogradouro.getText());
+            endereco.setReferencia(jTextFieldPontoReferencia.getText());
+            endereco.setNumero(Integer.parseInt(jTextFieldNumero.getText()));
+            
+            EnumUF uf = null; 
+            uf.setEstado(jComboBoxUF.getSelectedItem().toString());
+            endereco.setUf(uf);
+            
+            Republica republica = new Republica();
+            republica.setNome(jTextFieldNomeRepublica.getText());
+            republica.setVantagens(jTextAreaVantagens.getText());
+            republica.setDespesasMedias(Double.parseDouble(jTextFieldDesepesasMedias.getText()));
+            republica.setVagasTotais(Integer.parseInt(jTextFieldTotalVagas.getText()));
+            republica.setVagasOcupadas(Integer.parseInt(jTextFieldVagasOcupadas.getText()));
+            republica.setCodEtica(jTextAreaCodigoEtica.getText());
+            republica.setEstado(new EstadoAberta(republica));
+            republica.setEndereco(endereco);
+            
+            RepublicaDAO republicaDAO = new RepublicaDAO();
+            republicaDAO.salvar(republica);
+            
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex);
             return;
         }
     }
 
-    private void saveEndereco() {
-        try {
-            Endereco endereco;
-            endereco = new Endereco();
-            endereco.setBairro(jTextFieldBairro.getText());
-            endereco.setCep(jTextFieldCep.getText());
-            endereco.setLogradouro(jTextFieldLogradouro.getText());
-            endereco.setReferencia(jTextFieldPontoReferencia.getText());
-            String str = jComboBoxUF.getSelectedItem().toString();
-            //EnumUF uf.;
-            //endereco.setUf(str);
-            endereco.setNumero(Integer.parseInt(jTextFieldNumero.getText()));
-            
-            
-            GeoLocalizacaoDAO gldao = new GeoLocalizacaoDAO();
-            //gldao.salvar(geolocalizacao);
-            JOptionPane.showMessageDialog(null, "cheguei");
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, ex);
-            return;
-        }
-    }
 }

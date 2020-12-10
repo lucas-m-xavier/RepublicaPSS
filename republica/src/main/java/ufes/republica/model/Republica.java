@@ -50,6 +50,9 @@ public class Republica implements CommandMementoRepublica{
     private RepublicaState estado;
 
     public Republica() {
+        this.fundacao = LocalDate.now();
+        this.extincao = null;
+        this.saldoTotal = 0;
     }
 
     public Republica(String nome, Endereco endereco, String vantagens, double despesasMedias, int vagasTotais, int vagasOcupadas, double saldoTotal, String codEtica) {

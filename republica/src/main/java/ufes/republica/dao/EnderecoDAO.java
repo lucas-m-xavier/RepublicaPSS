@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import ufes.republica.model.Republica;
 
 public class EnderecoDAO {
 
@@ -59,20 +60,28 @@ public class EnderecoDAO {
         }
     }
 
-    public void salvar(GeoLocalizacao geolocalizacao) throws Exception {
+    public void salvar(Endereco endereco) throws Exception {
         PreparedStatement ps = null;
 
-        if (geolocalizacao == null) {
-            throw new Exception("A geolocalizacao não pode ser nula!");
+        if (endereco == null) {
+            throw new Exception("O endereço não pode ser nulo");
         }
         try {
-            String SQL = "INSERT INTO Geolocalizacao (latitude, longitude"
-                    + "values (?, ?);";
+            String SQL = "INSERT INTO Endereco (cEP, bairro, logradouro, numero, referencia, uf"
+                    + "values (?, ?, ?, ?, ?, ?);";
 
             ps = conn.prepareStatement(SQL);
-            ps.setString(1, geolocalizacao.getLatitude());
-            ps.setString(2, geolocalizacao.getLongitude());
+            ps.setString(1, endereco.getCep());
+            ps.setString(2, endereco.getBairro());
+            ps.setString(3, endereco.getLogradouro());
+            ps.setInt(4, endereco.getNumero());
+            ps.setString(5, endereco.getReferencia());
+            ps.setString(6, endereco.getUf().getValor());
+            
             ps.executeUpdate();
+            
+            GeoLocalizacaoDAO geoLocalizacaoDAO = new GeoLocalizacaoDAO(conn);
+            geoLocalizacaoDAO.salvar(endereco.getGeoLocalizacao());
 
         } catch (SQLException sqle) {
             throw new Exception("Erro ao inserir dados " + sqle);

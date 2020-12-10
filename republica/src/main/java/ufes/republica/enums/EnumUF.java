@@ -47,4 +47,14 @@ public enum EnumUF {
         return estado;
     }
     
+    public EnumUF fromString(String estado) {
+        for(EnumUF enumUF : EnumUF.values()) {
+            if(enumUF.getValor().equals(estado)) {
+                return enumUF;
+            }
+        }
+        
+        return null;
+    }
+    
 }
