@@ -38,21 +38,19 @@ public class RepublicaDAO {
             throw new Exception("A república não pode ser nula");
         }
         try {
-            String SQL = "INSERT INTO Republica (nome, dataFundacaco, dataExtinsao, vantagens, despesasMedias, vagasTotais, vagasOcupadas, saldoTotal, codEtica, estado"
-                    + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+            String SQL = "INSERT INTO Republica (nome, dataFundacao, vantagens, despesasMedias, "
+                    + "vagasTotais, vagasOcupadas, saldoTotal, codEtica, idEndereco)"
+                    + "values (?, ?, ?, ?, ?, ?, ?, ?, (SELECT MAX(idEndereco) FROM Endereco));";
 
             ps = conn.prepareStatement(SQL);
-            SimpleDateFormat f = new SimpleDateFormat("yyyy/MM/dd");
             ps.setString(1, republica.getNome());
-            ps.setString(2, f.format(republica.getFundacao()));
-            ps.setString(3, f.format(republica.getExtincao()));
-            ps.setString(4, republica.getVantagens());
-            ps.setDouble(5, republica.getDespesasMedias());
-            ps.setInt(6, republica.getVagasTotais());
-            ps.setInt(7, republica.getVagasOcupadas());
-            ps.setDouble(8, republica.getSaldoTotal());
-            ps.setString(9, republica.getCodEtica());
-            ps.setString(10, republica.getEstado().toString());
+            ps.setString(2, republica.getFundacao().toString());
+            ps.setString(3, republica.getVantagens());
+            ps.setDouble(4, republica.getDespesasMedias());
+            ps.setInt(5, republica.getVagasTotais());
+            ps.setInt(6, republica.getVagasOcupadas());
+            ps.setDouble(7, republica.getSaldoTotal());
+            ps.setString(8, republica.getCodEtica());
             
             ps.executeUpdate();
             

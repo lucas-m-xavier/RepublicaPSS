@@ -418,7 +418,7 @@ public class P0101 extends javax.swing.JInternalFrame {
 
     private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
         saveRepublica();
-
+        JOptionPane.showMessageDialog(null, "República cadastrada com sucesso!");
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
 
     private void jTextFieldLongitudeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldLongitudeActionPerformed
@@ -470,7 +470,9 @@ public class P0101 extends javax.swing.JInternalFrame {
         try {
             GeoLocalizacao geolocalizacao;
             geolocalizacao = new GeoLocalizacao(jTextFieldLatitude.getText(), jTextFieldLongitude.getText());
-
+            GeoLocalizacaoDAO geoLocalizacaoDAO = new GeoLocalizacaoDAO();
+            geoLocalizacaoDAO.salvar(geolocalizacao);
+            
             Endereco endereco = new Endereco();
             endereco.setGeoLocalizacao(geolocalizacao);
             endereco.setBairro(jTextFieldBairro.getText());
@@ -478,10 +480,9 @@ public class P0101 extends javax.swing.JInternalFrame {
             endereco.setLogradouro(jTextFieldLogradouro.getText());
             endereco.setReferencia(jTextFieldPontoReferencia.getText());
             endereco.setNumero(Integer.parseInt(jTextFieldNumero.getText()));
-            
-            EnumUF uf = null; 
-            uf.setEstado(jComboBoxUF.getSelectedItem().toString());
-            endereco.setUf(uf);
+            endereco.setUf(EnumUF.valueOf(jComboBoxUF.getSelectedItem().toString()));
+            EnderecoDAO enderecoDAO = new EnderecoDAO();
+            enderecoDAO.salvar(endereco);
             
             Republica republica = new Republica();
             republica.setNome(jTextFieldNomeRepublica.getText());

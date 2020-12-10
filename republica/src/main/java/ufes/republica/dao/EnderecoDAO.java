@@ -67,8 +67,8 @@ public class EnderecoDAO {
             throw new Exception("O endereço não pode ser nulo");
         }
         try {
-            String SQL = "INSERT INTO Endereco (cEP, bairro, logradouro, numero, referencia, uf"
-                    + "values (?, ?, ?, ?, ?, ?);";
+            String SQL = "INSERT INTO Endereco (cEP, bairro, logradouro, numero, referencia, uf, idGeoLocalizacao)"
+                    + "values (?, ?, ?, ?, ?, ?, (SELECT MAX(idGeoLocalizacao) FROM GeoLocalizacao));";
 
             ps = conn.prepareStatement(SQL);
             ps.setString(1, endereco.getCep());

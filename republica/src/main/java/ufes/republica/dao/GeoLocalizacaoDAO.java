@@ -89,7 +89,6 @@ public class GeoLocalizacaoDAO {
             ps = conn.prepareStatement(SQL);
             ps.setString(1, geoLocalizacao.getLatitude());
             ps.setString(2, geoLocalizacao.getLongitude());
-            System.out.println(SQL);
             ps.executeUpdate();
 
         } catch (SQLException sqle) {
