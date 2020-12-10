@@ -78,8 +78,6 @@ public class UsuarioDAO {
         ResultSet rs = null;
         try {            
             ps = conn.prepareStatement("select * from usuarios where id = ? and senha = ?");
-            ps.setString(1, usuario.getEmail());
-            ps.setString(2, usuario.getSenha());
             rs = ps.executeQuery();
             if (!rs.next()) {                                
                 return false;                
@@ -103,8 +101,8 @@ public class UsuarioDAO {
             throw new Exception("Usuario não pode ser nulo!");
         }
         try {
-            String SQL = "INSERT INTO usuario (nome, apelido, telefone, cpf, sociais, email, senha, responsavel1,"
-                    + " responsavel2) values (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+            String SQL = "INSERT INTO usuario (nome, apelido, telefone, cpf, sociais, responsavel1,"
+                    + " responsavel2) values (?, ?, ?, ?, ?, ?, ?);";
                                
             ps = conn.prepareStatement(SQL);
             
@@ -112,11 +110,9 @@ public class UsuarioDAO {
             ps.setString(2, usuario.getApelido());
             ps.setString(3, usuario.getTelefone());
             ps.setString(4, usuario.getCpf());
-            ps.setString(5, usuario.getSociais());
-            ps.setString(6, usuario.getEmail());
-            ps.setString(7, usuario.getSenha());    
-            ps.setString(8, usuario.getResponsavel1());
-            ps.setString(9, usuario.getResponsavel2());
+            ps.setString(5, usuario.getSociais());   
+            ps.setString(6, usuario.getResponsavel1());
+            ps.setString(7, usuario.getResponsavel2());
             ps.executeUpdate();
                                   
         } catch (SQLException sqle) {
@@ -133,8 +129,8 @@ public class UsuarioDAO {
             throw new Exception("Usuario não pode ser nulo!");
         }
         try {
-            String SQL = "UPDATE usuarios SET nome=?, apelido=?, telefone=?, cpf=?, sociais=?, email=?,"
-                    + " senha=? , responsavel1=?, responsavel2=?"
+            String SQL = "UPDATE usuarios SET nome=?, apelido=?, telefone=?, cpf=?, sociais=?,"
+                    + "responsavel1=?, responsavel2=?"
                     + "where id = ?";
             
             ps = conn.prepareStatement(SQL);
@@ -143,10 +139,8 @@ public class UsuarioDAO {
             ps.setString(3, usuario.getTelefone());
             ps.setString(4, usuario.getCpf());
             ps.setString(5, usuario.getSociais());
-            ps.setString(6, usuario.getEmail());
-            ps.setString(7, usuario.getSenha());
-            ps.setString(8, usuario.getResponsavel1());
-            ps.setString(9, usuario.getResponsavel2());
+            ps.setString(6, usuario.getResponsavel1());
+            ps.setString(7, usuario.getResponsavel2());
             ps.executeUpdate();
             
         } catch (SQLException sqle) {
@@ -164,7 +158,7 @@ public class UsuarioDAO {
         }
         try {            
             ps = conn.prepareStatement("delete from usuarios where id = ?");
-            ps.setString(1, usuario.getEmail());
+            ps.setInt(1, usuario.getId());
             ps.executeUpdate();
         } catch (SQLException sqle) {
             throw new Exception("Erro ao excluir dados:" + sqle);

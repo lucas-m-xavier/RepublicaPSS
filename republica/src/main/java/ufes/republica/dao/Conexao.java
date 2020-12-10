@@ -18,7 +18,7 @@ public class Conexao {
         Connection c = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            c = DriverManager.getConnection("jdbc:mysql://localhost/empresa", "root", "");
+            c = DriverManager.getConnection("jdbc:mysql://localhost/republicadb", "root", "");
         } catch (Exception e) {
             System.out.println("falha na conexão");
         }

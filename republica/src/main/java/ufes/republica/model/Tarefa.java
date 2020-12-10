@@ -26,7 +26,6 @@ public class Tarefa {
     private Usuario usuario;
 
 
-
     public Tarefa(String descricao, Usuario usuario) {
         this.dataAgendamento = LocalDate.now();
         this.descricao = descricao;
