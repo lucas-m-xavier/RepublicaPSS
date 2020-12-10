@@ -20,6 +20,8 @@ public class Tarefa {
     private String descricao;
     
     private LocalDate dataTermino;
+
+    private boolean finalizada;
     
     private Usuario usuario;
 
@@ -79,5 +81,9 @@ public class Tarefa {
 
     public int getId() {
         return id;
+    }
+
+    public boolean isFinalizada() {
+        return finalizada;
     }
 }

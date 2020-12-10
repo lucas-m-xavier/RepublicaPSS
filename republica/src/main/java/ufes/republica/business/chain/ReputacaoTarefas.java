@@ -1,8 +1,10 @@
 package ufes.republica.business.chain;
 
-import ufes.republica.business.state.tarefa_state.EstadoFinalizada;
+import ufes.republica.model.Feedback;
+import ufes.republica.model.Lancamento;
 import ufes.republica.model.Tarefa;
-import ufes.republica.model.Usuario;
+
+import java.util.ArrayList;
 
 public class ReputacaoTarefas extends Handler{
 
@@ -11,17 +13,17 @@ public class ReputacaoTarefas extends Handler{
     }
 
     @Override
-    public double calcula(Usuario usuario) {
+    public double calcula(ArrayList<Feedback> feedbacks, ArrayList<Tarefa> tarefas, ArrayList<Lancamento> lancamentos) {
         double tcm = 0;
         double tam = 0;
 
-        for(Tarefa tarefa : usuario.getTarefas()) {
+        for(Tarefa tarefa : tarefas) {
             tam++;
-            if(tarefa.getEstado() instanceof EstadoFinalizada) tcm++;
+            if(tarefa.isFinalizada()) tcm++;
         }
 
-        if(tam == 0) return this.getNext().calcula(usuario);
+        if(tam == 0) return this.getNext().calcula(feedbacks, tarefas, lancamentos);
 
-        return tcm/tam + this.getNext().calcula(usuario);
+        return tcm/tam + this.getNext().calcula(feedbacks, tarefas, lancamentos);
     }
 }

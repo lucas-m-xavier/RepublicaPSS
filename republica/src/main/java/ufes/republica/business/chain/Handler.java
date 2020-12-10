@@ -1,6 +1,10 @@
 package ufes.republica.business.chain;
 
-import ufes.republica.model.Usuario;
+import ufes.republica.model.Feedback;
+import ufes.republica.model.Lancamento;
+import ufes.republica.model.Tarefa;
+
+import java.util.ArrayList;
 
 public abstract class Handler {
 
@@ -10,7 +14,7 @@ public abstract class Handler {
         this.next = next;
     }
 
-    public abstract double calcula(Usuario usuario);
+    public abstract double calcula(ArrayList<Feedback> feedbacks, ArrayList<Tarefa> tarefas, ArrayList<Lancamento> lancamentos);
 
     public Handler getNext() {
         return next;

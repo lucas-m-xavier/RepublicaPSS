@@ -1,7 +1,10 @@
 package ufes.republica.business.chain;
 
+import ufes.republica.model.Feedback;
 import ufes.republica.model.Lancamento;
-import ufes.republica.model.Usuario;
+import ufes.republica.model.Tarefa;
+
+import java.util.ArrayList;
 
 public class ReputacaoPagamentos extends Handler{
 
@@ -10,10 +13,10 @@ public class ReputacaoPagamentos extends Handler{
     }
 
     @Override
-    public double calcula(Usuario usuario) {
+    public double calcula(ArrayList<Feedback> feedbacks, ArrayList<Tarefa> tarefas, ArrayList<Lancamento> lancamentos) {
         double icp = 0;
 
-        for(Lancamento lancamento : usuario.getLancamentos()) {
+        for(Lancamento lancamento : lancamentos) {
             icp += lancamento.getDataVencimento().getDayOfMonth() / lancamento.getDataPagamento().getDayOfMonth();
         }
 

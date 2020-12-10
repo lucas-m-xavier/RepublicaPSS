@@ -9,6 +9,7 @@ import ufes.republica.business.chain.Handler;
 import ufes.republica.business.chain.ReputacaoSolucao;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  *
@@ -26,10 +27,10 @@ public class Reputacao {
 
     private Handler first = new ReputacaoSolucao();
 
-    public Reputacao(Usuario usuario) {
+    public Reputacao(Usuario usuario, ArrayList<Feedback> feedbacks, ArrayList<Tarefa> tarefas, ArrayList<Lancamento> lancamentos) {
         this.data = LocalDate.now();
         this.usuario = usuario;
-        this.calculaIndice();
+        this.indice = first.calcula(feedbacks, tarefas, lancamentos);
     }
 
     public Reputacao(int id, double indice, LocalDate data, Usuario usuario) {
@@ -37,11 +38,6 @@ public class Reputacao {
         this.indice = indice;
         this.data = data;
         this.usuario = usuario;
-    }
-    
-    
-    public final void calculaIndice() {
-        this.indice = first.calcula(this.usuario);
     }
 
     public LocalDate getData() {

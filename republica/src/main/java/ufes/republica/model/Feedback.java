@@ -23,6 +23,8 @@ public class Feedback {
     private LocalDate dataSolucao;
 
     private boolean EXCLUIDA;
+
+    private boolean concluida;
     
     private long idade;
     
@@ -82,5 +84,9 @@ public class Feedback {
     
     public int getId() {
         return id;
+    }
+
+    public boolean isConcluida() {
+        return concluida;
     }
 }
