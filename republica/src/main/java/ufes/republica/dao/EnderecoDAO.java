@@ -47,7 +47,7 @@ public class EnderecoDAO {
             String logradouro = rs.getString(7);
 
             EnumUF uf = null;
-            uf.setValor(rs.getInt(8));
+            uf.setEstado(rs.getString(8));
 
             return new Endereco(id, cep, bairro, referencia, numero, logradouro, uf, geoLocalizacao);
 
