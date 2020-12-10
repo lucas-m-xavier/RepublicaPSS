@@ -1,11 +1,9 @@
 package ufes.republica.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
 
 import ufes.republica.model.Feedback;
 import ufes.republica.model.Usuario;
@@ -106,10 +104,11 @@ public class FeedbackDAO {
                 throw new Exception("Não foi encontrado nenhum registro com o ID: " + id );
             }
 
-            LocalDate dataCriacao = LocalDate.parse(rs.getDate(2).toString());
+            LocalDate dataCriacao = rs.getDate(2).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             String descricao = rs.getString(3);
-            LocalDate dataSolucao = LocalDate.parse(rs.getDate(4).toString());
+            LocalDate dataSolucao = rs.getDate(4).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             boolean EXCLUIDO = rs.getBoolean(5);
+            boolean concluida = rs.getBoolean(6);
 
             ps = conn.prepareStatement("select idUsuario from usuario INNER JOIN feedbackUsuario where idFeedback = ?");
             ps.setInt(1, id);
@@ -122,7 +121,7 @@ public class FeedbackDAO {
             UsuarioDAO usuarioDAO = new UsuarioDAO(conn);
             Usuario usuario = usuarioDAO.procurarUsuario(rs.getInt(1));
 
-            return new Feedback(id, dataCriacao, descricao, dataSolucao, EXCLUIDO, usuario);
+            return new Feedback(id, dataCriacao, descricao, dataSolucao, EXCLUIDO, concluida, usuario);
 
         } catch (SQLException sqle) {
             throw new Exception(sqle);

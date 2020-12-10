@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,8 +39,9 @@ public class TarefaDAO {
             }
 
             String descricao = rs.getString(3);
-            LocalDate dataAgendamento = LocalDate.parse(rs.getDate(4).toString());
-            LocalDate dataTermino = LocalDate.parse(rs.getDate(5).toString());
+            LocalDate dataAgendamento = rs.getDate(4).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate dataTermino = rs.getDate(5).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            boolean finalizada = rs.getBoolean(6);
 
             ps = conn.prepareStatement("select idUsuario from usuario INNER JOIN tarefaUsuario where idTarefa = ?");
             ps.setInt(1, id);
@@ -52,7 +54,7 @@ public class TarefaDAO {
             UsuarioDAO usuarioDAO = new UsuarioDAO(conn);
             Usuario usuario = usuarioDAO.procurarUsuario(rs.getInt(2));
 
-            return new Tarefa(id, dataAgendamento, descricao, dataTermino, usuario);
+            return new Tarefa(id, dataAgendamento, descricao, dataTermino, finalizada, usuario);
 
         } catch (SQLException sqle) {
             throw new Exception(sqle);
