@@ -1,14 +1,45 @@
 package ufes.republica.view.mantertarefa;
 
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import ufes.republica.dao.TarefaDAO;
+import ufes.republica.model.Tarefa;
 import ufes.republica.view.TelaInicial;
 
 public class P0301 extends javax.swing.JInternalFrame {
+
+    DefaultTableModel modelo;
 
     /**
      * Creates new form ManterTarefa
      */
     public P0301() {
         initComponents();
+        modelo = (DefaultTableModel) jTableTarefa.getModel();
+        try {
+            String aux = "não";
+            TarefaDAO tarefaDAO = new TarefaDAO();
+            ArrayList<Tarefa> tarefas = tarefaDAO.getAll();
+            for (Tarefa t : tarefas) {
+                if(t.isFinalizada()){
+                    aux = "sim";
+                }
+                tarefaDAO = new TarefaDAO();
+                modelo.addRow(new Object[]{
+                    t.getId(),
+                    t.getDescricao(),
+                    tarefaDAO.getNomeResponsavel(t),
+                    t.getDataAgendamento().toString(),
+                    t.getDataTermino().toString(),
+                    aux
+                });
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(P0301.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     /**
@@ -34,21 +65,22 @@ public class P0301 extends javax.swing.JInternalFrame {
 
         jTableTarefa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
-                "Tarefa", "Responsáveis", "Data Agendamento", "Data de Término", "Realizada"
+                "Id", "Tarefa", "Responsáveis", "Data Agendamento", "Data de Término", "Realizada"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -57,10 +89,16 @@ public class P0301 extends javax.swing.JInternalFrame {
         jTableTarefa.setRowHeight(25);
         jScrollPane1.setViewportView(jTableTarefa);
         if (jTableTarefa.getColumnModel().getColumnCount() > 0) {
-            jTableTarefa.getColumnModel().getColumn(4).setMaxWidth(70);
+            jTableTarefa.getColumnModel().getColumn(0).setResizable(false);
+            jTableTarefa.getColumnModel().getColumn(0).setPreferredWidth(20);
+            jTableTarefa.getColumnModel().getColumn(1).setResizable(false);
+            jTableTarefa.getColumnModel().getColumn(2).setResizable(false);
+            jTableTarefa.getColumnModel().getColumn(3).setResizable(false);
+            jTableTarefa.getColumnModel().getColumn(4).setResizable(false);
+            jTableTarefa.getColumnModel().getColumn(5).setResizable(false);
         }
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 53, 718, 204));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 53, 1250, 410));
 
         jComboBoxPessoa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pessoa", "Descrição" }));
         jComboBoxPessoa.addActionListener(new java.awt.event.ActionListener() {
@@ -76,7 +114,7 @@ public class P0301 extends javax.swing.JInternalFrame {
                 jButtonCadastrarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonCadastrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 170, -1));
+        getContentPane().add(jButtonCadastrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 480, 170, -1));
 
         jTextFieldBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -99,7 +137,7 @@ public class P0301 extends javax.swing.JInternalFrame {
                 jButtonExcluirActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonExcluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 270, 88, -1));
+        getContentPane().add(jButtonExcluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 480, 88, -1));
 
         jButtonEditar.setText("Editar");
         jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -107,9 +145,9 @@ public class P0301 extends javax.swing.JInternalFrame {
                 jButtonEditarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 270, 88, -1));
+        getContentPane().add(jButtonEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 480, 88, -1));
 
-        setBounds(0, 0, 753, 356);
+        setBounds(0, 0, 1292, 574);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextFieldBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldBuscarActionPerformed

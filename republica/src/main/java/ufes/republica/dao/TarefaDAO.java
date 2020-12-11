@@ -1,6 +1,5 @@
 package ufes.republica.dao;
 
-import ufes.republica.model.GeoLocalizacao;
 import ufes.republica.model.Tarefa;
 import ufes.republica.model.Usuario;
 
@@ -11,6 +10,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,25 +64,34 @@ public class TarefaDAO {
         }
     }
 
-    public List getAll() throws Exception {
+    public ArrayList getAll() throws Exception {
         PreparedStatement ps = null;
 
         ResultSet rs = null;
         try {
 
-            ps = conn.prepareStatement("select * from GeoLocalizacao");
+            ps = conn.prepareStatement("select * from tarefa");
             rs = ps.executeQuery();
 
-            List<GeoLocalizacao> list = new ArrayList<GeoLocalizacao>();
+            ArrayList<Tarefa> tarefas = new ArrayList<Tarefa>();
 
             while (rs.next()) {
-                int geoLocalizacao_id = rs.getInt(1);
-                String latitude = rs.getString(2);
-                String longitude = rs.getString(3);
-
-                list.add(new GeoLocalizacao(latitude, longitude));
+                int tarefa_id = rs.getInt(1);
+                String descricao = rs.getString(2);
+                String data = rs.getString(3);
+                
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                LocalDate dataAgendamento = LocalDate.parse(data,formatter);
+                 
+                data = rs.getString(4);
+                
+                LocalDate dataTermino = LocalDate.parse(data,formatter);
+                
+                boolean finalizada = rs.getBoolean(5);
+                
+                tarefas.add(new Tarefa(tarefa_id,dataAgendamento,descricao,dataTermino,finalizada));
             }
-            return list;
+            return tarefas;
         } catch (SQLException sqle) {
             throw new Exception(sqle);
         } finally {
@@ -90,6 +99,30 @@ public class TarefaDAO {
         }
     }
 
+public String getNomeResponsavel(Tarefa tarefa) throws Exception {
+        PreparedStatement ps = null;
+
+        ResultSet rs = null;
+        try {
+
+            ps = conn.prepareStatement("select usuario.nome from tarefa inner join tarefausuario on (tarefa.idtarefa = tarefausuario.idtarefa)" +
+" inner join usuario on(tarefausuario.idusuario = usuario.idusuario) where tarefa.idtarefa = ?;");
+            ps.setInt(1, tarefa.getId());
+            rs = ps.executeQuery();
+
+            String nome="";
+            
+            while (rs.next()) {
+                nome += rs.getString(1);
+            }
+            return nome;
+        } catch (SQLException sqle) {
+            throw new Exception(sqle);
+        } finally {
+            Conexao.fecharConexao(conn, ps, rs);
+        }
+    }    
+    
     public void salvar(Tarefa tarefa) throws Exception {
         PreparedStatement ps = null;
 

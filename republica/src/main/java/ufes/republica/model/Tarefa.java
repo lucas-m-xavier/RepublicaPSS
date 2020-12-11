@@ -6,6 +6,7 @@
 package ufes.republica.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  *
@@ -22,9 +23,17 @@ public class Tarefa {
     private LocalDate dataTermino;
 
     private boolean finalizada;
-    
     private Usuario usuario;
+    private ArrayList<Usuario> responsaveis;
 
+    public Tarefa(int id, LocalDate dataAgendamento, String descricao, LocalDate dataTermino, boolean finalizada) {
+        this.id = id;
+        this.dataAgendamento = dataAgendamento;
+        this.descricao = descricao;
+        this.dataTermino = dataTermino;
+        this.finalizada = finalizada;
+        this.responsaveis = responsaveis;
+    }
 
     public Tarefa(String descricao, Usuario usuario) {
         this.dataAgendamento = LocalDate.now();

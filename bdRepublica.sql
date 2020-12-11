@@ -146,7 +146,7 @@ DEFAULT CHARACTER SET = utf8;
 CREATE TABLE IF NOT EXISTS `bdrepublica`.`historico` (
   `idUsuario` INT NOT NULL,
   `idRepublica` INT NOT NULL,
-  `dataSaida` DATE NOT NULL,
+  `dataSaida` DATE NULL,
   `nomeRepresentante` VARCHAR(100) NOT NULL,
   `mediaReputacao` DOUBLE NOT NULL,
   `nomeRepublica` VARCHAR(100) NOT NULL,
@@ -168,7 +168,6 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bdrepublica`.`lancamento` (
   `idLancamento` INT NOT NULL AUTO_INCREMENT,
-  `idEndereco` INT NOT NULL,
   `idRepublica` INT NOT NULL,
   `descricao` VARCHAR(200) NOT NULL,
   `dataVencimento` DATE NOT NULL,
@@ -177,12 +176,12 @@ CREATE TABLE IF NOT EXISTS `bdrepublica`.`lancamento` (
   `valorParcela` DOUBLE NOT NULL,
   `tipo` VARCHAR(45) NOT NULL,
   `dataPagamento` DATE NULL DEFAULT NULL,
-  PRIMARY KEY (`idLancamento`, `idEndereco`, `idRepublica`),
+  PRIMARY KEY (`idLancamento`, `idRepublica`),
   UNIQUE INDEX `idLancamento_UNIQUE` (`idLancamento` ASC) VISIBLE,
-  INDEX `fk_Lancamento_Republica1_idx` (`idRepublica` ASC, `idEndereco` ASC) VISIBLE,
+  INDEX `fk_Lancamento_Republica1_idx` (`idRepublica` ASC) VISIBLE,
   CONSTRAINT `fk_Lancamento_Republica1`
-    FOREIGN KEY (`idRepublica` , `idEndereco`)
-    REFERENCES `bdrepublica`.`republica` (`idRepublica` , `idEndereco`))
+    FOREIGN KEY (`idRepublica`)
+    REFERENCES `bdrepublica`.`republica` (`idRepublica`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
