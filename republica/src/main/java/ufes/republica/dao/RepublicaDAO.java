@@ -85,16 +85,16 @@ public class RepublicaDAO {
             }
 
             int idRepublica = rs.getInt(1);
-            String republicaNome = rs.getString(2);
-            LocalDate dataCriacao = rs.getDate(3).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            LocalDate dataExtinsao = rs.getDate(4).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            String vantagens = rs.getString(5);
-            double despesasMedias = rs.getDouble(6);
-            int vagasTotais = rs.getInt(7);
-            int vagasOcupadas = rs.getInt(8);
-            double saldoTotal = rs.getDouble(9);
-            String codEtica = rs.getString(10);
-            String repEstado = rs.getString(11);
+            String republicaNome = rs.getString(3);
+            LocalDate dataCriacao = rs.getDate(4).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate dataExtinsao = rs.getDate(5).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            String vantagens = rs.getString(6);
+            double despesasMedias = rs.getDouble(7);
+            int vagasTotais = rs.getInt(8);
+            int vagasOcupadas = rs.getInt(9);
+            double saldoTotal = rs.getDouble(10);
+            String codEtica = rs.getString(11);
+            String repEstado = rs.getString(12);
 
             Republica republica = new Republica();
             republica.setId(idRepublica);
@@ -107,15 +107,14 @@ public class RepublicaDAO {
             republica.setVagasOcupadas(vagasOcupadas);
             republica.setSaldoTotal(saldoTotal);
             republica.setCodEtica(codEtica);
-
-            if (repEstado.toLowerCase().equalsIgnoreCase("lotada")) {
-                republica.setEstado(new EstadoLotada(republica));
-
-            } else if (repEstado.toLowerCase().equalsIgnoreCase("extinta")) {
-                republica.setEstado(new EstadoExtinta(republica));
-            }
             republica.setEstado(new EstadoAberta(republica));
 
+            if (repEstado.equalsIgnoreCase("lotada"))  republica.setEstado(new EstadoLotada(republica));
+
+            if (repEstado.equalsIgnoreCase("extinta")) republica.setEstado(new EstadoExtinta(republica));
+
+            System.out.println(republica.toString());
+            
             return republica;
 
         } catch (SQLException sqle) {
