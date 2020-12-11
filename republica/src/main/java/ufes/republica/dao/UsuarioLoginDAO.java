@@ -47,10 +47,10 @@ public class UsuarioLoginDAO {
 
             while (rs.next()) {
                 int idUsuarioLogin = rs.getInt(1);
-                String email = rs.getString(2);
-                String senha = rs.getString(3);
+                String email = rs.getString(3);
+                String senha = rs.getString(4);
 
-                list.add(new UsuarioLogin(email, senha));
+                list.add(new UsuarioLogin(idUsuarioLogin, email, senha));
             }
             return list;
         } catch (SQLException sqle) {

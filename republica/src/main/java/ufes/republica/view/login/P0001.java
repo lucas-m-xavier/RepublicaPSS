@@ -18,11 +18,11 @@ import ufes.republica.view.TelaInicial;
  */
 public class P0001 extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form CadNovaTarefa
-     */
-    public P0001() {
+    private TelaInicial telaInicial;
+    
+    public P0001(TelaInicial telaInicial) {
         initComponents();
+        this.telaInicial = telaInicial;
     }
 
     /**
@@ -329,7 +329,8 @@ public class P0001 extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTextFieldEmailActionPerformed
 
     private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
-        verificarLogin();
+        verificarLogin(this.telaInicial);
+        this.dispose();
     }//GEN-LAST:event_jButtonLoginActionPerformed
 
     private void jButtonFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFecharActionPerformed
@@ -371,7 +372,7 @@ public class P0001 extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextFieldSenha;
     // End of variables declaration//GEN-END:variables
 
-    public boolean verificarLogin() {
+    public void verificarLogin(TelaInicial telaInicial) {
         String email = jTextFieldEmail.getText();
         String senha = jTextFieldSenha.getText();
         
@@ -379,24 +380,15 @@ public class P0001 extends javax.swing.JInternalFrame {
             UsuarioLoginDAO usuarioLoginDAO = new UsuarioLoginDAO();
         
             for(UsuarioLogin usuarioLogin : usuarioLoginDAO.getAll()) {
-                if (usuarioLogin.getEmail().equals(email)) {
-                    if(usuarioLogin.getSenha().equals(senha)) {
-                        efetuarLogin();
-                        return true;
-                    }   else {
-                        JOptionPane.showMessageDialog(null, "Senha incorreta!");
+                if (usuarioLogin.getEmail().equalsIgnoreCase(email)) {
+                    if(usuarioLogin.getSenha().equalsIgnoreCase(senha)) {
+                        JOptionPane.showMessageDialog(null, "Login efetuado com sucesso!");
+                        telaInicial.exibirMenu();
                     }
-                }   else {
-                    JOptionPane.showMessageDialog(null, "E-mail não cadastrado!");
                 }
             }
         }   catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
-        return false;
-    }
-    
-    private void efetuarLogin() {
-        
     }
 }

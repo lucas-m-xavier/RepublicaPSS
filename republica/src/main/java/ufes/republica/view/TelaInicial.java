@@ -305,16 +305,9 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu7ActionPerformed
 
     private void jMenuItem21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem21ActionPerformed
-        P0001 a = new P0001();
+        P0001 a = new P0001(this);
         Desktop.add(a);
         a.setVisible(true);
-        
-        if(a.verificarLogin()) {
-            jMenu1.setVisible(true);
-            jMenu2.setVisible(true);
-            jMenu3.setVisible(true);
-            jMenu4.setVisible(true);
-        }
     }//GEN-LAST:event_jMenuItem21ActionPerformed
 
     /**
@@ -378,4 +371,13 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     // End of variables declaration//GEN-END:variables
+
+    public void exibirMenu() {
+            jMenu1.setVisible(true);
+            jMenu2.setVisible(true);
+            jMenu3.setVisible(true);
+            jMenu4.setVisible(true);
+            jMenu7.setVisible(false);
+    }
+    
 }
