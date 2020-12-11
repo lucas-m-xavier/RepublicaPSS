@@ -5,8 +5,6 @@
  */
 package ufes.republica.dao;
 
-import ufes.republica.model.GeoLocalizacao;
-import ufes.republica.model.Tarefa;
 import ufes.republica.model.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -10,9 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
-import ufes.republica.model.GeoLocalizacao;
-import ufes.republica.model.Usuario;
 import ufes.republica.model.UsuarioLogin;
 
 /**

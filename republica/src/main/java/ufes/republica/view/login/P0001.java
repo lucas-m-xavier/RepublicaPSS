@@ -7,7 +7,6 @@ package ufes.republica.view.login;
 
 import javax.swing.JOptionPane;
 import ufes.republica.dao.UsuarioLoginDAO;
-import ufes.republica.model.Usuario;
 import ufes.republica.model.UsuarioLogin;
 import ufes.republica.view.manterperfil.*;
 import ufes.republica.view.TelaInicial;
@@ -378,7 +377,7 @@ public class P0001 extends javax.swing.JInternalFrame {
         
         try {
             UsuarioLoginDAO usuarioLoginDAO = new UsuarioLoginDAO();
-        
+            
             for(UsuarioLogin usuarioLogin : usuarioLoginDAO.getAll()) {
                 if (usuarioLogin.getEmail().equalsIgnoreCase(email)) {
                     if(usuarioLogin.getSenha().equalsIgnoreCase(senha)) {
@@ -387,6 +386,7 @@ public class P0001 extends javax.swing.JInternalFrame {
                     }
                 }
             }
+            JOptionPane.showMessageDialog(null, "Falha no login, tente novamente!");
         }   catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
