@@ -29,6 +29,7 @@ public class TelaInicial extends javax.swing.JFrame {
     
     public TelaInicial() {
         initComponents();
+        setExtendedState(MAXIMIZED_BOTH);
         jMenu1.setVisible(false);
         jMenu2.setVisible(false);
         jMenu3.setVisible(false);
@@ -56,7 +57,6 @@ public class TelaInicial extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
@@ -121,9 +121,6 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuItem5);
-
-        jMenuItem6.setText("Buscar vagas");
-        jMenu1.add(jMenuItem6);
 
         jMenuItem7.setText("Consultar resultado mensal");
         jMenu1.add(jMenuItem7);
@@ -342,7 +339,6 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;

@@ -5,6 +5,7 @@
  */
 package ufes.republica.view.login;
 
+import java.awt.Dimension;
 import javax.swing.JOptionPane;
 import ufes.republica.dao.UsuarioLoginDAO;
 import ufes.republica.model.Usuario;
@@ -22,6 +23,7 @@ public class P0001 extends javax.swing.JInternalFrame {
     
     public P0001(TelaInicial telaInicial) {
         initComponents();
+        
         this.telaInicial = telaInicial;
     }
 
