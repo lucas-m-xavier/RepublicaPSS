@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import ufes.republica.model.Usuario;
 import ufes.republica.model.UsuarioLogin;
 
 /**
@@ -44,10 +45,14 @@ public class UsuarioLoginDAO {
 
             while (rs.next()) {
                 int idUsuarioLogin = rs.getInt(1);
+                int idUsuario = rs.getInt(2);
                 String email = rs.getString(3);
                 String senha = rs.getString(4);
+                
+                UsuarioDAO usuarioDAO = new UsuarioDAO(conn);
+                Usuario usuario = usuarioDAO.procurarUsuario(idUsuario);
 
-                list.add(new UsuarioLogin(idUsuarioLogin, email, senha));
+                list.add(new UsuarioLogin(idUsuarioLogin, email, senha, usuario));
             }
             return list;
         } catch (SQLException sqle) {

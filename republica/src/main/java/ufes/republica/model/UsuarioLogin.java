@@ -16,6 +16,8 @@ public class UsuarioLogin {
     private String email;
     
     private String senha;
+    
+    private Usuario usuario;
 
     public UsuarioLogin() {
     }
@@ -29,6 +31,13 @@ public class UsuarioLogin {
     public UsuarioLogin(String email, String senha) {
         this.email = email;
         this.senha = senha;
+    }
+
+    public UsuarioLogin(int id, String email, String senha, Usuario usuario) {
+        this.id = id;
+        this.email = email;
+        this.senha = senha;
+        this.usuario = usuario;
     }
 
     public int getId() {
@@ -53,5 +62,13 @@ public class UsuarioLogin {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }

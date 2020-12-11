@@ -5,6 +5,7 @@
  */
 package ufes.republica.view;
 
+import ufes.republica.model.Usuario;
 import ufes.republica.view.confimarsolucao.P0601;
 import ufes.republica.view.convidarAceitar.P0501;
 import ufes.republica.view.convidarAceitar.P0502;
@@ -24,9 +25,8 @@ import ufes.republica.view.mantertarefa.P0303;
  */
 public class TelaInicial extends javax.swing.JFrame {
 
-    /**
-     * Creates new form TelaInicial
-     */
+    private Usuario usuario;
+    
     public TelaInicial() {
         initComponents();
         jMenu1.setVisible(false);
@@ -379,5 +379,12 @@ public class TelaInicial extends javax.swing.JFrame {
             jMenu4.setVisible(true);
             jMenu7.setVisible(false);
     }
-    
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 }

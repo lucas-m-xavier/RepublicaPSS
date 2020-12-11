@@ -11,6 +11,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import ufes.republica.business.state.usuario_state.EstadoMorador;
+import ufes.republica.business.state.usuario_state.EstadoRepresentante;
+import ufes.republica.business.state.usuario_state.EstadoSemTeto;
+import ufes.republica.business.state.usuario_state.UsuarioState;
 
 /**
  *
@@ -32,35 +36,36 @@ public class UsuarioDAO {
         this.conn = conn;
     }
 
-    //PRA FAZER
     public Usuario procurarUsuario(int id) throws Exception {
         PreparedStatement ps = null;
 
         ResultSet rs = null;
         try {
-            ps = conn.prepareStatement("select * from Tarefa where idTarefa = ?");
+            ps = conn.prepareStatement("select * from Usuario where usuario.idUsuario = ?");
             ps.setInt(1, id);
             rs = ps.executeQuery();
             if (!rs.next()) {
                 throw new Exception("Não foi encontrado nenhum registro com o ID: " + id );
             }
+            
+            Usuario usuario = new Usuario();
+            usuario.setCpf(rs.getString(2));
+            usuario.setNome(rs.getString(3));
+            usuario.setApelido(rs.getString(4));
+            usuario.setTelefone(rs.getString(5));
+            usuario.setSociais(rs.getString(6));
+            usuario.setResponsavel1(rs.getString(7));
+            usuario.setResponsavel2(rs.getString(8));
+            String estado = rs.getString(9);
+            
+            UsuarioState usuarioState = new EstadoSemTeto(usuario);
+        
+            if(estado.equalsIgnoreCase("Representate")) usuarioState = new EstadoRepresentante(usuario);
+            if(estado.equalsIgnoreCase("Morador")) usuarioState = new EstadoMorador(usuario);
+           
+            usuario.setUsuarioState(usuarioState);
 
-            LocalDate dataAgendamento = LocalDate.parse(rs.getDate(4).toString());
-            String descricao = rs.getString(3);
-            LocalDate dataTermino = LocalDate.parse(rs.getDate(5).toString());
-
-            ps = conn.prepareStatement("select idUsuario from usuario INNER JOIN usuarioTarefa where idTarefa = ?");
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-
-            if (!rs.next()) {
-                throw new Exception("Não foi encontrado nenhum registro com o ID: " + id );
-            }
-
-            UsuarioDAO usuarioDAO = new UsuarioDAO(conn);
-            Usuario usuario = usuarioDAO.procurarUsuario(rs.getInt(2));
-
-            return new Usuario();
+            return usuario;
 
         } catch (SQLException sqle) {
             throw new Exception(sqle);
