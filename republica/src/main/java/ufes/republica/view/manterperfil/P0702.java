@@ -23,6 +23,11 @@ public class P0702 extends javax.swing.JInternalFrame {
     public P0702() {
         initComponents();
     }
+    
+    public P0702(UsuarioLogin usuarioLogin) {
+        initComponents();
+        preencheForm(usuarioLogin);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -246,6 +251,12 @@ public class P0702 extends javax.swing.JInternalFrame {
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
+        jTextFieldRedeSocial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldRedeSocialActionPerformed(evt);
+            }
+        });
+
         jLabel12.setText("Link da Rede Social:");
 
         jLabel13.setText("Telefone:");
@@ -374,6 +385,10 @@ public class P0702 extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jTextFieldRedeSocialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldRedeSocialActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldRedeSocialActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton3;
@@ -415,6 +430,19 @@ public class P0702 extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextFieldRedeSocial;
     // End of variables declaration//GEN-END:variables
 
+    private void preencheForm(UsuarioLogin usuarioLogin) {
+        this.jTextFieldNome.setText(usuarioLogin.getUsuario().getNome());
+        this.jTextFieldApelido.setText(usuarioLogin.getUsuario().getApelido());
+        this.jTextFieldCPF.setText(usuarioLogin.getUsuario().getCpf());
+        this.jTextFieldRedeSocial.setText(usuarioLogin.getUsuario().getSociais());
+        this.jFormattedTextFieldTelefone.setText(usuarioLogin.getUsuario().getTelefone());
+        this.jFormattedTextFieldResponsavel1.setText(usuarioLogin.getUsuario().getResponsavel1());
+        this.jFormattedTextField5Responsavel2.setText(usuarioLogin.getUsuario().getResponsavel2());
+        this.jTextFieldNomeEmail.setText(usuarioLogin.getEmail());
+        this.jTextFieldNomeSenha.setText(usuarioLogin.getSenha());
+        
+    }
+    
     private void saveUsuario() {
         try {
         

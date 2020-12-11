@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import ufes.republica.dao.UsuarioDAO;
 import ufes.republica.dao.UsuarioLoginDAO;
 import ufes.republica.model.Usuario;
+import ufes.republica.model.UsuarioLogin;
 import ufes.republica.view.TelaInicial;
 
 /**
@@ -17,16 +18,19 @@ import ufes.republica.view.TelaInicial;
  */
 public class P0701 extends javax.swing.JInternalFrame {
     
-    private Usuario usuario;
+    private UsuarioLogin usuarioLogin;
+    
+    private TelaInicial telaInicial;
     
     public P0701() {
         initComponents();
     }
     
-    public P0701(Usuario usuario) {
+    public P0701(UsuarioLogin usuarioLogin, TelaInicial telaInicial) {
         initComponents();
-        this.usuario = usuario;
-        preencheForm(usuario);
+        this.usuarioLogin = usuarioLogin;
+        this.telaInicial = telaInicial;
+        preencheForm(usuarioLogin);
     }
 
     /**
@@ -390,13 +394,15 @@ public class P0701 extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        P0702 a = new P0702();
+        P0702 a = new P0702(usuarioLogin);
         TelaInicial.Desktop.add(a);
         a.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        deletarUsuario(usuario);
+        deletarUsuario(usuarioLogin);
+        this.dispose();
+        telaInicial.logout();
     }//GEN-LAST:event_jButton7ActionPerformed
 
 
@@ -438,26 +444,26 @@ public class P0701 extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextFieldcpf;
     // End of variables declaration//GEN-END:variables
 
-    private void preencheForm(Usuario usuario) {
-        this.jTextFieldNome.setText(usuario.getNome());
-        this.jTextFieldApelido.setText(usuario.getApelido());
-        this.jTextFieldcpf.setText(usuario.getCpf());
-        this.jTextFieldSocial.setText(usuario.getSociais());
-        this.jFormattedTextFieldTelefone.setText(usuario.getTelefone());
-        this.jFormattedTextFieldResponsavel1.setText(usuario.getResponsavel1());
-        this.jFormattedTextFieldResponsavel2.setText(usuario.getResponsavel2());
+    private void preencheForm(UsuarioLogin usuarioLogin) {
+        this.jTextFieldNome.setText(usuarioLogin.getUsuario().getNome());
+        this.jTextFieldApelido.setText(usuarioLogin.getUsuario().getApelido());
+        this.jTextFieldcpf.setText(usuarioLogin.getUsuario().getCpf());
+        this.jTextFieldSocial.setText(usuarioLogin.getUsuario().getSociais());
+        this.jFormattedTextFieldTelefone.setText(usuarioLogin.getUsuario().getTelefone());
+        this.jFormattedTextFieldResponsavel1.setText(usuarioLogin.getUsuario().getResponsavel1());
+        this.jFormattedTextFieldResponsavel2.setText(usuarioLogin.getUsuario().getResponsavel2());
     }
     
-    private void deletarUsuario(Usuario usuario) {
-        int resposta = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja deletar o usuario " + usuario.getNome() + "?", "Excluir conta", JOptionPane.YES_OPTION);
+    private void deletarUsuario(UsuarioLogin usuarioLogin) {
+        int resposta = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja deletar o usuario " + usuarioLogin.getUsuario().getNome() + "?", "Excluir conta", JOptionPane.YES_OPTION);
         
         if(resposta == JOptionPane.YES_OPTION) {
             try {
                 UsuarioDAO usuarioDAO = new UsuarioDAO();
-                usuarioDAO.excluir(usuario);
+                usuarioDAO.excluir(usuarioLogin.getUsuario());
                 
                 UsuarioLoginDAO usuarioLoginDAO = new UsuarioLoginDAO();
-                usuarioLoginDAO.excluir(usuario.getUsuarioLogin());
+                usuarioLoginDAO.excluir(usuarioLogin);
             }   catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, ex);
             }

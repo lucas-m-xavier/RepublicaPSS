@@ -371,7 +371,7 @@ public class P0001 extends javax.swing.JInternalFrame {
             for(UsuarioLogin usuarioLogin : usuarioLoginDAO.getAll()) {
                 if (usuarioLogin.getEmail().equalsIgnoreCase(email)) {
                     if(usuarioLogin.getSenha().equalsIgnoreCase(senha)) {
-                        telaInicial.setUsuario(usuarioLogin.getUsuario());
+                        telaInicial.setUsuarioLogin(usuarioLogin);
                         aux = true;
                         JOptionPane.showMessageDialog(null, "Login efetuado com sucesso!");
                         telaInicial.exibirMenu();

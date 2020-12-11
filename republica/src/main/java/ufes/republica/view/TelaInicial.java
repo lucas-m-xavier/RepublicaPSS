@@ -6,6 +6,7 @@
 package ufes.republica.view;
 
 import ufes.republica.model.Usuario;
+import ufes.republica.model.UsuarioLogin;
 import ufes.republica.view.confimarsolucao.P0601;
 import ufes.republica.view.convidarAceitar.P0501;
 import ufes.republica.view.convidarAceitar.P0502;
@@ -24,7 +25,7 @@ import ufes.republica.view.mantertarefa.P0303;
  */
 public class TelaInicial extends javax.swing.JFrame {
 
-    private Usuario usuario;
+    private UsuarioLogin usuarioLogin;
     
     public TelaInicial() {
         initComponents();
@@ -261,7 +262,7 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-        P0701 a = new P0701(this.usuario);
+        P0701 a = new P0701(this.usuarioLogin, this);
         Desktop.add(a);
         a.setVisible(true);
     }//GEN-LAST:event_jMenuItem9ActionPerformed
@@ -354,12 +355,20 @@ public class TelaInicial extends javax.swing.JFrame {
             jMenu4.setVisible(true);
             jMenu7.setVisible(false);
     }
-
-    public Usuario getUsuario() {
-        return usuario;
+    
+    public void logout() {
+        jMenu1.setVisible(false);
+        jMenu2.setVisible(false);
+        jMenu3.setVisible(false);
+        jMenu4.setVisible(false);
+        jMenu7.setVisible(true);
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public UsuarioLogin getUsuarioLogin() {
+        return usuarioLogin;
+    }
+
+    public void setUsuarioLogin(UsuarioLogin usuarioLogin) {
+        this.usuarioLogin = usuarioLogin;
     }
 }
