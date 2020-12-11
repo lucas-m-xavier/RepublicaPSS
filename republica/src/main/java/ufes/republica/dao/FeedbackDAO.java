@@ -19,18 +19,19 @@ public class FeedbackDAO {
         }
     }
     
-    public void salvar(Feedback feedback) throws Exception {
+    public void salvar(Feedback feedback, String cpf) throws Exception {
         PreparedStatement ps = null;
 
         if (feedback == null) {
             throw new Exception("O feedback não pode ser nulo!");
         }
         try {
-            String SQL = "INSERT INTO Feedback (dataCriacao, descricao, dataSolucao)"
-                    + "values (?, ?, ?);";
+            String SQL = "INSERT INTO Feedback (idUsuario,dataCriacao, descricao, dataSolucao)"
+                    + "values (select idUsuario from Usuario where usuario.cpf = ?,?, ?, ?);";
 
             ps = conn.prepareStatement(SQL);
 
+            ps.setString(1,cpf);
             SimpleDateFormat f = new SimpleDateFormat("yyyy/MM/dd");
             ps.setString(1, f.format(feedback.getDataCriacao()));
             ps.setString(2, feedback.getDescricao());
@@ -66,6 +67,7 @@ public class FeedbackDAO {
             ps.setString(1, f.format(feedback.getDataCriacao()));
             ps.setString(2, feedback.getDescricao());
             ps.setString(3, f.format(feedback.getDataSolucao()));
+            ps.setInt(4, feedback.getId());
             ps.executeUpdate();
 
         } catch (SQLException sqle) {

@@ -7,8 +7,14 @@ package ufes.republica.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import ufes.republica.business.state.republica_state.EstadoAberta;
+import ufes.republica.business.state.republica_state.EstadoExtinta;
+import ufes.republica.business.state.republica_state.EstadoLotada;
 import ufes.republica.model.Republica;
 
 /**
@@ -16,7 +22,7 @@ import ufes.republica.model.Republica;
  * @author Lucas
  */
 public class RepublicaDAO {
-    
+
     private Connection conn;
 
     public RepublicaDAO() throws Exception {
@@ -30,7 +36,7 @@ public class RepublicaDAO {
     public RepublicaDAO(Connection conn) {
         this.conn = conn;
     }
-    
+
     public void salvar(Republica republica) throws Exception {
         PreparedStatement ps = null;
 
@@ -51,9 +57,9 @@ public class RepublicaDAO {
             ps.setInt(6, republica.getVagasOcupadas());
             ps.setDouble(7, republica.getSaldoTotal());
             ps.setString(8, republica.getCodEtica());
-            
+
             ps.executeUpdate();
-            
+
             EnderecoDAO enderecoDAO = new EnderecoDAO(conn);
             enderecoDAO.salvar(republica.getEndereco());
 
@@ -61,6 +67,66 @@ public class RepublicaDAO {
             throw new Exception("Erro ao inserir dados " + sqle);
         } finally {
             Conexao.fecharConexao(conn, ps);
+        }
+    }
+
+    public Republica getRepublicaByCPF(String cpf) throws SQLException, Exception {
+        ResultSet rs = null;
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareStatement("select republica.idRepublica, republica.nome"
+                    + "republica.dataFundacao, Republica.dataExtinsao, republica.vantagens"
+                    + "republica.despesasMedias, republica.VagasTotais,"
+                    + "republica.vagasOcupadas, republica.saldoTotal,"
+                    + "republica.codEtica, republica.estado from Republica innerjoin historico on (republica.idRepublica = historico.idRepublica)"
+                    + " innerjoin Usuario"
+                    + " on(historico.idUsuario = usuario.idUsuario) where usuario.cpf = ?"
+                    + " and where historico.dataSaida = null");
+            ps.setString(1, cpf);
+            rs = ps.executeQuery();
+            if (!rs.next()) {
+                throw new Exception("Não foi encontrado nenhum registro com o ID: " + cpf);
+            }
+
+            int idRepublica = rs.getInt(1);
+            String republicaNome = rs.getString(2);
+            LocalDate dataCriacao = rs.getDate(3).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate dataExtinsao = rs.getDate(4).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            String vantagens = rs.getString(5);
+            double despesasMedias = rs.getDouble(6);
+            int vagasTotais = rs.getInt(7);
+            int vagasOcupadas = rs.getInt(8);
+            double saldoTotal = rs.getDouble(9);
+            String codEtica = rs.getString(10);
+            String repEstado = rs.getString(11);
+
+            Republica republica = new Republica();
+            republica.setId(idRepublica);
+            republica.setNome(republicaNome);
+            republica.setFundacao(dataCriacao);
+            republica.setExtincao(dataExtinsao);
+            republica.setVantagens(vantagens);
+            republica.setDespesasMedias(despesasMedias);
+            republica.setVagasTotais(vagasTotais);
+            republica.setVagasOcupadas(vagasOcupadas);
+            republica.setSaldoTotal(saldoTotal);
+            republica.setCodEtica(codEtica);
+
+            if (repEstado.toLowerCase().equalsIgnoreCase("lotada")) {
+                republica.setEstado(new EstadoLotada(republica));
+
+            } else if (repEstado.toLowerCase().equalsIgnoreCase("extinta")) {
+                republica.setEstado(new EstadoExtinta(republica));
+            }
+            republica.setEstado(new EstadoAberta(republica));
+
+            return republica;
+
+        } catch (SQLException sqle) {
+            throw new Exception(sqle);
+        } finally {
+            rs.close();
+            ps.close();
         }
     }
 }

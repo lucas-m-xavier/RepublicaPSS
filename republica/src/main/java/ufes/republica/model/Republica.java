@@ -6,14 +6,10 @@
 package ufes.republica.model;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Optional;
 import ufes.republica.business.command.CommandMementoRepublica;
 import ufes.republica.business.memento.republica_memento.MementoRepublica;
 import ufes.republica.business.state.republica_state.EstadoAberta;
 import ufes.republica.business.state.republica_state.RepublicaState;
-import ufes.republica.business.state.usuario_state.EstadoRepresentante;
-import ufes.republica.business.state.usuario_state.EstadoSemTeto;
 
 /**
  *
@@ -206,4 +202,18 @@ public class Republica implements CommandMementoRepublica{
     public Lancamento getLancamento() {
         return lancamento;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setFundacao(LocalDate fundacao) {
+        this.fundacao = fundacao;
+    }
+
+    public void setLancamento(Lancamento lancamento) {
+        this.lancamento = lancamento;
+    }
+    
+    
 }

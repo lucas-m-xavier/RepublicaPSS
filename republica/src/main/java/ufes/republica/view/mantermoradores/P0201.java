@@ -21,19 +21,19 @@ public class P0201 extends javax.swing.JInternalFrame {
     public P0201() {
         initComponents();
 
-        DefaultTableModel modelo
-                = jTable1.getModel();
+       // DefaultTableModel modelo
+               // = jTable1.getModel();
         ArrayList<Usuario> usuarios = new ArrayList<>();
 
         for (Usuario usuario : usuarios) {
             String nome = "";
             double reputacao = 0;
             double rateio = 0;
-            jTable1.add(new Object[]{nome, reputacao, rateio});
+            //jTable1.add(new Object[]{nome, reputacao, rateio});
         
     
 
-    );
+  //  );
         }
         
         
