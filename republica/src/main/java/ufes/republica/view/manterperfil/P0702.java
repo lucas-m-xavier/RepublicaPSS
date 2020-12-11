@@ -370,7 +370,8 @@ public class P0702 extends javax.swing.JInternalFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         saveUsuario();
-        JOptionPane.showMessageDialog(null, "República cadastrada com sucesso!");
+        JOptionPane.showMessageDialog(null, "Usuário cadastrada com sucesso!");
+        this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
 
