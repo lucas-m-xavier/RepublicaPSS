@@ -5,6 +5,11 @@
  */
 package ufes.republica.view.histmorador;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import ufes.republica.dao.HistoricoDAO;
+import ufes.republica.model.Usuario;
+
 /**
  *
  * @author bruno
@@ -14,8 +19,15 @@ public class P1601 extends javax.swing.JInternalFrame {
     /**
      * Creates new form historicoMorador
      */
-    public P1601() {
+    public P1601(Usuario morador) {
         initComponents();
+        try {
+            HistoricoDAO hdao = new HistoricoDAO();
+            
+            hdao.getHistoricoMorador(morador);
+        } catch (Exception ex) {
+            Logger.getLogger(P1601.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -41,35 +53,28 @@ public class P1601 extends javax.swing.JInternalFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "Nome da República", "Data de Entrada", "Data de Saída", "Tempo", "ISR", "IRT", "IST", "Média dos Índices"
+                "Nome da República", "Data de Entrada", "Data de Saída", "Média dos Índices", "Indice"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
         jScrollPane2.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(4).setMinWidth(20);
-            jTable1.getColumnModel().getColumn(4).setPreferredWidth(20);
-            jTable1.getColumnModel().getColumn(5).setPreferredWidth(20);
-            jTable1.getColumnModel().getColumn(6).setPreferredWidth(20);
-        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

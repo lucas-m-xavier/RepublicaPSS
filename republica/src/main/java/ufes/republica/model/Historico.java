@@ -17,6 +17,8 @@ public class Historico {
 
     private LocalDate dataSaida;
     
+    private LocalDate dataEntrada;    
+    
     private String nomeRepresentante;
     
     private double mediaReputacao;
@@ -76,4 +78,33 @@ public class Historico {
     public int getId() {
         return id;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setDataSaida(LocalDate dataSaida) {
+        this.dataSaida = dataSaida;
+    }
+
+    public void setNomeRepresentante(String nomeRepresentante) {
+        this.nomeRepresentante = nomeRepresentante;
+    }
+
+    public void setMediaReputacao(double mediaReputacao) {
+        this.mediaReputacao = mediaReputacao;
+    }
+
+    public void setNomeRepublica(String nomeRepublica) {
+        this.nomeRepublica = nomeRepublica;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public void setRepublica(Republica republica) {
+        this.republica = republica;
+    }
+    
 }

@@ -150,6 +150,7 @@ CREATE TABLE IF NOT EXISTS `bdrepublica`.`historico` (
   `nomeRepresentante` VARCHAR(100) NOT NULL,
   `mediaReputacao` DOUBLE NOT NULL,
   `nomeRepublica` VARCHAR(100) NOT NULL,
+  `dataEntrada` DATE NOT NULL,
   PRIMARY KEY (`idUsuario`, `idRepublica`),
   INDEX `fk_Usuario_has_Republica_Republica1_idx` (`idRepublica` ASC) VISIBLE,
   INDEX `fk_Usuario_has_Republica_Usuario_idx` (`idUsuario` ASC) VISIBLE,

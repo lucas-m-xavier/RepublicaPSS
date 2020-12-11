@@ -11,10 +11,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import ufes.republica.business.state.usuario_state.EstadoMorador;
 import ufes.republica.business.state.usuario_state.EstadoRepresentante;
 import ufes.republica.business.state.usuario_state.EstadoSemTeto;
 import ufes.republica.business.state.usuario_state.UsuarioState;
+import ufes.republica.model.Republica;
+import ufes.republica.model.UsuarioLogin;
 
 /**
  *
@@ -34,6 +37,51 @@ public class UsuarioDAO {
 
     public UsuarioDAO(Connection conn) {
         this.conn = conn;
+    }
+    
+    public ArrayList<Usuario> getAllUsuariosByRepublica(Republica republica) throws Exception {
+        PreparedStatement ps = null;
+
+        ResultSet rs = null;
+        try {
+
+            ps = conn.prepareStatement("select u.* from usuario as u inner join historico as h on (u.idusuario = h.idusuario)" +
+                                                        "inner join republica as r on (h.idrepublica = ?)" +
+                                                        "where u.estado = \"morador\" and h.dataSaida is null;");
+            ps.setInt(1, republica.getId());
+            rs = ps.executeQuery();
+
+            ArrayList<Usuario> list = new ArrayList<Usuario>();
+
+            Usuario usuario = new Usuario();
+            
+            while (rs.next()) {
+                usuario.setId(rs.getInt(1));
+                usuario.setCpf(rs.getString(2));
+                usuario.setNome(rs.getString(3));
+                usuario.setApelido(rs.getString(4));
+                usuario.setTelefone(rs.getString(5));
+                usuario.setSociais(rs.getString(6));
+                usuario.setResponsavel1(rs.getString(7));
+                usuario.setResponsavel2(rs.getString(8));
+                String estado = rs.getString(9);
+            
+                UsuarioState usuarioState = new EstadoSemTeto(usuario);
+        
+                if(estado.equalsIgnoreCase("Representate")) usuarioState = new EstadoRepresentante(usuario);
+                if(estado.equalsIgnoreCase("Morador")) usuarioState = new EstadoMorador(usuario);
+           
+                usuario.setUsuarioState(usuarioState);
+
+                list.add(usuario);
+            }
+            
+            return list;
+        } catch (SQLException sqle) {
+            throw new Exception(sqle);
+        } finally {
+            Conexao.fecharConexao(conn, ps, rs);
+        }
     }
 
     public Usuario procurarUsuario(int id) throws Exception {
