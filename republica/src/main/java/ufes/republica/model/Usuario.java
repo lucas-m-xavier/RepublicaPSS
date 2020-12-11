@@ -198,4 +198,16 @@ public class Usuario implements CommandMementoUsuario{
     public String getCpf() {
         return cpf;
     }
+
+    public UsuarioLogin getUsuarioLogin() {
+        return usuarioLogin;
+    }
+
+    public void setUsuarioLogin(UsuarioLogin usuarioLogin) {
+        this.usuarioLogin = usuarioLogin;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
 }

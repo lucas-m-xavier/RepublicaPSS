@@ -22,14 +22,19 @@ public class UsuarioLogin {
     public UsuarioLogin() {
     }
 
-    public UsuarioLogin(int id, String email, String senha, Usuario usuario) {
+    public UsuarioLogin(int id, String email, String senha) {
         this.id = id;
         this.email = email;
         this.senha = senha;
-        this.usuario = usuario;
     }
 
-    public UsuarioLogin(String email, String senha, Usuario usuario) {
+    public UsuarioLogin(String email, String senha) {
+        this.email = email;
+        this.senha = senha;
+    }
+
+    public UsuarioLogin(int id, String email, String senha, Usuario usuario) {
+        this.id = id;
         this.email = email;
         this.senha = senha;
         this.usuario = usuario;
@@ -47,10 +52,6 @@ public class UsuarioLogin {
         return senha;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
     public void setId(int id) {
         this.id = id;
     }
@@ -61,6 +62,10 @@ public class UsuarioLogin {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
     }
 
     public void setUsuario(Usuario usuario) {

@@ -15,6 +15,8 @@ import java.time.temporal.ChronoUnit;
 public class Feedback {
 
     private int id;
+    
+    private int idRepublica;
 
     private LocalDate dataCriacao;
     
@@ -41,13 +43,13 @@ public class Feedback {
         this.concluida = false;
     }
 
-    public Feedback(int id, LocalDate dataCriacao, String descricao, LocalDate dataSolucao, boolean EXCLUIDA, boolean concluida, Usuario usuario) {
+    public Feedback(int idRepublica,int id, LocalDate dataCriacao, String descricao, LocalDate dataSolucao, boolean EXCLUIDA, boolean concluida) {
+        this.idRepublica = idRepublica;
         this.id = id;
         this.dataCriacao = dataCriacao;
         this.descricao = descricao;
         this.dataSolucao = dataSolucao;
         this.EXCLUIDA = EXCLUIDA;
-        this.usuario = usuario;
         this.concluida = concluida;
         this.idade = ChronoUnit.DAYS.between(dataSolucao, dataCriacao);
     }

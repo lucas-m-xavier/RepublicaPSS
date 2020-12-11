@@ -5,11 +5,7 @@
  */
 package ufes.republica.business.state.republica_state;
 
-import ufes.republica.business.state.usuario_state.EstadoMorador;
-import ufes.republica.business.state.usuario_state.EstadoRepresentante;
-import ufes.republica.business.state.usuario_state.EstadoSemTeto;
 import ufes.republica.model.Republica;
-import ufes.republica.model.Usuario;
 
 /**
  *
@@ -20,6 +16,7 @@ public class EstadoLotada extends RepublicaState {
     public EstadoLotada(Republica republica) {
         super(republica);
     }
+
     /*
     @Override
     public void extinguirRepublica() {
@@ -48,4 +45,5 @@ public class EstadoLotada extends RepublicaState {
     }
 
      */
+
 }

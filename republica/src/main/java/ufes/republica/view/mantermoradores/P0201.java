@@ -5,8 +5,7 @@
  */
 package ufes.republica.view.mantermoradores;
 
-import java.util.ArrayList;
-import ufes.republica.model.Usuario;
+
 import static ufes.republica.view.TelaInicial.Desktop;
 
 /**
@@ -21,8 +20,13 @@ public class P0201 extends javax.swing.JInternalFrame {
     public P0201() {
         initComponents();
 
+
        // DefaultTableModel modelo
                // = jTable1.getModel();
+
+        /*
+        DefaultTableModel modelo
+                = jTable1.getModel();
         ArrayList<Usuario> usuarios = new ArrayList<>();
 
         for (Usuario usuario : usuarios) {
@@ -33,18 +37,11 @@ public class P0201 extends javax.swing.JInternalFrame {
         
     
 
+
   //  );
+            );*/
+
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.

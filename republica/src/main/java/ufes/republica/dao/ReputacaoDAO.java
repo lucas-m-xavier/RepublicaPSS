@@ -53,7 +53,7 @@ public class ReputacaoDAO {
                 int idusuario = rs.getInt(2);
                 LocalDate data = LocalDate.parse(rs.getString(3));
                 double indice = rs.getDouble(4);
-
+                //list.add(new Reputacao(geoLocalizacao_id, geoLocalizacao_id, LocalDate.MAXusuario));
                 list.add(new Reputacao(idreputacao, indice, data, idusuario));
             }
             return list;

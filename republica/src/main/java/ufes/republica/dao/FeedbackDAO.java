@@ -94,18 +94,19 @@ public class FeedbackDAO {
         }
     }
 
-    public Feedback procurarFeedback(int id) throws Exception {
+    public Feedback procurarFeedback(int idRepublica) throws Exception {
         PreparedStatement ps = null;
 
         ResultSet rs = null;
         try {
-            ps = conn.prepareStatement("select * from Feedback where idFeedback = ?");
-            ps.setInt(1, id);
+            ps = conn.prepareStatement("select * from Feedback where idRepublica= ?");
+            ps.setInt(1, idRepublica);
             rs = ps.executeQuery();
             if (!rs.next()) {
-                throw new Exception("Não foi encontrado nenhum registro com o ID: " + id );
+                throw new Exception("Não foi encontrado nenhum registro com o ID: " + idRepublica );
             }
 
+            int idFeedback =  rs.getInt(1);
             LocalDate dataCriacao = rs.getDate(2).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             String descricao = rs.getString(3);
             LocalDate dataSolucao = rs.getDate(4).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
@@ -113,17 +114,17 @@ public class FeedbackDAO {
             boolean concluida = rs.getBoolean(6);
 
             ps = conn.prepareStatement("select idUsuario from usuario INNER JOIN feedbackUsuario where idFeedback = ?");
-            ps.setInt(1, id);
+            ps.setInt(1, idRepublica);
             rs = ps.executeQuery();
 
             if (!rs.next()) {
-                throw new Exception("Não foi encontrado nenhum registro com o ID: " + id );
+                throw new Exception("Não foi encontrado nenhum registro com o ID: " + idRepublica );
             }
 
             UsuarioDAO usuarioDAO = new UsuarioDAO(conn);
             Usuario usuario = usuarioDAO.procurarUsuario(rs.getInt(1));
 
-            return new Feedback(id, dataCriacao, descricao, dataSolucao, EXCLUIDO, concluida, usuario);
+            return new Feedback(idRepublica,idFeedback, dataCriacao, descricao, dataSolucao, EXCLUIDO, concluida);
 
         } catch (SQLException sqle) {
             throw new Exception(sqle);
@@ -132,4 +133,5 @@ public class FeedbackDAO {
             ps.close();
         }
     }
+   
 }
