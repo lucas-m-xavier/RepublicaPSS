@@ -50,7 +50,7 @@ public class ReputacaoDAO {
                 int geoLocalizacao_id = rs.getInt(3);
                 String latitude = rs.getString(4);
 
-                list.add(new Reputacao(geoLocalizacao_id, geoLocalizacao_id, LocalDate.MAXusuario));
+                //list.add(new Reputacao(geoLocalizacao_id, geoLocalizacao_id, LocalDate.MAXusuario));
             }
             return list;
         } catch (SQLException sqle) {

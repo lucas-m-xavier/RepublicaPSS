@@ -20,7 +20,7 @@ public class P0201 extends javax.swing.JInternalFrame {
      */
     public P0201() {
         initComponents();
-
+        /*
         DefaultTableModel modelo
                 = jTable1.getModel();
         ArrayList<Usuario> usuarios = new ArrayList<>();
@@ -33,18 +33,8 @@ public class P0201 extends javax.swing.JInternalFrame {
         
     
 
-    );
+            );*/
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.

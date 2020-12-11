@@ -8,6 +8,7 @@ package ufes.republica.view;
 import ufes.republica.view.confimarsolucao.P0601;
 import ufes.republica.view.convidarAceitar.P0501;
 import ufes.republica.view.convidarAceitar.P0502;
+import ufes.republica.view.login.P0001;
 import ufes.republica.view.mantereceitadespesa.P0401;
 import ufes.republica.view.mantermoradores.P0202;
 import ufes.republica.view.mantermoradores.P0201;
@@ -28,6 +29,10 @@ public class TelaInicial extends javax.swing.JFrame {
      */
     public TelaInicial() {
         initComponents();
+        jMenu1.setVisible(false);
+        jMenu2.setVisible(false);
+        jMenu3.setVisible(false);
+        jMenu4.setVisible(false);
     }
 
     /**
@@ -39,6 +44,10 @@ public class TelaInicial extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem17 = new javax.swing.JMenuItem();
+        jMenuItem18 = new javax.swing.JMenuItem();
+        jMenuItem19 = new javax.swing.JMenuItem();
+        jMenuItem20 = new javax.swing.JMenuItem();
         Desktop = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -61,7 +70,16 @@ public class TelaInicial extends javax.swing.JFrame {
         jMenuItem14 = new javax.swing.JMenuItem();
         jMenuItem15 = new javax.swing.JMenuItem();
         jMenuItem16 = new javax.swing.JMenuItem();
-        jMenu5 = new javax.swing.JMenu();
+        jMenu7 = new javax.swing.JMenu();
+        jMenuItem21 = new javax.swing.JMenuItem();
+
+        jMenuItem17.setText("jMenuItem17");
+
+        jMenuItem18.setText("jMenuItem18");
+
+        jMenuItem19.setText("jMenuItem19");
+
+        jMenuItem20.setText("jMenuItem20");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -184,8 +202,22 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu4);
 
-        jMenu5.setText("Sair");
-        jMenuBar1.add(jMenu5);
+        jMenu7.setText("Login");
+        jMenu7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu7ActionPerformed(evt);
+            }
+        });
+
+        jMenuItem21.setText("Login");
+        jMenuItem21.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem21ActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jMenuItem21);
+
+        jMenuBar1.add(jMenu7);
 
         setJMenuBar(jMenuBar1);
 
@@ -268,6 +300,23 @@ public class TelaInicial extends javax.swing.JFrame {
         a.setVisible(true);
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
+    private void jMenu7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu7ActionPerformed
+        
+    }//GEN-LAST:event_jMenu7ActionPerformed
+
+    private void jMenuItem21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem21ActionPerformed
+        P0001 a = new P0001();
+        Desktop.add(a);
+        a.setVisible(true);
+        
+        if(a.verificarLogin()) {
+            jMenu1.setVisible(true);
+            jMenu2.setVisible(true);
+            jMenu3.setVisible(true);
+            jMenu4.setVisible(true);
+        }
+    }//GEN-LAST:event_jMenuItem21ActionPerformed
+
     /**
      */
     public static void main(String[] args) {
@@ -305,7 +354,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
@@ -315,7 +364,12 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem16;
+    private javax.swing.JMenuItem jMenuItem17;
+    private javax.swing.JMenuItem jMenuItem18;
+    private javax.swing.JMenuItem jMenuItem19;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem20;
+    private javax.swing.JMenuItem jMenuItem21;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
