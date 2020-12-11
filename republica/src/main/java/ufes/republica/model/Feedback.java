@@ -43,7 +43,7 @@ public class Feedback {
         this.concluida = false;
     }
 
-    public Feedback(int idRepublica,int id, LocalDate dataCriacao, String descricao, LocalDate dataSolucao, boolean EXCLUIDA, boolean concluida) {
+    public Feedback(int idRepublica,int id, LocalDate dataCriacao, String descricao, LocalDate dataSolucao, boolean EXCLUIDA, boolean concluida, Usuario usuario) {
         this.idRepublica = idRepublica;
         this.id = id;
         this.dataCriacao = dataCriacao;

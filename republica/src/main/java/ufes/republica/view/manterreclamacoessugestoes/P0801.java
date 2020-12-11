@@ -5,9 +5,17 @@
  */
 package ufes.republica.view.manterreclamacoessugestoes;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import ufes.republica.dao.FeedbackDAO;
+import ufes.republica.dao.RepublicaDAO;
+import ufes.republica.model.Feedback;
+import ufes.republica.model.Republica;
+import ufes.republica.model.Usuario;
 import ufes.republica.view.TelaInicial;
 import ufes.republica.view.mantertarefa.P0302;
-
 
 /**
  *
@@ -18,6 +26,13 @@ public class P0801 extends javax.swing.JInternalFrame {
     /**
      * Creates new form ManterTarefa
      */
+    Usuario usuario;
+
+    public P0801(Usuario usuario) {
+        initComponents();
+        this.usuario = usuario;
+    }
+
     public P0801() {
         initComponents();
     }
@@ -57,12 +72,19 @@ public class P0801 extends javax.swing.JInternalFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Data", "Tipo", "Autor", "Descriçã́o", "Envolvidos", "Finalizada"
+                "Id", "Data", "Autor", "Descriçã́o", "Envolvidos", "Finalizada"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -71,10 +93,12 @@ public class P0801 extends javax.swing.JInternalFrame {
         jTable1.setRowHeight(25);
         jScrollPane1.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(2).setMaxWidth(70);
-            jTable1.getColumnModel().getColumn(3).setMinWidth(300);
-            jTable1.getColumnModel().getColumn(4).setMinWidth(100);
-            jTable1.getColumnModel().getColumn(5).setMinWidth(30);
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
+            jTable1.getColumnModel().getColumn(2).setResizable(false);
+            jTable1.getColumnModel().getColumn(3).setResizable(false);
+            jTable1.getColumnModel().getColumn(4).setResizable(false);
+            jTable1.getColumnModel().getColumn(5).setResizable(false);
         }
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 53, 870, 204));
@@ -101,7 +125,7 @@ public class P0801 extends javax.swing.JInternalFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 270, 88, -1));
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 270, 88, -1));
 
         jButton4.setText("Editar");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -148,19 +172,79 @@ public class P0801 extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        try {
+            String status = "aberta";
+            String aux = "";
+            DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+            FeedbackDAO feedbackDAO = new FeedbackDAO();
+            RepublicaDAO republicaDAO = new RepublicaDAO();
+            Republica rep = republicaDAO.getRepublicaByCPF(usuario.getCpf());
+            for (Feedback f : feedbackDAO.procurarFeedbackByRepublica(rep.getId())) {
+                if (f.isEXCLUIDA()) {
+                    status = "excluida";
+                }
+                aux = feedbackDAO.getNomeResponsavel(f);
+                modelo.addRow(new Object[]{
+                    f.getId(),
+                    f.getDataCriacao().toString(),
+                    f.getUsuario().getNome(),
+                    f.getDescricao(),
+                    aux
+                });
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(P0801.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        try {
+            int str = 0;
+            int linha = jTable1.getSelectedRow();
+
+            for (int i = 0; i < jTable1.getColumnCount(); i++) {
+                str = (int) jTable1.getModel().getValueAt(linha, i);
+            }
+            FeedbackDAO f = new FeedbackDAO();
+            f.excluir(str);
+        } catch (Exception ex) {
+            Logger.getLogger(P0801.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+        int codigo = Integer.parseInt(jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 0).toString());
+        int linha = jTable1.getSelectedRow();
+        int str = 0;
+        if (codigo > 0) {
+            str = (int) jTable1.getModel().getValueAt(linha, 0);
+        }
+        try {
+            FeedbackDAO feedback = new FeedbackDAO();
+            Feedback f =  new Feedback();
+            //f = feedback.
+            //P802 a = new P802(f);
+        } catch (Exception ex) {
+            Logger.getLogger(P0801.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+        int codigo = Integer.parseInt(jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 0).toString());
+        int linha = jTable1.getSelectedRow();
+        int str = 0;
+        if (codigo > 0) {
+            str = (int) jTable1.getModel().getValueAt(linha, 0);
+        }
+        try {
+            FeedbackDAO feedback = new FeedbackDAO();
+            feedback.confirmar(str);
+            JOptionPane.showMessageDialog(null, "Confirmado com sucesso!");
+        } catch (Exception ex) {
+            Logger.getLogger(P0801.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jFormattedTextFieldCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextFieldCPFActionPerformed

@@ -12,7 +12,6 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.List;
 
 public class TarefaDAO {
 
@@ -73,7 +72,7 @@ public class TarefaDAO {
             ps = conn.prepareStatement("select * from tarefa");
             rs = ps.executeQuery();
 
-            ArrayList<Tarefa> tarefas = new ArrayList<Tarefa>();
+            ArrayList<Tarefa> tarefas = new ArrayList<>();
 
             while (rs.next()) {
                 int tarefa_id = rs.getInt(1);
