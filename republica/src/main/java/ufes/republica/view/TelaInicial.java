@@ -126,6 +126,11 @@ public class TelaInicial extends javax.swing.JFrame {
         jMenu1.add(jMenuItem7);
 
         jMenuItem8.setText("Manter reclamações / sugestões");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem8);
 
         jMenuBar1.add(jMenu1);
@@ -223,13 +228,13 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
-        P0301 mt = new P0301();
+        P0301 mt = new P0301(usuarioLogin);
         Desktop.add(mt);
         mt.setVisible(true);
     }//GEN-LAST:event_jMenuItem11ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        P0101 a = new P0101();
+        P0101 a = new P0101(usuarioLogin);
         Desktop.add(a);
         a.setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
@@ -285,6 +290,10 @@ public class TelaInicial extends javax.swing.JFrame {
         Desktop.add(a);
         a.setVisible(true);
     }//GEN-LAST:event_jMenuItem13ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     /**
      */

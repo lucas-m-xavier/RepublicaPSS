@@ -74,18 +74,14 @@ public class RepublicaDAO {
         ResultSet rs = null;
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("select republica.idRepublica, republica.nome"
-                    + "republica.dataFundacao, Republica.dataExtinsao, republica.vantagens"
-                    + "republica.despesasMedias, republica.VagasTotais,"
-                    + "republica.vagasOcupadas, republica.saldoTotal,"
-                    + "republica.codEtica, republica.estado from Republica innerjoin historico on (republica.idRepublica = historico.idRepublica)"
-                    + " innerjoin Usuario"
-                    + " on(historico.idUsuario = usuario.idUsuario) where usuario.cpf = ?"
-                    + " and where historico.dataSaida = null");
+            ps = conn.prepareStatement("select republica.* from Republica inner join historico " +
+                                                        "on (republica.idRepublica = historico.idRepublica) inner join Usuario " +
+                                                        "on(historico.idUsuario = usuario.idUsuario) " +
+                                                        "where usuario.cpf = ? and historico.dataSaida is null;");
             ps.setString(1, cpf);
             rs = ps.executeQuery();
             if (!rs.next()) {
-                throw new Exception("Não foi encontrado nenhum registro com o ID: " + cpf);
+                throw new Exception("Não foi encontrado nenhum registro com o CPF: " + cpf);
             }
 
             int idRepublica = rs.getInt(1);

@@ -6,17 +6,19 @@ import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import ufes.republica.dao.TarefaDAO;
 import ufes.republica.model.Tarefa;
+import ufes.republica.model.UsuarioLogin;
 import ufes.republica.view.TelaInicial;
 
 public class P0301 extends javax.swing.JInternalFrame {
 
     DefaultTableModel modelo;
 
-    /**
-     * Creates new form ManterTarefa
-     */
-    public P0301() {
+    private UsuarioLogin usuarioLogin;
+    
+    public P0301(UsuarioLogin usuarioLogin) {
         initComponents();
+        this.usuarioLogin = usuarioLogin;
+        
         modelo = (DefaultTableModel) jTableTarefa.getModel();
         try {
             String aux = "não";
@@ -155,7 +157,7 @@ public class P0301 extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTextFieldBuscarActionPerformed
 
     private void jButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarActionPerformed
-        P0302 cad = new P0302();
+        P0302 cad = new P0302(usuarioLogin);
         TelaInicial.Desktop.add(cad);
         cad.setVisible(true);
     }//GEN-LAST:event_jButtonCadastrarActionPerformed
@@ -169,7 +171,7 @@ public class P0301 extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonExcluirActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
-        P0302 cad = new P0302();
+        P0302 cad = new P0302(this.usuarioLogin);
         TelaInicial.Desktop.add(cad);
         cad.setVisible(true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
@@ -189,4 +191,12 @@ public class P0301 extends javax.swing.JInternalFrame {
     private javax.swing.JTable jTableTarefa;
     private javax.swing.JTextField jTextFieldBuscar;
     // End of variables declaration//GEN-END:variables
+
+    public UsuarioLogin getUsuarioLogin() {
+        return usuarioLogin;
+    }
+
+    public void setUsuarioLogin(UsuarioLogin usuarioLogin) {
+        this.usuarioLogin = usuarioLogin;
+    }
 }

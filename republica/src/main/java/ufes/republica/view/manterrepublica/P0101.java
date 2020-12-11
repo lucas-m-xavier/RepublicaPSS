@@ -14,6 +14,7 @@ import ufes.republica.enums.EnumUF;
 import ufes.republica.model.Endereco;
 import ufes.republica.model.GeoLocalizacao;
 import ufes.republica.model.Republica;
+import ufes.republica.model.UsuarioLogin;
 
 /**
  *
@@ -21,11 +22,11 @@ import ufes.republica.model.Republica;
  */
 public class P0101 extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form ManterRepublica
-     */
-    public P0101() {
+    private UsuarioLogin usuarioLogin;
+    
+    public P0101(UsuarioLogin usuarioLogin) {
         initComponents();
+        this.usuarioLogin = usuarioLogin;
     }
 
     /**
@@ -419,6 +420,7 @@ public class P0101 extends javax.swing.JInternalFrame {
     private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
         saveRepublica();
         JOptionPane.showMessageDialog(null, "República cadastrada com sucesso!");
+        this.dispose();
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
 
     private void jTextFieldLongitudeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldLongitudeActionPerformed
@@ -503,4 +505,11 @@ public class P0101 extends javax.swing.JInternalFrame {
         }
     }
 
+    public UsuarioLogin getUsuarioLogin() {
+        return usuarioLogin;
+    }
+
+    public void setUsuarioLogin(UsuarioLogin usuarioLogin) {
+        this.usuarioLogin = usuarioLogin;
+    }
 }
