@@ -11,7 +11,6 @@ import ufes.republica.view.convidarAceitar.P0501;
 import ufes.republica.view.convidarAceitar.P0502;
 import ufes.republica.view.login.P0001;
 import ufes.republica.view.mantereceitadespesa.P0401;
-import ufes.republica.view.mantermoradores.P0202;
 import ufes.republica.view.mantermoradores.P0201;
 import ufes.republica.view.manterperfil.P0701;
 import ufes.republica.view.manterrepublica.P0102;
@@ -67,9 +66,6 @@ public class TelaInicial extends javax.swing.JFrame {
         jMenuItem12 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem13 = new javax.swing.JMenuItem();
-        jMenuItem14 = new javax.swing.JMenuItem();
-        jMenuItem15 = new javax.swing.JMenuItem();
-        jMenuItem16 = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
         jMenuItem21 = new javax.swing.JMenuItem();
 
@@ -186,20 +182,6 @@ public class TelaInicial extends javax.swing.JFrame {
         });
         jMenu4.add(jMenuItem13);
 
-        jMenuItem14.setText("Fazer estorno de lançamentos");
-        jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem14ActionPerformed(evt);
-            }
-        });
-        jMenu4.add(jMenuItem14);
-
-        jMenuItem15.setText("Consultar minhas receitas e despesas");
-        jMenu4.add(jMenuItem15);
-
-        jMenuItem16.setText("Registrar pagamento de receita ou despesas");
-        jMenu4.add(jMenuItem16);
-
         jMenuBar1.add(jMenu4);
 
         jMenu7.setText("Login");
@@ -235,10 +217,6 @@ public class TelaInicial extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem14ActionPerformed
-
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         P0102 a = new P0102();
         Desktop.add(a);
@@ -270,12 +248,6 @@ public class TelaInicial extends javax.swing.JFrame {
         a.setVisible(true);
     }//GEN-LAST:event_jMenuItem12ActionPerformed
 
-    private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
-        P0401 a = new P0401();
-        Desktop.add(a);
-        a.setVisible(true);
-    }//GEN-LAST:event_jMenuItem13ActionPerformed
-
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         P0501 a = new P0501();
         Desktop.add(a);
@@ -289,7 +261,7 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-        P0701 a = new P0701();
+        P0701 a = new P0701(this.usuario);
         Desktop.add(a);
         a.setVisible(true);
     }//GEN-LAST:event_jMenuItem9ActionPerformed
@@ -309,6 +281,12 @@ public class TelaInicial extends javax.swing.JFrame {
         Desktop.add(a);
         a.setVisible(true);
     }//GEN-LAST:event_jMenuItem21ActionPerformed
+
+    private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
+        P0401 a = new P0401();
+        Desktop.add(a);
+        a.setVisible(true);
+    }//GEN-LAST:event_jMenuItem13ActionPerformed
 
     /**
      */
@@ -354,9 +332,6 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
-    private javax.swing.JMenuItem jMenuItem14;
-    private javax.swing.JMenuItem jMenuItem15;
-    private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem17;
     private javax.swing.JMenuItem jMenuItem18;
     private javax.swing.JMenuItem jMenuItem19;

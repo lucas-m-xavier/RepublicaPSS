@@ -74,28 +74,6 @@ public class UsuarioDAO {
             ps.close();
         }
     }
-
-    public boolean procurarUsuario(Usuario usuario) throws Exception {
-        PreparedStatement ps = null;
-        
-        ResultSet rs = null;
-        try {            
-            ps = conn.prepareStatement("select * from usuarios where id = ? and senha = ?");
-            rs = ps.executeQuery();
-            if (!rs.next()) {                                
-                return false;                
-            }
-            else
-            {
-                return true;            
-            }
-        } catch (SQLException sqle) {
-            throw new Exception(sqle);
-            
-        } finally {
-            Conexao.fecharConexao(conn, ps, rs);
-        }
-    }
     
     public void salvar(Usuario usuario) throws Exception {
         PreparedStatement ps = null;
@@ -132,7 +110,7 @@ public class UsuarioDAO {
             throw new Exception("Usuario não pode ser nulo!");
         }
         try {
-            String SQL = "UPDATE usuarios SET nome=?, apelido=?, telefone=?, cpf=?, sociais=?,"
+            String SQL = "UPDATE usuario SET nome=?, apelido=?, telefone=?, cpf=?, sociais=?,"
                     + "responsavel1=?, responsavel2=?"
                     + "where id = ?";
             
@@ -160,7 +138,7 @@ public class UsuarioDAO {
             throw new Exception("Usuario não pode ser nulo!");
         }
         try {            
-            ps = conn.prepareStatement("delete from usuarios where id = ?");
+            ps = conn.prepareStatement("delete from usuario where idUsuario = ?");
             ps.setInt(1, usuario.getId());
             ps.executeUpdate();
         } catch (SQLException sqle) {

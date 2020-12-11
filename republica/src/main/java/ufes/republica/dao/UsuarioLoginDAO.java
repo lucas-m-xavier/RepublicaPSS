@@ -84,4 +84,21 @@ public class UsuarioLoginDAO {
             Conexao.fecharConexao(conn, ps);
         }
     }
+    
+    public void excluir(UsuarioLogin usuarioLogin) throws Exception {
+        PreparedStatement ps = null;
+        
+        if (usuarioLogin == null) {
+            throw new Exception("UsuarioLogin não pode ser nulo!");
+        }
+        try {            
+            ps = conn.prepareStatement("delete from usuarioLogin where idUsuarioLogin = ?");
+            ps.setInt(1, usuarioLogin.getId());
+            ps.executeUpdate();
+        } catch (SQLException sqle) {
+            throw new Exception("Erro ao excluir dados:" + sqle);
+        } finally {
+            Conexao.fecharConexao(conn, ps);
+        }
+    }  
 }
