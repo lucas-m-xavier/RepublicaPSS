@@ -17,15 +17,15 @@ import ufes.republica.model.UsuarioLogin;
  */
 public class P0702 extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form CadNovaTarefa
-     */
+    private UsuarioLogin usuarioLogin = null;
+    
     public P0702() {
         initComponents();
     }
     
     public P0702(UsuarioLogin usuarioLogin) {
         initComponents();
+        this.usuarioLogin = usuarioLogin;
         preencheForm(usuarioLogin);
     }
 
@@ -380,9 +380,16 @@ public class P0702 extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        saveUsuario();
-        JOptionPane.showMessageDialog(null, "Usuário cadastrada com sucesso!");
-        this.dispose();
+        
+        if(usuarioLogin == null) {
+            saveUsuario();
+            JOptionPane.showMessageDialog(null, "Usuário cadastrada com sucesso!");
+            this.dispose();
+        }   else {
+            updateUsuario();
+            JOptionPane.showMessageDialog(null, "Usuário editado com sucesso!");
+            this.dispose();
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jTextFieldRedeSocialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldRedeSocialActionPerformed
@@ -441,6 +448,33 @@ public class P0702 extends javax.swing.JInternalFrame {
         this.jTextFieldNomeEmail.setText(usuarioLogin.getEmail());
         this.jTextFieldNomeSenha.setText(usuarioLogin.getSenha());
         
+    }
+    
+    private void updateUsuario() {
+        try {
+        
+            Usuario usuario = new Usuario();
+            usuario.setId(usuarioLogin.getUsuario().getId());
+            System.out.println(usuarioLogin.getUsuario().getId());
+            usuario.setNome(jTextFieldNome.getText());
+            usuario.setCpf(jTextFieldCPF.getText());
+            usuario.setApelido(jTextFieldApelido.getText());
+            usuario.setTelefone(jFormattedTextFieldTelefone.getText());
+            usuario.setSociais(jTextFieldRedeSocial.getText());
+            usuario.setResponsavel1(jFormattedTextFieldResponsavel1.getText());
+            usuario.setResponsavel2(jFormattedTextField5Responsavel2.getText());
+            
+            UsuarioDAO usuarioDAO = new UsuarioDAO();
+            usuarioDAO.atualizar(usuario);
+            
+            UsuarioLogin usuarioLogin = new UsuarioLogin(this.usuarioLogin.getId(), jTextFieldNomeEmail.getText(), jTextFieldNomeSenha.getText());
+            UsuarioLoginDAO usuarioLoginDAO = new UsuarioLoginDAO();
+            usuarioLoginDAO.atualizar(usuarioLogin);
+            
+        }   catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex);
+            return;
+        }
     }
     
     private void saveUsuario() {

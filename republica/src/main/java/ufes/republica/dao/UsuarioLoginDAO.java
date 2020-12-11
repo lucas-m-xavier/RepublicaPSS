@@ -51,6 +51,7 @@ public class UsuarioLoginDAO {
                 
                 UsuarioDAO usuarioDAO = new UsuarioDAO(conn);
                 Usuario usuario = usuarioDAO.procurarUsuario(idUsuario);
+                usuario.setId(idUsuario);
 
                 list.add(new UsuarioLogin(idUsuarioLogin, email, senha, usuario));
             }
@@ -80,6 +81,29 @@ public class UsuarioLoginDAO {
                                   
         } catch (SQLException sqle) {
             throw new Exception("Erro ao inserir dados " + sqle);
+        } finally {
+            Conexao.fecharConexao(conn, ps);
+        }
+    }
+    
+    public void atualizar(UsuarioLogin usuarioLogin) throws Exception {
+        PreparedStatement ps = null;
+        
+        if (usuarioLogin == null) {
+            throw new Exception("UsuarioLogin não pode ser nulo!");
+        }
+        try {
+            String SQL = "UPDATE usuarioLogin SET email=?, senha=? "
+                    + "where idUsuarioLogin = ?;";
+            
+            ps = conn.prepareStatement(SQL);
+            ps.setString(1, usuarioLogin.getEmail());
+            ps.setString(2, usuarioLogin.getSenha());
+            ps.setInt(3, usuarioLogin.getId());
+            ps.executeUpdate();
+            
+        } catch (SQLException sqle) {
+            throw new Exception("Erro ao atualizar dados: " + sqle);
         } finally {
             Conexao.fecharConexao(conn, ps);
         }

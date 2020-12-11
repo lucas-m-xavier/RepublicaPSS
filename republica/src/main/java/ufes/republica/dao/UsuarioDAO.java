@@ -110,9 +110,9 @@ public class UsuarioDAO {
             throw new Exception("Usuario não pode ser nulo!");
         }
         try {
-            String SQL = "UPDATE usuario SET nome=?, apelido=?, telefone=?, cpf=?, sociais=?,"
-                    + "responsavel1=?, responsavel2=?"
-                    + "where id = ?";
+            String SQL = "UPDATE usuario SET nome=?, apelido=?, telefone=?, cpf=?, linksociais=?,"
+                    + "responsavelUm=?, responsavelDois=?"
+                    + "where idUsuario = ?;";
             
             ps = conn.prepareStatement(SQL);
             ps.setString(1, usuario.getNome());
@@ -122,6 +122,7 @@ public class UsuarioDAO {
             ps.setString(5, usuario.getSociais());
             ps.setString(6, usuario.getResponsavel1());
             ps.setString(7, usuario.getResponsavel2());
+            ps.setInt(8, usuario.getId());
             ps.executeUpdate();
             
         } catch (SQLException sqle) {

@@ -394,6 +394,7 @@ public class P0701 extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        this.dispose();
         P0702 a = new P0702(usuarioLogin);
         TelaInicial.Desktop.add(a);
         a.setVisible(true);
